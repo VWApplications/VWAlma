@@ -1,5 +1,4 @@
 import React from 'react';
-import { Input } from '../styles';
 
 export const InputField = field => (
 	<div>
@@ -9,7 +8,7 @@ export const InputField = field => (
 					<span className="input-group-text">{field.label}</span>
 				</div>
 			: ""}
-			<Input
+			<input
 				{...field.input}
 				{...field}
 				className={(field.meta.touched && field.meta.error) ? field.className + " input-error" : field.className}
