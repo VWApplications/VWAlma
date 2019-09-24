@@ -1,9 +1,5 @@
 import React from 'react';
-import styled from 'styled-components';
-
-const Textarea = styled.textarea`
-    resize: none;
-`;
+import { Textarea } from '../styles/textField';
 
 export const TextField = field => (
 	<div>

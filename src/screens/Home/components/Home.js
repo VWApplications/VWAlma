@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import Navbar from 'common/components/Navbar';
 
 class Home extends Component {
     render() {
       	return (
 			<div>
-				Ola mundo!
+				<Navbar />
 			</div>
 		)
   	}
