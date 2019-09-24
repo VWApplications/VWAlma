@@ -1,14 +1,3 @@
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
+import Home from './components/Home';
 
-class Home extends Component {
-    render() {
-      	return (
-			<div>
-				Ola mundo!
-			</div>
-		)
-  	}
-}
-
-export default connect()(Home);
+export { Home };

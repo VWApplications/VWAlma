@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Route, Switch } from 'react-router';
-import Home from 'screens/Home';
+import { Home } from 'screens/Home';
 
 class App extends Component {
   	render() {
