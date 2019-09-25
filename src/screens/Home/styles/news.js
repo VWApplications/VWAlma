@@ -67,12 +67,12 @@ export const NewsButton = ({ children, url }) => (
     </div>
 )
 
-export const PanelNews = ({ children, url }) => (
+export const PanelNews = ({ children, functionRedirect }) => (
     <div className="pane panel-default">
         <div className="panel-body">
             <div className="row">{children}</div>
             <div className="row">
-                <NewsButtonStyled href={url} className="btn btn-primary">Ver todas as notícias</NewsButtonStyled>
+                <NewsButtonStyled onClick={functionRedirect} className="btn btn-primary on-click-link">Ver todas as notícias</NewsButtonStyled>
             </div>
         </div>
     </div>

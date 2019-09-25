@@ -1,16 +1,24 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { push } from 'connected-react-router';
 import {
     PageHeader, PanelBody, NewsImage, NewsTags,
     NewsTitle, NewsContent, NewsTag, PanelNews
 } from '../styles/news';
 
 class News extends Component {
+
+    __redirectToNewsList() {
+        const { dispatch } = this.props;
+        dispatch(push("/news", {"home": false}));
+    }
+
     render() {
         return (
             <div className="container">
                 <PageHeader>Notícias</PageHeader>
 
-                <PanelNews url="#lista-de-noticias">
+                <PanelNews functionRedirect={() => this.__redirectToNewsList()}>
                     {/* Fazer um loop das últimas duas noticias */}
                     <PanelBody url="#detalhes-da-noticia">
                         <NewsImage />
@@ -31,4 +39,4 @@ class News extends Component {
     }
 }
 
-export default News;
+export default connect()(News);

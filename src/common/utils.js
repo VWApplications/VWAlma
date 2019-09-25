@@ -5,3 +5,11 @@ export function isEmpty(obj) {
     }
     return true;
 }
+
+export function isAuthenticated() {
+    const token = JSON.parse(localStorage.getItem("alma-token"));
+    if (token)
+        return true
+
+    return false
+}

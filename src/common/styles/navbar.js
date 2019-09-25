@@ -39,11 +39,17 @@ const NavbarLinkStyled = styled.a`
     }
 `;
 
-export const NavbarLink = ({ children, icon, link }) => (
+export const NavbarLink = ({ children, icon, link, url=true }) => (
     <li>
-        <NavbarLinkStyled href={link} className="navbar-link">
-            <i className={"fa " + icon}></i> {children}
-        </NavbarLinkStyled>
+        {!url ?
+            <NavbarLinkStyled href={link} className="navbar-link">
+                <i className={"fa " + icon}></i> {children}
+            </NavbarLinkStyled>
+        :
+            <NavbarLinkStyled onClick={link} className="navbar-link on-click-link">
+                <i className={"fa " + icon}></i> {children}
+            </NavbarLinkStyled>
+        }
     </li>
 )
 

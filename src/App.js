@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Route, Switch } from 'react-router';
-import { Home } from 'screens/Home';
+import { Home, NewsList } from 'screens/Home';
 import "asserts/css/html.css";
 
 class App extends Component {
@@ -8,6 +8,7 @@ class App extends Component {
 		return (
 			<Switch>
 				<Route exact path="/" component={Home} />
+				<Route exact path="/news" component={NewsList} />
 			</Switch>
 		)
   	}

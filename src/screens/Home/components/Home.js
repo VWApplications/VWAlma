@@ -16,9 +16,7 @@ class Home extends Component {
     render() {
       	return (
 			<div>
-				<header>
-					<Navbar />
-				</header>
+				<header><Navbar home={true} /></header>
 				<main>
 					<Parallax />
 					<Features />
