@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import Navbar from 'common/components/Navbar';
 import Parallax from './Parallax';
 import Features from './Features';
+import News from './News';
 
 class Home extends Component {
     render() {
@@ -14,6 +15,7 @@ class Home extends Component {
 				<main>
 					<Parallax />
 					<Features />
+					<News />
 				</main>
 			</div>
 		)
