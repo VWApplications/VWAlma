@@ -1,10 +1,12 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { push } from 'connected-react-router';
+import { makeURL } from 'common/utils';
 import {
     PageHeader, PanelBody, NewsImage, NewsTags,
     NewsTitle, NewsContent, NewsTag, PanelNews
 } from '../styles/news';
+import { news } from '../mocks/news';
 
 class News extends Component {
 
@@ -13,26 +15,39 @@ class News extends Component {
         dispatch(push("/news"));
     }
 
+    __redirectToNewsDetail(news) {
+        const { dispatch } = this.props;
+        const location = {
+            pathname: "/news/" + makeURL(news.title),
+            state: news
+        }
+        dispatch(push(location.pathname, location.state));
+    }
+
     render() {
         return (
             <div className="container">
                 <PageHeader>Notícias</PageHeader>
 
                 <PanelNews functionRedirect={() => this.__redirectToNewsList()}>
-                    {/* Fazer um loop das últimas duas noticias */}
-                    <PanelBody url="#detalhes-da-noticia">
-                        <NewsImage />
-                        <div className="row">
-                            <NewsTags>
-                                {/* Percorre todas as tags da noticia */}
-                                <NewsTag>Importante</NewsTag>
-                            </NewsTags>
+                    {news.length === 0 ? <div class="alert alert-info">Não há notícias disponível</div> : ""}
+                    {news.slice(-2).map(lastNews => (
+                        <PanelBody key={lastNews.id} onClick={() => this.__redirectToNewsDetail(lastNews)}>
+                            <NewsImage img={lastNews.img} alt={lastNews.title} />
+                            <div className="row">
+                                <NewsTags>
+                                    {lastNews.tags.length === 0 ? <NewsTag>Não há tags</NewsTag> : ""}
+                                    {lastNews.tags.map(tag => (
+                                        <NewsTag key={tag.id}>{tag.title}</NewsTag>
+                                    ))}
+                                </NewsTags>
 
-                            <NewsTitle created_at="25 de janeiro de 2019">Notícia 01</NewsTitle>
-                        </div>
+                                <NewsTitle created_at={lastNews.created_at}>{lastNews.title}</NewsTitle>
+                            </div>
 
-                        <NewsContent>Conteúdo muito doido da notícia.</NewsContent>
-                    </PanelBody>
+                            <NewsContent>{lastNews.description}</NewsContent>
+                        </PanelBody>
+                    ))}
                 </PanelNews>
             </div>
         )

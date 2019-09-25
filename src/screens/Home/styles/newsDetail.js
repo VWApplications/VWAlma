@@ -9,16 +9,19 @@ const TitleLink = styled.a`
     }
 `;
 
+const Title = styled.span`
+    color: #efe1e1;
+`;
+
 export const NewsTitle = ({ content }) => (
     <div>
         <h2>
             {content.link ?
-                <div>
-                    <TitleLink href={content.link} className="no-decoration" target="_blank" rel="noopener noreferrer">{content.title}</TitleLink>
-                    <br />
-                </div>
-            : <p>{content.title}</p>}
-            <small>({ content.created_at })</small>
+                <TitleLink href={content.link} className="no-decoration" target="_blank" rel="noopener noreferrer">{content.title}</TitleLink>
+            :
+                <Title>{content.title}</Title>
+            }
+            <br /><small>({ content.created_at })</small>
         </h2>
         <hr />
     </div>

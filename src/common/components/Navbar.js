@@ -54,7 +54,7 @@ class Navbar extends Component {
                                     <NavbarLink icon="fa-puzzle-piece" link="#features" url={false}>Funcionalidades</NavbarLink>
                                 : ""}
                                 {home && !isAuthenticated() ?
-                                    <NavbarLink icon="fa-newspaper-o" link="#news" url={false}>Novidades</NavbarLink>
+                                    <NavbarLink icon="fa-newspaper-o" link="#news" url={false}>Notícias</NavbarLink>
                                 : ""}
                                 {home && !isAuthenticated() ?
                                     <NavbarLink icon="fa-envelope-o" link="#contact" url={false}>Contato</NavbarLink>

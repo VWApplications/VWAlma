@@ -31,6 +31,7 @@ export const NewsTags = ({ children }) => (
 const NewsTagStyled = styled.span`
     float: right;
     margin-top: 5px;
+    margin-left: 2px;
 `;
 
 export const NewsTag = ({ children }) => (
@@ -78,7 +79,7 @@ export const PanelNews = ({ children, functionRedirect }) => (
     </div>
 )
 
-export const PanelBody = ({ children, url }) => (
+export const PanelBody = ({ children, onClick }) => (
     <div className="col-sm-6">
         <PanelShadow className="panel panel-default panel-shadow">
             <div className="panel-body">
@@ -86,7 +87,7 @@ export const PanelBody = ({ children, url }) => (
             </div>
 
             <div className="panel-footer">
-                <a href={url} className="btn btn-primary">Saiba mais.</a>
+                <button onClick={onClick} className="btn btn-primary">Saiba mais.</button>
             </div>
         </PanelShadow>
     </div>

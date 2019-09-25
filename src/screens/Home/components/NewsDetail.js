@@ -3,8 +3,8 @@ import { connect } from 'react-redux';
 import { push } from 'connected-react-router';
 import Navbar from 'common/components/Navbar';
 import {
-    PageHeader, NewsTitle, NewsImage,
-    NewsDescription, NewsTags, NewsButton
+    NewsTitle, NewsImage, NewsButton,
+    NewsDescription, NewsTags
 } from '../styles/newsDetail';
 
 class NewsDetail extends Component {
