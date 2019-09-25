@@ -6,6 +6,6 @@ export const Copyright = styled.p`
 `;
 
 export const FooterStyled = styled.footer`
-    position: relative;
-    top: 10px;
+    padding-top: 10px;
+    background-color: #263238;
 `;

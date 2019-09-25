@@ -13,7 +13,7 @@ class Footer extends Component {
 
                         <Copyright>
                             Software desenvolvido e mantido pelo engenheiro 
-                            <a href="https://www.linkedin.com/in/victorarnaud" target="_blank" rel="noopener noreferrer"> Victor Deon.</a>
+                            <a className="no-decoration" href="https://www.linkedin.com/in/victorarnaud" target="_blank" rel="noopener noreferrer"> Victor Deon.</a>
                         </Copyright>
                     </div>
                 </div>
