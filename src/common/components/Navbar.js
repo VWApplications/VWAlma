@@ -1,11 +1,18 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { push } from 'connected-react-router';
 import {
     NavbarBrand, CollapseButton, NavbarStyled, NavbarUL,
     NavbarLink, Space
 } from '../styles/navbar';
 
 class Navbar extends Component {
+
+    __redirectToHomePage() {
+        const { dispatch } = this.props;
+        dispatch(push("/"))
+    }
+
     render() {
       	return (
               <div>
@@ -13,7 +20,9 @@ class Navbar extends Component {
                     <div className="container-fluid">
                         <div className="navbar-header">
                             <CollapseButton></CollapseButton>
-                            <NavbarBrand>ALMA Plataform</NavbarBrand>
+                            <NavbarBrand functionRedirect={() => this.__redirectToHomePage()}>
+                                ALMA Plataform
+                            </NavbarBrand>
                         </div>
 
                         <div className="collapse navbar-collapse" id="collapse-navbar">
@@ -22,7 +31,6 @@ class Navbar extends Component {
                                 <NavbarLink icon="fa-puzzle-piece" link="#features">Funcionalidades</NavbarLink>
                                 <NavbarLink icon="fa-newspaper-o" link="#news">Novidades</NavbarLink>
                                 <NavbarLink icon="fa-envelope-o" link="#contact">Contato</NavbarLink>
-                                <NavbarLink icon="fa-slideshare" link="#footer">Sobre</NavbarLink>
                                 <NavbarLink icon="fa-user-plus" link="#url">Cadastrar</NavbarLink>
                                 <NavbarLink icon="fa-sign-in" link="#ulr">Entrar</NavbarLink>
                                 {/* Se o usuário tiver logado e na home */}

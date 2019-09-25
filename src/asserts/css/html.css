@@ -68,3 +68,7 @@ body {
   .error-field {
     border: 1px solid #e43e3e7a;
   }
+
+  .on-click-link {
+    cursor: pointer;
+  }

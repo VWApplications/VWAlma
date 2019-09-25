@@ -10,7 +10,6 @@ import Footer from './Footer';
 class Home extends Component {
 
 	__submit(data) {
-        const { dispatch } = this.props;
         console.log(data);
 	}
 

@@ -75,8 +75,8 @@ const NavbarMediaBody = styled.div`
     vertical-align: middle;
 `;
 
-export const NavbarBrand = ({ children }) => (
-    <NavbarLinkStyled className="navbar-brand navbar-link" href="#c">
+export const NavbarBrand = ({ children, functionRedirect }) => (
+    <NavbarLinkStyled className="navbar-brand navbar-link on-click-link" onClick={functionRedirect}>
         <NavbarMedia className="media">
             <div className="media-left">
                 <ImgNavbar src={logo} className="img-responsive img-navbar" alt="Logo" />
