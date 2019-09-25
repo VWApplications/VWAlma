@@ -13,3 +13,11 @@ export function isAuthenticated() {
 
     return false
 }
+
+export function replaceAll(target, search, replacement) {
+    return target.replace(new RegExp(search, 'g'), replacement);
+}
+
+export function makeURL(target) {
+    return replaceAll(target, " ", "-").toLowerCase();
+}

@@ -72,3 +72,7 @@ body {
   .on-click-link {
     cursor: pointer;
   }
+
+  .no-decoration {
+    text-decoration: none !important;
+  }

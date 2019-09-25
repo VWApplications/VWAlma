@@ -10,7 +10,7 @@ class News extends Component {
 
     __redirectToNewsList() {
         const { dispatch } = this.props;
-        dispatch(push("/news", {"home": false}));
+        dispatch(push("/news"));
     }
 
     render() {
