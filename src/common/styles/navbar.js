@@ -2,6 +2,10 @@ import React from 'react';
 import styled from 'styled-components';
 import logo from 'asserts/img/logo.png';
 
+export const Space = styled.div`
+    margin-top: 51px;
+`;
+
 const NavbarToogle = styled.button`
     :focus {
         background-color: #263238 !important;
