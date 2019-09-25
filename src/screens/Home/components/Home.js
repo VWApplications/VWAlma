@@ -5,6 +5,7 @@ import Parallax from './Parallax';
 import Features from './Features';
 import News from './News';
 import Contact from './Contact';
+import Footer from './Footer';
 
 class Home extends Component {
 
@@ -25,6 +26,7 @@ class Home extends Component {
 					<News />
 					<Contact onSubmit={data => this.__submit(data)} />
 				</main>
+				<Footer />
 			</div>
 		)
   	}
