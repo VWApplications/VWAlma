@@ -6,9 +6,13 @@ import {
     PageHeader, PanelBody, NewsImage, NewsTags,
     NewsTitle, NewsContent, NewsTag, PanelNews
 } from '../styles/news';
-import { news } from '../mocks/news';
+import { listNewsSagas } from '../actions';
 
 class News extends Component {
+    componentDidMount() {
+        const { dispatch } = this.props;
+        dispatch(listNewsSagas());
+    }
 
     __redirectToNewsList() {
         const { dispatch } = this.props;
@@ -17,21 +21,20 @@ class News extends Component {
 
     __redirectToNewsDetail(news) {
         const { dispatch } = this.props;
-        const location = {
-            pathname: "/news/" + makeURL(news.title),
-            state: news
-        }
+        const location = {pathname: "/news/" + makeURL(news.title), state: news}
         dispatch(push(location.pathname, location.state));
     }
 
     render() {
+        const { news_list } = this.props;
+
         return (
             <div className="container">
                 <PageHeader>Notícias</PageHeader>
 
                 <PanelNews functionRedirect={() => this.__redirectToNewsList()}>
-                    {news.length === 0 ? <div class="alert alert-info">Não há notícias disponível</div> : ""}
-                    {news.slice(-2).map(lastNews => (
+                    {news_list.length === 0 ? <div className="alert alert-info">Não há notícias disponível</div> : ""}
+                    {news_list.slice(-2).map(lastNews => (
                         <PanelBody key={lastNews.id} onClick={() => this.__redirectToNewsDetail(lastNews)}>
                             <NewsImage img={lastNews.img} alt={lastNews.title} />
                             <div className="row">
@@ -54,4 +57,9 @@ class News extends Component {
     }
 }
 
-export default connect()(News);
+const mapStateToProps = state => {
+    const { news_list } = state.home;
+    return { news_list };
+}
+
+export default connect(mapStateToProps)(News);

@@ -6,12 +6,15 @@ import { connectRouter } from 'connected-react-router';
 import { reducer as formReducer } from 'redux-form';
 import { createStore, combineReducers, applyMiddleware } from 'redux';
 import sagas from './sagas';
+// REDUCERS
+import homeReducer from 'screens/Home/reducers';
 
 export const history = createBrowserHistory()
 
 const reducers = combineReducers({
     router: connectRouter(history),
-    form: formReducer
+    form: formReducer,
+    home: homeReducer
 });
 
 const sagaMiddleware = createSagaMiddleware();

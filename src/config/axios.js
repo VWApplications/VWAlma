@@ -12,7 +12,7 @@ axios.defaults.baseURL = baseURL;
 
 
 axios.interceptors.request.use(function(config) {
-    const token = JSON.parse(localStorage.getItem("token"));
+    const token = JSON.parse(localStorage.getItem("alma-token"));
 
     if (token)
         config.headers.Authorization = `JWT ${token}`;

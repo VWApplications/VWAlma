@@ -4,13 +4,18 @@ import { push } from 'connected-react-router';
 import { makeURL } from 'common/utils';
 import Navbar from 'common/components/Navbar';
 import { PageHeader, NewsTitle, NewsBody, NewsTags, NewsPanel, TagButton } from '../styles/newsList';
-import { news } from '../mocks/news';
+import { listNewsSagas } from '../actions';
 
 class NewsList extends Component {
 
     constructor(props) {
         super(props);
         this.state = {tag: ""}
+    }
+
+    componentDidMount() {
+        const { dispatch } = this.props;
+        dispatch(listNewsSagas());
     }
 
     __cleanTagFilter() {
@@ -20,10 +25,7 @@ class NewsList extends Component {
 
     __redirectToDetail(news) {
         const { dispatch } = this.props;
-        const location = {
-            pathname: "/news/" + makeURL(news.title),
-            state: news
-        }
+        const location = {pathname: "/news/" + makeURL(news.title), state: news}
         dispatch(push(location.pathname, location.state));
     }
 
@@ -33,6 +35,8 @@ class NewsList extends Component {
     }
 
     render() {
+        const { news_list } = this.props;
+
         return (
             <div>
                 <Navbar />
@@ -60,8 +64,8 @@ class NewsList extends Component {
 
                         <NewsPanel className="panel panel-default">
                             <div className="panel-body">
-                                {news.length === 0 ? "Não há notícias disponível." : ""}
-                                {news.map((currentNews, index) => (
+                                {news_list.length === 0 ? "Não há notícias disponível." : ""}
+                                {news_list.map((currentNews, index) => (
                                     <div key={currentNews.id}>
                                         <NewsTitle created_at={currentNews.created_at}>
                                             {currentNews.title}
@@ -82,7 +86,7 @@ class NewsList extends Component {
                                             ))}
                                         </NewsTags>
 
-                                        {news.length !== index + 1 ? <hr /> : ""}
+                                        {news_list.length !== index + 1 ? <hr /> : ""}
                                     </div>
                                 ))}
                             </div>
@@ -113,4 +117,9 @@ class NewsList extends Component {
     }
 }
 
-export default connect()(NewsList);
+const mapStateToProps = state => {
+    const { news_list } = state.home;
+    return { news_list };
+}
+
+export default connect(mapStateToProps)(NewsList);
