@@ -21,3 +21,19 @@ export function replaceAll(target, search, replacement) {
 export function makeURL(target) {
     return replaceAll(target, " ", "-").toLowerCase();
 }
+
+export function moveToTop() {
+    document.body.scrollTop = 0;
+    document.documentElement.scrollTop = 0;
+}
+
+export function getQueryString(queryString, data, str) {
+    if (queryString.includes(str)) {
+        const index = queryString.lastIndexOf(`${str}=`) + `${str}=`.length;
+        queryString = queryString.slice(0, index) + data;
+    } else {
+        queryString = queryString + `&${str}=` + data;
+    }
+
+    return queryString
+}

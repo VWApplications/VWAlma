@@ -35,6 +35,7 @@ export const NewsTags = ({ children }) => (
 )
 
 export const NewsPanel = styled.div`
+    margin-bottom: 0;
     margin-top: 10px;
 `;
 

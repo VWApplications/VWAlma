@@ -1,26 +1,32 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import {reset} from 'redux-form';
 import { push } from 'connected-react-router';
-import { makeURL } from 'common/utils';
+import { makeURL, moveToTop, getQueryString } from 'common/utils';
 import Navbar from 'common/components/Navbar';
+import CustomPagination from 'common/components/Pagination';
 import { PageHeader, NewsTitle, NewsBody, NewsTags, NewsPanel, TagButton } from '../styles/newsList';
 import { listNewsSagas } from '../actions';
+import SearchForm from 'common/components/Search';
 
 class NewsList extends Component {
 
     constructor(props) {
         super(props);
-        this.state = {tag: ""}
+        this.state = {queryString: "page=1", tag: ""}
     }
 
     componentDidMount() {
         const { dispatch } = this.props;
-        dispatch(listNewsSagas());
+        dispatch(listNewsSagas(1, this.state.queryString));
     }
 
     __cleanTagFilter() {
-        this.setState({tag: ""})
-        console.log("Dispatch para pegar todos as noticias")
+        const { dispatch, pagination } = this.props;
+        this.setState({tag: ""});
+        const queryString = "page=" + pagination.activePage;
+        this.setState({queryString});
+        dispatch(listNewsSagas(pagination.activePage, queryString));
     }
 
     __redirectToDetail(news) {
@@ -30,12 +36,24 @@ class NewsList extends Component {
     }
 
     __getTag(tag) {
-        this.setState({tag: tag.title})
-        console.log("Dispatch para filtrar as noticias pela tag passada")
+        const { dispatch } = this.props;
+        moveToTop();
+        this.setState({tag: tag.title});
+        const queryString = getQueryString(this.state.queryString, tag.title, "tag");
+        this.setState({queryString});
+        dispatch(listNewsSagas(1, queryString));
+    }
+
+    __search(data) {
+        const { dispatch } = this.props;
+        const queryString = getQueryString(this.state.queryString, data.search, "search");
+        this.setState({queryString});
+        dispatch(reset("SearchForm"));
+        dispatch(listNewsSagas(1, queryString));
     }
 
     render() {
-        const { news_list } = this.props;
+        const { news_list, pagination } = this.props;
 
         return (
             <div>
@@ -45,22 +63,7 @@ class NewsList extends Component {
                     <div className="container">
                         <PageHeader tag={this.state.tag} onClick={() => this.__cleanTagFilter()} />
 
-                        <form method="GET" acceptCharset="utf-8">
-                            <div className="input-group">
-                                <input
-                                    type="text"
-                                    className="form-control"
-                                    name="q_info"
-                                    placeholder="Pesquisa"
-                                />
-
-                                <div className="input-group-btn">
-                                    <button className="btn btn-primary btn-border" type="submit">
-                                        <i className="fa fa-search"></i>
-                                    </button>
-                                </div>
-                            </div>
-                        </form>
+                        <SearchForm onSubmit={(data) => this.__search(data)} />
 
                         <NewsPanel className="panel panel-default">
                             <div className="panel-body">
@@ -91,25 +94,10 @@ class NewsList extends Component {
                                 ))}
                             </div>
                         </NewsPanel>
-
-                        <ul className="pagination">
-                            <li className="waves-effect">
-                                <a href="#proximo">
-                                    <span className="fa fa-chevron-left"></span>
-                                </a>
-                            </li>
-
-                            {/* Lista de paginas */}
-                            <li className="waves-effect active">
-                                <a href="#pagina-1">1</a>
-                            </li>
-
-                            <li className="waves-effect">
-                                <a href="#voltar">
-                                    <span className="fa fa-chevron-right"></span>
-                                </a>
-                            </li>
-                        </ul>
+                        <CustomPagination
+                            pagination={pagination}
+                            listObjectAction={listNewsSagas}
+                        />
                     </div>
                 </main>
             </div>
@@ -118,8 +106,8 @@ class NewsList extends Component {
 }
 
 const mapStateToProps = state => {
-    const { news_list } = state.home;
-    return { news_list };
+    const { news_list, pagination } = state.home;
+    return { news_list, pagination };
 }
 
 export default connect(mapStateToProps)(NewsList);

@@ -1,6 +1,6 @@
-import { InputField } from './components/InputField';
-import { CheckboxField } from './components/CheckboxField';
-import { TextField } from './components/TextField';
-import { SimpleInputField } from './components/SimpleInputField';
+import { InputField } from './form/InputField';
+import { CheckboxField } from './form/CheckboxField';
+import { TextField } from './form/TextField';
+import { SimpleInputField } from './form/SimpleInputField';
 
 export { InputField, CheckboxField, TextField, SimpleInputField };

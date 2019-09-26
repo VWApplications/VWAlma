@@ -1,7 +1,10 @@
 import axios from 'config/axios';
 
-export function listNewsAPI() {
-    const endpoint = `/news/`;
+export function listNewsAPI(queryString=null) {
+    let endpoint = "/news/";
+    if (queryString)
+        endpoint = `/news/?${queryString}`;
+
     return axios.get(endpoint);
 }
 
