@@ -76,3 +76,25 @@ body {
   .no-decoration {
     text-decoration: none !important;
   }
+
+  /* LOGIN FIELD */
+.input-login {
+  width: 100%;
+  background: rgba(0,0,0,0.3);
+  outline: none;
+  padding: 10px;
+  color: #fff !important;
+  text-shadow: 1px 1px 1px rgba(0,0,0,0.3);
+  border: 1px solid rgba(0,0,0,0.3);
+  border-radius: 0 4px 4px 0;
+  box-shadow: inset 0 -5px 45px rgba(100,100,100,0.2), 0 1px 1px rgba(255,255,255,0.2);
+  -webkit-transition: box-shadow .5s ease;
+  -moz-transition: box-shadow .5s ease;
+  -o-transition: box-shadow .5s ease;
+  -ms-transition: box-shadow .5s ease;
+  transition: box-shadow .5s ease;
+}
+
+.input-login:focus {
+  box-shadow: inset 0 -5px 45px rgba(100,100,100,0.4), 0 1px 1px rgba(255,255,255,0.2);
+}

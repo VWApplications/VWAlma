@@ -23,7 +23,8 @@ class Navbar extends Component {
     }
 
     __redirectToLogin() {
-        console.log("Login");
+        const { dispatch } = this.props;
+        dispatch(push("/login"));
     }
 
     __logout() {
