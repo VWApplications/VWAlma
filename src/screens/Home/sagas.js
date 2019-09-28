@@ -9,7 +9,7 @@ function* listNews(action) {
 
     try {
         let response = null;
-        if (action.payload.queryString.includes("search=undefined"))
+        if (queryString && queryString.includes("search=undefined"))
             response = yield call(listNewsAPI);
         else
             response = yield call(listNewsAPI, queryString);
