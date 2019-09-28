@@ -8,13 +8,15 @@ import { createStore, combineReducers, applyMiddleware } from 'redux';
 import sagas from './sagas';
 // REDUCERS
 import homeReducer from 'screens/Home/reducers';
+import accountReducer from 'screens/Accounts/reducers';
 
 export const history = createBrowserHistory()
 
 const reducers = combineReducers({
     router: connectRouter(history),
     form: formReducer,
-    home: homeReducer
+    home: homeReducer,
+    account: accountReducer
 });
 
 const sagaMiddleware = createSagaMiddleware();

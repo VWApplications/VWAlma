@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { reduxForm, Field } from 'redux-form';
 import { SimpleInputField } from 'common/fields';
+import { loginSagas } from '../actions';
 import { Container, Form, FormGroup, SubmitButton, ForgetPassword } from '../styles/login';
 import { validate } from '../validate';
 
@@ -12,7 +13,8 @@ class Login extends Component {
     }
 
     __submit(data) {
-        console.log(data);
+        const { dispatch } = this.props;
+		dispatch(loginSagas(data));
     }
 
     render() {
@@ -25,9 +27,9 @@ class Login extends Component {
                         <Field
                             component={SimpleInputField}
                             type="text"
-                            name="username"
+                            name="email"
                             className="input-login form-control"
-                            placeholder="Nome de usuário ou matrícula."
+                            placeholder="Email de autenticação."
                             autoFocus
                         />
                     </FormGroup>

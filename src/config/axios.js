@@ -1,5 +1,6 @@
 import axios from 'axios';
 import { push } from 'connected-react-router';
+import { logoutAction } from 'screens/Accounts/actions';
 import store from './store';
 
 let baseURL = 'https://api.vwapplication.com.br';
@@ -34,7 +35,7 @@ axios.interceptors.response.use(function(response) {
 
             if (!authenticated) {
                 Promise.reject('Sua sessão expirou.');
-                // store.dispatch(logoutAction());
+                store.dispatch(logoutAction());
                 store.dispatch(push('/'));
             }
         }

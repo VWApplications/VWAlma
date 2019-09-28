@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { push } from 'connected-react-router';
 import { isAuthenticated } from 'common/utils';
+import { logoutAction } from 'screens/Accounts/actions';
+import { successAlert } from 'common/alerts';
 import {
     NavbarBrand, CollapseButton, NavbarStyled, NavbarUL,
     NavbarLink, Space
@@ -28,7 +30,10 @@ class Navbar extends Component {
     }
 
     __logout() {
-        console.log("Logout");
+        const { dispatch } = this.props;
+        dispatch(logoutAction())
+        successAlert("Usuário desconectado", "Usuário foi desconectado com sucesso!");
+        dispatch(push("/login"));
     }
 
     __help() {
@@ -72,7 +77,7 @@ class Navbar extends Component {
                                 {!home && isAuthenticated() ?
                                     <NavbarLink icon="fa-question-circle-o" link={() => this.__help()}>Ajuda</NavbarLink>
                                 : ""}
-                                {!home && isAuthenticated() ?
+                                {home && isAuthenticated() ?
                                     <NavbarLink icon="fa-sign-out" link={() => this.__logout()}>Sair</NavbarLink>
                                 : ""}
                             </NavbarUL>
