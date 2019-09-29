@@ -1,10 +1,15 @@
 import React from 'react';
 
-export const CheckboxField = field => (
-	<div className="custom-control custom-switch">
-		<input {...field.input} type="checkbox" className={field.className + " custom-control-input"} id="switch1" />
-		<label className="custom-control-label" htmlFor="switch1">
+export const CheckboxField = field => {
+	const checkbox = (
+		<label className={field.inline ? "checkbox-inline" : ""}>
+			<input {...field.input} type="checkbox" className={field.className} />
 			{field.label}
 		</label>
-	</div>
-)
+	)
+
+	if (field.inline)
+		return checkbox
+	else
+		return <div className="checkbox">{checkbox}</div>
+}
