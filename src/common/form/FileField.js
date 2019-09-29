@@ -5,10 +5,7 @@ class FileField extends Component {
 
     static defaultProps = {
         previewLogoUrl: user,
-        mimeType: "image/jpeg, image/png",
-        maxWeight: 200,
-        maxWidth: 200,
-        maxHeight: 200
+        mimeType: "image/jpeg, image/png"
     };
 
     __handleChange(event, input) {

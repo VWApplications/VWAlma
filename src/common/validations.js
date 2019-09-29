@@ -28,4 +28,16 @@ const validateImageHeight = (img, maxHeight) => {
     }
 }
 
-export { validateImageWeight, validateImageFormat, validateImageWidth, validateImageHeight };
+const validatePhoto = img => {
+    let error = validateImageFormat(img, "image/jpeg, image/png");
+    if (!error)
+        error = validateImageHeight(img, 300);
+    if (!error)
+        error = validateImageWidth(img, 300);
+    if (!error)
+        error = validateImageWeight(img, 500);
+
+    return error;
+}
+
+export { validatePhoto };

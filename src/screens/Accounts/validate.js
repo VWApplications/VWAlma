@@ -1,3 +1,5 @@
+import { validatePhoto } from 'common/validations';
+
 export const validate = values => {
     const errors = {};
 
@@ -23,6 +25,10 @@ export const validate = values => {
 
     if (!values.is_teacher === null) {
         errors.is_teacher = "Escolha entre professor e aluno."
+    }
+
+    if (values.photo) {
+        errors.photo = validatePhoto(values.photo);
     }
 
     return errors;
