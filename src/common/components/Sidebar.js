@@ -20,7 +20,7 @@ class Sidebar extends Component {
                 <SidebarLink icon="fa-user" title="Perfil" onClick={() => this.__redirectTo("/profile")}>
                     Perfil do usuário com suas informações e disciplinas.
                 </SidebarLink>
-                <SidebarLink icon="fa-edit" title="Atualizar Perfil" onClick={() => this.__redirectTo("/profile")}>
+                <SidebarLink icon="fa-edit" title="Atualizar Perfil" onClick={() => this.__redirectTo("/profile/update")}>
                     Página para editar suas informações pessoais.
                 </SidebarLink>
                 <SidebarLink icon="fa-expeditedssl" title="Atualizar Senha" onClick={() => this.__redirectTo("/profile")}>
@@ -48,9 +48,9 @@ class Sidebar extends Component {
         )
     }
 
-    __activeLearningMethodologyMenu() {
+    __TBLMenu() {
         return (
-            <h1>Menu ALMA</h1>
+            <h1>Menu TBL</h1>
         )
     }
 
@@ -61,8 +61,8 @@ class Sidebar extends Component {
             case "discipline":
                 return this.__disciplineMenu();
 
-            case "alma":
-                return this.__activeLearningMethodologyMenu();
+            case "tbl":
+                return this.__TBLMenu();
         
             default:
                 return this.__profileMenu();

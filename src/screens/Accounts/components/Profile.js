@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-import { Main } from 'common';
+import { Main, PageHeader } from 'common';
 import {
-    PageHeader, Information, Status, LastLogin,
+    Information, Status, LastLogin,
     UpdatedAt, UserImage, UserPanel, UserInfo
 } from '../styles/profile';
 

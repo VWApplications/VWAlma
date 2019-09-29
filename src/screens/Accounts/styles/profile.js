@@ -2,12 +2,6 @@ import React from 'react';
 import styled from 'styled-components';
 import user from 'asserts/img/user.png';
 
-export const PageHeader = ({ children }) => (
-    <div className="page-header profile">
-        <h1 className="white">{children}</h1>
-    </div>
-)
-
 export const Information = ({ children }) => (
     <div className="row">{children}</div>
 )
