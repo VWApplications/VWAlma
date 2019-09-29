@@ -102,3 +102,12 @@ body {
 .input-login:focus {
     box-shadow: inset 0 -5px 45px rgba(100,100,100,0.4), 0 1px 1px rgba(255,255,255,0.2);
 }
+
+/* INTRO JS */
+.introjs-helperLayer {
+    background-color: transparent !important;
+    width: 220.156px !important;
+    height: 98px !important;
+    top: 30px !important;
+    left: -12px !important;
+}

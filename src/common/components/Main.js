@@ -11,7 +11,7 @@ export const Main = ({ children, navigation, menu }) => (
 
         <div className="row">
             <Space />
-            <div className="col-sm-2">
+            <div className="col-sm-2" style={{"paddingLeft": 0}}>
                 <Sidebar menu={menu} />
             </div>
 

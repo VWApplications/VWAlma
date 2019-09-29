@@ -16,8 +16,8 @@ class Breadcrumb extends Component {
         return (
             <Container>
                     <BreadcrumbStyled className="breadcrumb pull-left">
-                        {navigation.map(item => (
-                            <BreadLink onClick={() => this.__redirect(item.url)}>{item.title}</BreadLink>
+                        {navigation.map((item, index) => (
+                            <BreadLink key={index} onClick={() => this.__redirect(item.url)}>{item.title}</BreadLink>
                         ))}
                     </BreadcrumbStyled>
 

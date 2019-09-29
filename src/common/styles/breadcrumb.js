@@ -16,6 +16,7 @@ const Navigation = styled.div`
 const ContainerFixed = styled.div`
     position: fixed;
     width: 100%;
+    z-index: 999;
 `;
 
 export const Container = ({ children }) => (
@@ -55,5 +56,5 @@ export const Welcome = ({ children }) => (
 )
 
 export const Space = styled.div`
-    margin-top: 34px;
+    margin-top: 30px;
 `;

@@ -1,4 +1,5 @@
 import { errorAlert } from './alerts';
+import introJs from 'intro.js/intro.js';
 
 export function isEmpty(obj) {
     for(var key in obj) {
@@ -48,4 +49,13 @@ export function validateError(error) {
         console.warn(error.response.data);
         errorAlert("Ops...", "Por favor, preencha os campos corretamente.");
     }
+}
+
+export function startHelp() {
+    introJs().setOption(
+        {'nextLabel': '>'},
+        {'prevLabel': '<'},
+        {'skipLabel': 'X'},
+        {'doneLabel': 'OK'}
+    ).start()
 }

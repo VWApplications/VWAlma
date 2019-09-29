@@ -13,7 +13,7 @@ class Profile extends Component {
         ]
 
         return (
-            <Main navigation={navigator} menu={[]}>
+            <Main navigation={navigator} menu="profile">
                 <PageHeader>Perfil</PageHeader>
 
                 <Information>
