@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Img } from '../styles/fields';
 import user from 'asserts/img/user.png';
 
 class FileField extends Component {
@@ -36,7 +37,7 @@ class FileField extends Component {
         return (
             <div>
                 <div className="input-group center-block">
-                    <img src={previewLogoUrl} className="img-rounded img-responsive center-block preview-image" alt="Visualização" />
+                    <Img src={previewLogoUrl} className="img-rounded img-responsive center-block preview-image" alt="Visualização" />
                 </div><br />
 
                 <input

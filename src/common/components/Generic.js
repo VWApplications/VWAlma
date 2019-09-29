@@ -45,10 +45,16 @@ const SubmitButton = ({ children, disabled }) => (
     </button>
 )
 
+const Button = ({ children, onClick, icon }) => (
+    <button type="button" className="btn btn-primary center-block btn-block" onClick={onClick}>
+        <i className={"fa " + icon}></i> {children}
+    </button>
+)
+
 const BreakLine = () => (<br />)
 const Line = () => (<hr />)
 
 export {
     PageHeader, Container, Form, Fieldset,
-    BreakLine, Line, SubmitButton
+    BreakLine, Line, SubmitButton, Button
 };

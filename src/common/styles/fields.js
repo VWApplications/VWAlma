@@ -4,6 +4,10 @@ const Textarea = styled.textarea`
     resize: none;
 `;
 
+const Img = styled.img`
+    height: 300px !important;
+`;
+
 const Icon = styled.span`
     padding-left: 10px;
     padding-right: 10px;
@@ -15,4 +19,4 @@ const IconMD = styled.i`
     font-size: 18px;
 `;
 
-export { Textarea, Icon, IconMD };
+export { Textarea, Icon, IconMD, Img };

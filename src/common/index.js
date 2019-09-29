@@ -6,7 +6,7 @@ import Search from './components/Search';
 import Sidebar from './components/Sidebar';
 import {
     PageHeader, Container, Form, Fieldset,
-    BreakLine, Line, SubmitButton
+    BreakLine, Line, SubmitButton, Button
 } from './components/Generic';
 
 export {
@@ -14,5 +14,5 @@ export {
     Pagination, Search, Sidebar,
     PageHeader, Container, Form,
     Fieldset, BreakLine, Line,
-    SubmitButton
+    SubmitButton, Button
 };

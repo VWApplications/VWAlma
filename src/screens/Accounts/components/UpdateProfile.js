@@ -27,7 +27,7 @@ class UpdateProfile extends Component {
             <Main navigation={navigator} menu="profile">
                 <PageHeader>Atualizar Informações Pessoais</PageHeader>
                 <Container>
-                    <Form onSubmit={handleSubmit((data) => this.__submit(data))}>
+                    <Form onSubmit={handleSubmit((data) => this.__submit(data))} className="form-horizontal">
                         <Field
                             component={FileField}
                             type="file"
@@ -39,7 +39,7 @@ class UpdateProfile extends Component {
                             <Field
                                 component={InputField}
                                 type="text"
-                                icon="fa-user"
+                                label="Nome de usuário"
                                 className="form-control"
                                 name="name"
                                 placeholder="Nome do usuário"
@@ -48,7 +48,7 @@ class UpdateProfile extends Component {
                             <Field
                                 component={InputField}
                                 type="email"
-                                icon="fa-envelope"
+                                label="Email"
                                 className="form-control"
                                 name="email"
                                 placeholder="Email de autenticação"
@@ -69,4 +69,16 @@ const form = reduxForm({
     enableReinitialize: true
 })(UpdateProfile);
 
-export default connect()(form);
+const mapStateToProps = state => {
+    const { user } = state.account;
+
+    return {
+        initialValues: {
+            photo: user.photo,
+            name: user.name,
+            email: user.email
+        }
+    }
+}
+
+export default connect(mapStateToProps)(form);
