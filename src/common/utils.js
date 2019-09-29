@@ -1,3 +1,5 @@
+import { errorAlert } from './alerts';
+
 export function isEmpty(obj) {
     for(var key in obj) {
         if(obj.hasOwnProperty(key))
@@ -36,4 +38,14 @@ export function getQueryString(queryString, data, str) {
     }
 
     return queryString
+}
+
+export function validateError(error) {
+    const msg = error.response.data.detail;
+    if (msg) {
+        errorAlert("Ops...", msg);
+    } else {
+        console.warn(error.response.data);
+        errorAlert("Ops...", "Por favor, preencha os campos corretamente.");
+    }
 }

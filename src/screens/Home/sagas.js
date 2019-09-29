@@ -2,7 +2,7 @@ import { all, put, call, takeLatest } from 'redux-saga/effects';
 import { LIST_NEWS_SAGAS, GET_NEWS_SAGAS } from './types';
 import { listNewsAPI, getNewsAPI } from './api';
 import { listNewsAction, getNewsAction } from './actions';
-import { errorAlert } from 'common/alerts';
+import { validateError } from 'common/utils';
 
 function* listNews(action) {
     const { activePage, queryString } = action.payload;
@@ -16,8 +16,7 @@ function* listNews(action) {
 
         yield put(listNewsAction(response.data.results, activePage, response.data.count))
     } catch(error) {
-        console.error(error);
-        errorAlert("Ops...", error);
+        validateError(error);
     }
 }
 
@@ -33,8 +32,7 @@ function* getNews(action) {
         const response = yield call(getNewsAPI, newsID);
         yield put(getNewsAction(response.data));
     } catch(error) {
-        console.error(error);
-        errorAlert("Ops...", error);
+        validateError(error);
     }
 }
 

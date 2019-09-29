@@ -1,5 +1,6 @@
 import axios from 'axios';
 import { push } from 'connected-react-router';
+import Swal from 'sweetalert2';
 import { logoutAction } from 'screens/Accounts/actions';
 import store from './store';
 
@@ -33,22 +34,20 @@ axios.interceptors.response.use(function(response) {
             const state = store.getState();
             const { authenticated } = state.account;
 
-            if (!authenticated) {
-                Promise.reject('Sua sessão expirou.');
-                store.dispatch(logoutAction());
-                store.dispatch(push('/'));
+            if (authenticated) {
+                Swal.fire({
+                    type: 'error',
+                    title: 'Ops...',
+                    text: 'Sua sessão expirou.'
+                }).then(() => {
+                    store.dispatch(logoutAction());
+                    store.dispatch(push('/'));
+                    window.location.reload();
+                });
             }
         }
 
-        try {
-            const msg = error.response.data.non_field_errors[0];
-            console.error(msg);
-            return Promise.reject(msg);
-        } catch(e) {
-            const msg = error.response.data.detail;
-            console.error(msg);
-            return Promise.reject(msg);
-        }
+        return Promise.reject(error);
     }
     console.error(error);
     return Promise.reject(error);

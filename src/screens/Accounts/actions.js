@@ -1,6 +1,6 @@
 import {
     LOGIN, LOGIN_SAGAS, LOGOUT, USER_FETCH,
-    FETCH_USER_SAGAS, REGISTER, REGISTER_SAGAS
+    FETCH_USER_SAGAS, REGISTER_SAGAS
 } from './types';
 
 export function loginSagas(data) {

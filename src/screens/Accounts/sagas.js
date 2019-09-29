@@ -3,7 +3,8 @@ import { push } from 'connected-react-router';
 import { LOGIN_SAGAS, FETCH_USER_SAGAS, REGISTER_SAGAS } from './types';
 import { fetchUserAction, loginAction, fetchUserSagas } from './actions';
 import { loginAPI, getUserAPI, createUserAPI } from './api';
-import { errorAlert, successAlert } from 'common/alerts';
+import { validateError } from 'common/utils';
+import { successAlert } from 'common/alerts';
 
 function* login(action) {
     const { payload } = action;
@@ -32,8 +33,7 @@ function* login(action) {
 
         yield put(push('/'));
     } catch(error) {
-        console.error(error);
-        errorAlert("Ops...", error);
+        validateError(error);
     }
 }
 
@@ -48,8 +48,7 @@ function* fetchUser() {
 
         yield put(fetchUserAction(userResponse.data));
     } catch(error) {
-        console.error(error);
-        errorAlert("Ops...", error);
+        validateError(error);
     }
 }
 
@@ -68,8 +67,7 @@ function* createUser(action) {
 
         yield put(push('/login'));
     } catch(error) {
-        console.error(error);
-        errorAlert("Ops...", error);
+        validateError(error);
     }
 }
 

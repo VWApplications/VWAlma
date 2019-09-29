@@ -21,12 +21,19 @@ class Register extends Component {
             <Container>
                 <Navbar />
                 <Form onSubmit={handleSubmit((data) => this.__submit(data))}>
+                    <SelectGroup label="Selecione o tipo de usuário">
+                        <Field id="selectID" name="is_teacher" component="select" className="input-login form-control">
+                            <option value={true}>Professor</option>
+                            <option value={false}>Aluno</option>
+                        </Field>
+                    </SelectGroup>
+
                     <FormGroup icon="fa-user">
                         <Field
                             component={SimpleInputField}
                             type="text"
                             name="name"
-                            className="form-control"
+                            className="input-login form-control"
                             placeholder="Nome do usuário"
                         />
                     </FormGroup>
@@ -36,24 +43,17 @@ class Register extends Component {
                             component={SimpleInputField}
                             type="email"
                             name="email"
-                            className="form-control"
+                            className="input-login form-control"
                             placeholder="Email de autenticação."
                         />
                     </FormGroup>
-
-                    <SelectGroup label="Selecione o tipo de usuário">
-                        <Field id="selectID" name="is_teacher" component="select" className="form-control">
-                            <option value={true}>Professor</option>
-                            <option value={false}>Aluno</option>
-                        </Field>
-                    </SelectGroup>
 
                     <FormGroup icon="fa-lock">
                         <Field
                             component={SimpleInputField}
                             type="password"
                             name="password"
-                            className="form-control"
+                            className="input-login form-control"
                             placeholder="Senha de acesso."
                         />
                     </FormGroup>
@@ -63,10 +63,11 @@ class Register extends Component {
                             component={SimpleInputField}
                             type="password"
                             name="confirm_password"
-                            className="form-control"
+                            className="input-login form-control"
                             placeholder="Confirmar senhar."
                         />
                     </FormGroup>
+
                     <Line />
 
                     <SubmitButton disabled={submitting || invalid}>Enviar</SubmitButton>
