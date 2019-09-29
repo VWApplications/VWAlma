@@ -18,12 +18,10 @@ const Login = styled.div`
 `;
 
 export const Container = ({ children }) => (
-    <main>
-        <Login>
-            <h1>Login</h1>
-            {children}
-        </Login>
-    </main>
+    <Login>
+        <h1>Login</h1>
+        {children}
+    </Login>
 )
 
 export const Form = ({ children, onSubmit }) => (

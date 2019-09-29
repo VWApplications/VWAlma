@@ -31,7 +31,7 @@ function* login(action) {
 
         successAlert("Usuário autenticado", "Usuário autenticado com sucesso.");
 
-        yield put(push('/'));
+        yield put(push('/profile'));
     } catch(error) {
         validateError(error);
     }

@@ -17,7 +17,8 @@ class Navbar extends Component {
     }
 
     __redirectToProfile() {
-        console.log("Perfil");
+        const { dispatch } = this.props;
+        dispatch(push("/profile"));
     }
 
     __redirectToCreate() {
