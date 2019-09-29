@@ -5,8 +5,8 @@ body {
 }
 
 .row {
-  margin-right: 0;
-  margin-left: 0;
+    margin-right: 0;
+    margin-left: 0;
 }
 
 .white {
@@ -17,88 +17,88 @@ body {
     color: #ECEFF1;
   }
   
-  .darken-blue-grey {
+.darken-blue-grey {
     color: #263238;
-  }
-  
-  .darken-red {
+}
+
+.darken-red {
     color: #b71c1c;
-  }
-  
-  .btn-primary {
+}
+
+.btn-primary {
     background: #283F4A; /* For browsers that do not support gradients */
     background: -webkit-linear-gradient(#283F4A, #286090); /* For Safari 5.1 to 6.0 */
     background: -o-linear-gradient(#283F4A, #286090); /* For Opera 11.1 to 12.0 */
     background: -moz-linear-gradient(#283F4A, #286090); /* For Firefox 3.6 to 15 */
     background: linear-gradient(#283F4A, #286090); /* Standard syntax */
     border-color: #263238;
-  }
-  
-  .btn-primary:hover {
+}
+
+.btn-primary:hover {
     background: #283F4A; /* For browsers that do not support gradients */
     background: -webkit-linear-gradient(#283F4A, #3C6A92); /* For Safari 5.1 to 6.0 */
     background: -o-linear-gradient(#283F4A, #3C6A92); /* For Opera 11.1 to 12.0 */
     background: -moz-linear-gradient(#283F4A, #3C6A92); /* For Firefox 3.6 to 15 */
     background: linear-gradient(#283F4A, #3C6A92); /* Standard syntax */
     border-color: #263238;
-  }
-  
-  .btn-danger {
+}
+
+.btn-danger {
     background: #D01C1C; /* For browsers that do not support gradients */
     background: -webkit-linear-gradient(#71292B, #D01C1C); /* For Safari 5.1 to 6.0 */
     background: -o-linear-gradient(#71292B, #D01C1C); /* For Opera 11.1 to 12.0 */
     background: -moz-linear-gradient(#71292B, #D01C1C); /* For Firefox 3.6 to 15 */
     background: linear-gradient(#71292B, #D01C1C); /* Standard syntax */
     border-color: #71292B;
-  }
-  
-  .btn-danger:hover {
+}
+
+.btn-danger:hover {
     background: #D01C1C; /* For browsers that do not support gradients */
     background: -webkit-linear-gradient(#71292B, #BF4343); /* For Safari 5.1 to 6.0 */
     background: -o-linear-gradient(#71292B, #BF4343); /* For Opera 11.1 to 12.0 */
     background: -moz-linear-gradient(#71292B, #BF4343); /* For Firefox 3.6 to 15 */
     background: linear-gradient(#71292B, #BF4343); /* Standard syntax */
     border-color: #71292B;
-  }
-  
-  .gradient {
+}
+
+.gradient {
     background: #283F4A; /* For browsers that do not support gradients */
     background: -webkit-linear-gradient(#283F4A, #286090); /* For Safari 5.1 to 6.0 */
     background: -o-linear-gradient(#283F4A, #286090); /* For Opera 11.1 to 12.0 */
     background: -moz-linear-gradient(#283F4A, #286090); /* For Firefox 3.6 to 15 */
     background: linear-gradient(#283F4A, #286090); /* Standard syntax */
     color: white;
-  }
+}
 
-  .error-field {
+.error-field {
     border: 1px solid #e43e3e7a;
-  }
+}
 
-  .on-click-link {
+.on-click-link {
     cursor: pointer;
-  }
+}
 
-  .no-decoration {
+.no-decoration {
     text-decoration: none !important;
-  }
+}
 
   /* LOGIN FIELD */
 .input-login {
-  width: 100%;
-  background: rgba(0,0,0,0.3);
-  outline: none;
-  color: #fff !important;
-  text-shadow: 1px 1px 1px rgba(0,0,0,0.3);
-  border: 1px solid rgba(0,0,0,0.3);
-  border-radius: 0 4px 4px 0;
-  box-shadow: inset 0 -5px 45px rgba(100,100,100,0.2), 0 1px 1px rgba(255,255,255,0.2);
-  -webkit-transition: box-shadow .5s ease;
-  -moz-transition: box-shadow .5s ease;
-  -o-transition: box-shadow .5s ease;
-  -ms-transition: box-shadow .5s ease;
-  transition: box-shadow .5s ease;
+    width: 100%;
+    background: rgba(0,0,0,0.3);
+    outline: none;
+    color: #fff !important;
+    text-shadow: 1px 1px 1px rgba(0,0,0,0.3);
+    border: 1px solid rgba(0,0,0,0.3);
+    border-radius: 0 4px 4px 0;
+    box-shadow: inset 0 -5px 45px rgba(100,100,100,0.2), 0 1px 1px rgba(255,255,255,0.2);
+    -webkit-transition: box-shadow .5s ease;
+    -moz-transition: box-shadow .5s ease;
+    -o-transition: box-shadow .5s ease;
+    -ms-transition: box-shadow .5s ease;
+    transition: box-shadow .5s ease;
 }
 
 .input-login:focus {
-  box-shadow: inset 0 -5px 45px rgba(100,100,100,0.4), 0 1px 1px rgba(255,255,255,0.2);
+    box-shadow: inset 0 -5px 45px rgba(100,100,100,0.4), 0 1px 1px rgba(255,255,255,0.2);
 }

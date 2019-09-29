@@ -2,6 +2,7 @@ import React from 'react';
 import Navbar from './Navbar';
 import Breadcrumb from './Breadcrumb';
 import Sidebar from './Sidebar';
+import { Space } from '../styles/breadcrumb';
 
 export const Main = ({ children, navigation, menu }) => (
     <main>
@@ -9,6 +10,7 @@ export const Main = ({ children, navigation, menu }) => (
         <Breadcrumb navigation={navigation} />
 
         <div className="row">
+            <Space />
             <div className="col-sm-2">
                 <Sidebar menu={menu} />
             </div>

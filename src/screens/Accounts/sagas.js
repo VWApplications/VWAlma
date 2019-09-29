@@ -1,4 +1,4 @@
-import { all, put, call, takeLatest } from 'redux-saga/effects';
+import { all, put, call, takeLatest, take } from 'redux-saga/effects';
 import { push } from 'connected-react-router';
 import { LOGIN_SAGAS, FETCH_USER_SAGAS, REGISTER_SAGAS } from './types';
 import { fetchUserAction, loginAction, fetchUserSagas } from './actions';
@@ -31,6 +31,7 @@ function* login(action) {
 
         successAlert("Usuário autenticado", "Usuário autenticado com sucesso.");
 
+        yield take(["USER_FETCH"]);
         yield put(push('/profile'));
     } catch(error) {
         validateError(error);

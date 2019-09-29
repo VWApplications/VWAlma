@@ -2,8 +2,7 @@ import { LOGIN, USER_FETCH, LOGOUT } from './types';
 
 const initialState = {
   	token: JSON.parse(localStorage.getItem("alma-token")),
-	user: null,
-	authenticated: false
+	user: JSON.parse(localStorage.getItem("user"))
 }
 
 function accountsReducer(state=initialState, action) {
@@ -20,8 +19,7 @@ function accountsReducer(state=initialState, action) {
 
 			return {
 				...state,
-				token: token,
-				authenticated: true
+				token: token
 			};
 
 		case LOGOUT:
@@ -30,12 +28,12 @@ function accountsReducer(state=initialState, action) {
 			return {
 				...state,
 				token: null,
-				user: null,
-				authenticated: false
+				user: null
 			}
 
 		case USER_FETCH:
 			const user = action.payload;
+
 			localStorage.setItem("user", JSON.stringify(user));
 
 			return {

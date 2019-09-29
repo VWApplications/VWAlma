@@ -7,8 +7,13 @@ import {
 
 class Profile extends Component {
     render() {
+        const navigator = [
+            {title: "Home", url: "/"},
+            {title: "Perfil", url: "/profile"}
+        ]
+
         return (
-            <Main navigation={[]} menu={[]}>
+            <Main navigation={navigator} menu={[]}>
                 <PageHeader>Perfil</PageHeader>
 
                 <Information>

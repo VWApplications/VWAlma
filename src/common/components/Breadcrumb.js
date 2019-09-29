@@ -1,21 +1,35 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { push } from 'connected-react-router';
+import { BreadcrumbStyled, BreadLink, Container, Welcome } from '../styles/breadcrumb';
 
 class Breadcrumb extends Component {
-    render() {
-        return (
-            <div className="row">
-                <div className="col-sm-12 navegation">
-                    <ul className="breadcrumb pull-left">
-                        <li><button type="button" className="btn btn-link">Perfil</button></li>
-                    </ul>
 
-                    <p className="pull-right">
-                        Bem Vindo Victor Deon <i className="fa fa-child"></i>
-                    </p>
-                </div>
-            </div>
+    __redirect(url) {
+        const { dispatch } = this.props;
+        dispatch(push(url))
+    }
+
+    render() {
+        const { user, navigation } = this.props;
+
+        return (
+            <Container>
+                    <BreadcrumbStyled className="breadcrumb pull-left">
+                        {navigation.map(item => (
+                            <BreadLink onClick={() => this.__redirect(item.url)}>{item.title}</BreadLink>
+                        ))}
+                    </BreadcrumbStyled>
+
+                    <Welcome>{user.short_name}</Welcome>
+            </Container>
         )
     }
 }
 
-export default Breadcrumb;
+const MapStateToProps = state => {
+    const { user } = state.account;
+    return { user };
+}
+
+export default connect(MapStateToProps)(Breadcrumb);
