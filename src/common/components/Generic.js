@@ -34,7 +34,7 @@ const CustomFieldset = styled.fieldset`
 
 const Fieldset = ({ children, title }) => (
     <CustomFieldset>
-        <legend>{title}</legend><br />
+        <legend style={{"paddingLeft": "5px"}}>{title}</legend><br />
         {children}
     </CustomFieldset>
 )

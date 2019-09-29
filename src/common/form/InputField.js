@@ -17,7 +17,7 @@ export const InputField = field => {
 	return (
 		<div className={"form-group " + formGroupClass + " has-feedback"}>
 			<label className="col-sm-2 control-label" htmlFor="inputID">
-				{field.label}
+				{field.label}:
 			</label>
 			<div className="col-sm-10">
 				<input {...field.input} {...field} className={field.className} id="inputID" />

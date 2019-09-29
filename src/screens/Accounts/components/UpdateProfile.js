@@ -39,7 +39,7 @@ class UpdateProfile extends Component {
                             <Field
                                 component={InputField}
                                 type="text"
-                                label="Nome de usuário"
+                                label="Nome"
                                 className="form-control"
                                 name="name"
                                 placeholder="Nome do usuário"

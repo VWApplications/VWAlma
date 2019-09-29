@@ -1,4 +1,4 @@
-import { validatePhoto } from 'common/validations';
+import { validatePhoto, validateEmail } from 'common/validations';
 
 export const validate = values => {
     const errors = {};
@@ -9,6 +9,10 @@ export const validate = values => {
 
     if (!values.email) {
         errors.email = "Email de autenticação é obrigatório.";
+    }
+
+    if (!validateEmail(values.email)) {
+        errors.email = "Email inválido."
     }
 
     if (!values.password) {
