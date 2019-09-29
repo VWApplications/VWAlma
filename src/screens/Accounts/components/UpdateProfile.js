@@ -72,6 +72,9 @@ const form = reduxForm({
 const mapStateToProps = state => {
     const { user } = state.account;
 
+    if (!user)
+        return {initialValues: {}}
+
     return {
         initialValues: {
             photo: user.photo,

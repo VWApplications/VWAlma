@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import { Main, PageHeader } from 'common';
 import {
     Information, Status, LastLogin,
@@ -7,6 +8,8 @@ import {
 
 class Profile extends Component {
     render() {
+        const { user } = this.props;
+
         const navigator = [
             {title: "Home", url: "/"},
             {title: "Perfil", url: "/profile"}
@@ -17,16 +20,16 @@ class Profile extends Component {
                 <PageHeader>Perfil</PageHeader>
 
                 <Information>
-                    <UserImage src="" />
-                    <UserPanel name="Victor Deon" type="Professor">
+                    <UserImage src={user.photo} />
+                    <UserPanel name={user.short_name} type={user.is_teacher ? "Professor" : "Aluno"}>
                         <UserInfo icon="fa-key" label="Matrícula">13/0136484</UserInfo>
-                        <UserInfo icon="fa-envelope" label="Email">victorhad@gmail.com</UserInfo>
+                        <UserInfo icon="fa-envelope" label="Email">{user.email}</UserInfo>
                     </UserPanel>
                 </Information>
 
                 <Status>
-                    <LastLogin>28 de Setembro de 2019 às 20:50</LastLogin>
-                    <UpdatedAt>Atualizado há 2 semanas e 4 dias atrás</UpdatedAt>
+                    <LastLogin>{user.last_login}</LastLogin>
+                    <UpdatedAt>{user.updated_at}</UpdatedAt>
                 </Status>
                 {/* Discipline Collapse */}
             </Main>
@@ -34,4 +37,10 @@ class Profile extends Component {
     }
 }
 
-export default Profile;
+const mapStateToProps = state => {
+    const { user } = state.account;
+
+    return { user }
+}
+
+export default connect(mapStateToProps)(Profile);

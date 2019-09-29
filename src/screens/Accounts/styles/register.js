@@ -51,15 +51,6 @@ export const FormGroup = ({ children, icon }) => (
     </Group>
 )
 
-export const SelectGroup = ({ children, label }) => (
-    <Group>
-        <div className="form-group">
-            <label htmlFor="selectID" className="white">{label}</label>
-            {children}
-        </div>
-    </Group>
-)
-
 const RegisterButton = styled.button`
     margin-top: 10px;
 `;

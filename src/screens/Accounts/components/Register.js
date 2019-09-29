@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { reduxForm, Field } from 'redux-form';
-import { SimpleInputField } from 'common/fields';
+import { SimpleInputField, SelectField } from 'common/fields';
 import { Navbar } from 'common';
-import { Container, Form, FormGroup, SubmitButton, SelectGroup, Line } from '../styles/register';
+import { Container, Form, FormGroup, SubmitButton, Line } from '../styles/register';
 import { registerSagas } from '../actions';
 import { validate } from '../validate';
 
@@ -17,17 +17,23 @@ class Register extends Component {
     render() {
         const { handleSubmit, submitting, invalid } = this.props;
 
+        const options = [
+            {title: "Professor", value: true},
+            {title: "Aluno", value: false}
+        ]
+
       	return (
             <main>
                 <Navbar />
                 <Container>
                     <Form onSubmit={handleSubmit((data) => this.__submit(data))}>
-                        <SelectGroup label="Selecione o tipo de usuário">
-                            <Field id="selectID" name="is_teacher" component="select" className="input-login form-control">
-                                <option value={true}>Professor</option>
-                                <option value={false}>Aluno</option>
-                            </Field>
-                        </SelectGroup>
+                        <Field
+                            component={SelectField}
+                            label="Selecione o tipo de usuário"
+                            name="is_teacher"
+                            className="input-login"
+                            options={options}
+                        />
 
                         <FormGroup icon="fa-user">
                             <Field
