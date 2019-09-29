@@ -1,7 +1,10 @@
-import { LOGIN, LOGIN_SAGAS, LOGOUT, USER_FETCH, FETCH_USER_SAGAS } from './types';
+import {
+    LOGIN, LOGIN_SAGAS, LOGOUT, USER_FETCH,
+    FETCH_USER_SAGAS, REGISTER, REGISTER_SAGAS
+} from './types';
 
 export function loginSagas(data) {
-    return {type: LOGIN_SAGAS, payload: data}
+    return {type: LOGIN_SAGAS, payload: data};
 }
 
 export function loginAction(data) {
@@ -9,13 +12,17 @@ export function loginAction(data) {
 }
 
 export function logoutAction() {
-    return {type: LOGOUT}
+    return {type: LOGOUT};
 }
 
 export function fetchUserSagas() {
-    return {type: FETCH_USER_SAGAS}
+    return {type: FETCH_USER_SAGAS};
 }
 
 export function fetchUserAction(data) {
-    return {type: USER_FETCH, payload: data}
+    return {type: USER_FETCH, payload: data};
+}
+
+export function registerSagas(data) {
+    return {type: REGISTER_SAGAS, payload: data};
 }

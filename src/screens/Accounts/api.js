@@ -6,6 +6,11 @@ export function loginAPI(data) {
 }
 
 export function getUserAPI() {
-    const endpoint = `/users/current_user/`;
+    const endpoint = "/users/current_user/";
     return axios.get(endpoint);
+}
+
+export function createUserAPI(data) {
+    const endpoint = "/users/";
+    return axios.post(endpoint, data);
 }

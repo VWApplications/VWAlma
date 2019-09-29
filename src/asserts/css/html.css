@@ -4,6 +4,11 @@ body {
     overflow-x: hidden;
 }
 
+.row {
+  margin-right: 0;
+  margin-left: 0;
+}
+
 .white {
     color: white;
 }

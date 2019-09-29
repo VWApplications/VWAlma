@@ -1,8 +1,8 @@
 import { all, put, call, takeLatest } from 'redux-saga/effects';
 import { push } from 'connected-react-router';
-import { LOGIN_SAGAS, FETCH_USER_SAGAS } from './types';
+import { LOGIN_SAGAS, FETCH_USER_SAGAS, REGISTER_SAGAS } from './types';
 import { fetchUserAction, loginAction, fetchUserSagas } from './actions';
-import { loginAPI, getUserAPI } from './api';
+import { loginAPI, getUserAPI, createUserAPI } from './api';
 import { errorAlert, successAlert } from 'common/alerts';
 
 function* login(action) {
@@ -41,6 +41,7 @@ function* watchLogin() {
     yield takeLatest(LOGIN_SAGAS, login);
 }
 
+/* ############### FETCH USER ################## */
 function* fetchUser() {
     try {
         const userResponse = yield call(getUserAPI);
@@ -54,11 +55,32 @@ function* fetchUser() {
 
 function* watchUser() {
     yield takeLatest(FETCH_USER_SAGAS, fetchUser);
-} 
+}
+
+/* ############### CREATE USER ################## */
+function* createUser(action) {
+    const { payload } = action;
+
+    try {
+        yield call(createUserAPI, payload);
+
+        successAlert("Usuário criado", "Usuário criado com sucesso.");
+
+        yield put(push('/login'));
+    } catch(error) {
+        console.error(error);
+        errorAlert("Ops...", error);
+    }
+}
+
+function* watchCreateUser() {
+    yield takeLatest(REGISTER_SAGAS, createUser);
+}
 
 export default function* rootSaga() {
     yield all([
       watchLogin(),
-      watchUser()
+      watchUser(),
+      watchCreateUser()
     ]);
 }

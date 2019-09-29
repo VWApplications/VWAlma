@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { reduxForm, Field } from 'redux-form';
 import { SimpleInputField } from 'common/fields';
+import Navbar from 'common/components/Navbar';
 import { loginSagas } from '../actions';
 import { Container, Form, FormGroup, SubmitButton, ForgetPassword } from '../styles/login';
 import { validate } from '../validate';
@@ -22,6 +23,7 @@ class Login extends Component {
 
       	return (
             <Container>
+                <Navbar />
                 <Form onSubmit={handleSubmit((data) => this.__submit(data))}>
                     <FormGroup icon="fa-user">
                         <Field

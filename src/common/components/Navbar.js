@@ -21,7 +21,8 @@ class Navbar extends Component {
     }
 
     __redirectToCreate() {
-        console.log("Registro")
+        const { dispatch } = this.props;
+        dispatch(push("/register"));
     }
 
     __redirectToLogin() {

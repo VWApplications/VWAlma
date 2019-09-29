@@ -6,3 +6,4 @@ export const LOGIN = "LOGIN";
 // Sagas
 export const FETCH_USER_SAGAS = "FETCH_USER_SAGAS";
 export const LOGIN_SAGAS = "LOGIN_SAGAS";
+export const REGISTER_SAGAS = "REGISTER_SAGAS";
