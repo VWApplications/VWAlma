@@ -32,7 +32,8 @@ export const validate = values => {
     }
 
     if (values.photo) {
-        errors.photo = validatePhoto(values.photo);
+        if (typeof values.photo !== "string")
+            errors.photo = validatePhoto(values.photo);
     }
 
     return errors;

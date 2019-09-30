@@ -1,8 +1,8 @@
-import { all, put, call, takeLatest, take } from 'redux-saga/effects';
+import { all, put, call, takeLatest, take, select } from 'redux-saga/effects';
 import { push } from 'connected-react-router';
-import { LOGIN_SAGAS, FETCH_USER_SAGAS, REGISTER_SAGAS } from './types';
+import { LOGIN_SAGAS, FETCH_USER_SAGAS, REGISTER_SAGAS, UPDATE_USER_SAGAS } from './types';
 import { fetchUserAction, loginAction, fetchUserSagas } from './actions';
-import { loginAPI, getUserAPI, createUserAPI } from './api';
+import { loginAPI, getUserAPI, createUserAPI, updateUserAPI, updateUserPhotoAPI, removeUserPhotoAPI } from './api';
 import { validateError } from 'common/utils';
 import { successAlert } from 'common/alerts';
 
@@ -76,10 +76,47 @@ function* watchCreateUser() {
     yield takeLatest(REGISTER_SAGAS, createUser);
 }
 
+/* ############### UPDATE USER ################## */
+function* updateUser(action) {
+    const { payload } = action;
+
+    const infoPayload = {
+        "email": payload.email,
+        "name": payload.name
+    }
+
+    try {
+        const user = yield select(state => state.account.user);
+
+        yield call(updateUserAPI, infoPayload, user.id);
+
+        if (payload.photo) {
+            if (typeof payload.photo !== "string")
+                yield call(updateUserPhotoAPI, payload.photo.name, payload.photo);
+            else if (payload.clean)
+                yield call(removeUserPhotoAPI);
+        }
+
+        successAlert("Usuário atualizado", "Usuário atualizado com sucesso.");
+
+        yield put(fetchUserSagas());
+        yield take(["USER_FETCH"]);
+
+        yield put(push('/profile'));
+    } catch(error) {
+        validateError(error);
+    }
+}
+
+function* watchUpdateUser() {
+    yield takeLatest(UPDATE_USER_SAGAS, updateUser);
+}
+
 export default function* rootSaga() {
     yield all([
       watchLogin(),
       watchUser(),
-      watchCreateUser()
+      watchCreateUser(),
+      watchUpdateUser()
     ]);
 }

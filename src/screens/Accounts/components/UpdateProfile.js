@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { reduxForm, Field } from 'redux-form';
-import { InputField, FileField } from 'common/fields';
+import { InputField, FileField, CheckboxField } from 'common/fields';
+import { updateUserSagas } from '../actions';
 import { validate } from '../validate';
 import {
     Main, PageHeader, Container, Form, Fieldset,
@@ -11,11 +12,12 @@ import {
 class UpdateProfile extends Component {
 
     __submit(data) {
-        console.log(data);
+        const { dispatch } = this.props;
+        dispatch(updateUserSagas(data));
     }
 
     render() {
-        const { handleSubmit, submitting, invalid } = this.props;
+        const { handleSubmit, submitting, invalid, user } = this.props;
 
         const navigator = [
             {title: "Home", url: "/"},
@@ -27,13 +29,20 @@ class UpdateProfile extends Component {
             <Main navigation={navigator} menu="profile">
                 <PageHeader>Atualizar Informações Pessoais</PageHeader>
                 <Container>
-                    <Form onSubmit={handleSubmit((data) => this.__submit(data))} className="form-horizontal">
+                    <Form onSubmit={handleSubmit((data) => this.__submit(data))}>
                         <Field
                             component={FileField}
                             type="file"
                             name="photo"
                             className="form-control"
                         />
+                        {user.photo ?
+                            <Field
+                                component={CheckboxField}
+                                name="clean"
+                                label="Remover foto"
+                            />
+                        : "" }
 
                         <Fieldset title="Informações Pessoais">
                             <Field
@@ -76,6 +85,7 @@ const mapStateToProps = state => {
         return {initialValues: {}}
 
     return {
+        user,
         initialValues: {
             photo: user.photo,
             name: user.name,

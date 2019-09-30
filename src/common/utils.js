@@ -1,4 +1,5 @@
 import { errorAlert } from './alerts';
+import axios from 'config/axios';
 import introJs from 'intro.js/intro.js';
 
 export function isEmpty(obj) {
@@ -58,4 +59,12 @@ export function startHelp() {
         {'skipLabel': 'X'},
         {'doneLabel': 'OK'}
     ).start()
+}
+
+export function configFile(name, file, attr) {
+    let formatedName = name.replace(" ", "_");
+    const formData = new FormData();
+    formData.append(attr, file);
+    const headers = axios.defaults.headers.put['Content-Type'] = 'multipart/form-data';
+    return { formatedName, headers, formData };
 }

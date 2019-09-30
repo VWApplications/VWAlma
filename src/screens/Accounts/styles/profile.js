@@ -7,14 +7,18 @@ export const Information = ({ children }) => (
 )
 
 const ImageSize = styled.img`
-    max-height: 250px;
+    height: 225px;
     width: 250px;
     object-fit: cover;
 `;
 
 export const UserImage = ({ src }) => (
     <div className="col-sm-3">
-        <ImageSize src={user} className="img-rounded img-responsive cente-block" alt="User" />
+        {src ?
+            <ImageSize src={src} className="img-rounded img-responsive cente-block" alt="User" />
+        :        
+            <ImageSize src={user} className="img-rounded img-responsive cente-block" alt="User" />
+        }
     </div>
 )
 

@@ -4,6 +4,14 @@ import user from 'asserts/img/user.png';
 
 class FileField extends Component {
 
+    componentDidMount() {
+        const { input } = this.props;
+
+        if (typeof input.value === "string") {
+            this.__handlePreview(input.value);
+        }
+    }
+
     static defaultProps = {
         previewLogoUrl: user,
         mimeType: "image/jpeg, image/png"
@@ -44,7 +52,7 @@ class FileField extends Component {
                     type={type}
                     name={input.name}
                     accept={mimeType}
-                    className={(meta.touched && meta.error) ? input.className + " input-error" : input.className}
+                    className={input.className}
                     onChange={event => this.__handleChange(event, input)}
                 />
 

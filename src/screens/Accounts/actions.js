@@ -1,6 +1,7 @@
 import {
     LOGIN, LOGIN_SAGAS, LOGOUT, USER_FETCH,
-    FETCH_USER_SAGAS, REGISTER_SAGAS
+    FETCH_USER_SAGAS, REGISTER_SAGAS,
+    UPDATE_USER_SAGAS
 } from './types';
 
 export function loginSagas(data) {
@@ -25,4 +26,8 @@ export function fetchUserAction(data) {
 
 export function registerSagas(data) {
     return {type: REGISTER_SAGAS, payload: data};
+}
+
+export function updateUserSagas(data) {
+    return {type: UPDATE_USER_SAGAS, payload: data};
 }
