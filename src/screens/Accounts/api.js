@@ -26,6 +26,11 @@ export function updatePasswordAPI(data) {
     return axios.put(endpoint, data);
 }
 
+export function deleteUserAPI(userID) {
+    const endpoint = `/users/${userID}/`;
+    return axios.delete(endpoint);
+}
+
 export function updateUserPhotoAPI(name, file) {
     const { formatedName, formData, headers } = configFile(name, file, "photo");
     const endpoint = `/users/change_photo/${formatedName}/`;

@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { push } from 'connected-react-router';
 import { Container, SidebarLink } from '../styles/sidebar';
+import { deleteUserSagas } from 'screens/Accounts/actions';
+import { choiceAlert } from 'common/alerts';
 
 class Sidebar extends Component {
 
@@ -10,8 +12,17 @@ class Sidebar extends Component {
         dispatch(push(url));
     }
 
-    __deleteAccount() {
-        console.log("Abre o modal para deletar a conta.")
+    async __deleteAccount() {
+        const { dispatch } = this.props;
+        if (await choiceAlert(
+            "Deletando conta",
+            "Tem certeza que deseja deletar sua conta?",
+            "Sim", "Não",
+            "Conta deletada com sucesso!",
+            "", "Operação Cancelada", ""
+        )) {
+            dispatch(deleteUserSagas());
+        }
     }
 
     __profileMenu() {

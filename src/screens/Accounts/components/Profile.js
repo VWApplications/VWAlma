@@ -21,7 +21,7 @@ class Profile extends Component {
                 <Information>
                     <UserImage src={user.photo} />
                     <UserPanel name={user.short_name} type={user.is_teacher ? "Professor" : "Aluno"} updateAt={user.updated_at_formated}>
-                        <UserInfo icon="fa-key" label="Matrícula">{user.identifier}</UserInfo>
+                        {user.identifier ? <UserInfo icon="fa-key" label="Matrícula">{user.identifier}</UserInfo> : null}
                         <UserInfo icon="fa-envelope" label="Email">{user.email}</UserInfo>
                     </UserPanel>
                 </Information>

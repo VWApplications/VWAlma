@@ -47,8 +47,14 @@ export function validateError(error) {
     if (msg) {
         errorAlert("Ops...", msg);
     } else {
-        console.warn(error.response.data);
-        errorAlert("Ops...", "Por favor, preencha os campos corretamente.");
+        try {
+            const msg = error.response.data.non_field_errors[0];
+            errorAlert("Ops...", msg);
+        } catch(e) {
+            console.warn(error.response.data);
+            errorAlert("Ops...", "Por favor, preencha os campos corretamente.");
+        }
+        
     }
 }
 
