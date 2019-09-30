@@ -62,6 +62,15 @@ class UpdateProfile extends Component {
                                 name="email"
                                 placeholder="Email de autenticação"
                             />
+
+                            <Field
+                                component={InputField}
+                                type="text"
+                                label="Matrícula"
+                                className="form-control"
+                                name="identifier"
+                                placeholder="Matrícula de identificação"
+                            />
                         </Fieldset>
 
                         <SubmitButton disabled={submitting || invalid}>Enviar</SubmitButton>
@@ -89,7 +98,8 @@ const mapStateToProps = state => {
         initialValues: {
             photo: user.photo,
             name: user.name,
-            email: user.email
+            email: user.email,
+            identifier: user.identifier
         }
     }
 }

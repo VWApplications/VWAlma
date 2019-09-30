@@ -5,7 +5,7 @@ const Textarea = styled.textarea`
 `;
 
 const Img = styled.img`
-    height: 300px !important;
+    height: 225px !important;
 `;
 
 const Icon = styled.span`

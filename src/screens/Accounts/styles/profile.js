@@ -27,10 +27,11 @@ const Name = styled.h2`
     margin-top: 10px;
 `;
 
-export const UserPanel = ({ children, type, name }) => (
+export const UserPanel = ({ children, type, name, updateAt }) => (
     <div className="col-sm-9">
         <div className="row">
             <span className="label label-primary pull-left">{type}</span>
+            <span className="lighten-blue-grey pull-right">{updateAt}</span>
         </div>
 
         <Name>{name}</Name>
@@ -54,22 +55,4 @@ export const UserInfo = ({ icon, label, children }) => (
         </Info>
         <Info>{children}</Info>
     </tr>
-)
-
-export const Status = ({ children }) => (
-    <div className="row">
-        <div className="col-sm-12">
-            {children}
-        </div>
-    </div>
-)
-
-export const LastLogin = ({ children }) => (
-    <p className="lighten-blue-grey pull-left">
-        <i className="fa fa-history"></i> <b>Último login</b>: {children}
-    </p>
-)
-
-export const UpdatedAt = ({ children }) => (
-    <p className="lighten-blue-grey pull-right">{children}</p>
 )

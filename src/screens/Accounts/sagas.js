@@ -82,7 +82,8 @@ function* updateUser(action) {
 
     const infoPayload = {
         "email": payload.email,
-        "name": payload.name
+        "name": payload.name,
+        "identifier": payload.identifier
     }
 
     try {
