@@ -23,7 +23,7 @@ class Sidebar extends Component {
                 <SidebarLink icon="fa-edit" title="Atualizar Perfil" onClick={() => this.__redirectTo("/profile/update")}>
                     Página para editar suas informações pessoais.
                 </SidebarLink>
-                <SidebarLink icon="fa-expeditedssl" title="Atualizar Senha" onClick={() => this.__redirectTo("/profile")}>
+                <SidebarLink icon="fa-expeditedssl" title="Atualizar Senha" onClick={() => this.__redirectTo("/profile/update-password")}>
                     Página para editar sua senha.
                 </SidebarLink>
                 <SidebarLink icon="fa-search" title="Pesquisar Disciplinas" onClick={() => this.__redirectTo("/profile")}>

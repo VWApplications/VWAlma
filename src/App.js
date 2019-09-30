@@ -1,7 +1,10 @@
 import React, { Component } from 'react';
 import { Route, Switch } from 'react-router';
 import { Home, NewsList, NewsDetail } from 'screens/Home';
-import { Login, Register, Profile, UpdateProfile } from 'screens/Accounts';
+import {
+	Login, Register, Profile, UpdateProfile,
+	UpdatePassword
+} from 'screens/Accounts';
 import "asserts/css/html.css";
 
 class App extends Component {
@@ -15,6 +18,7 @@ class App extends Component {
 				<Route exact path="/register" component={Register} />
 				<Route exact path="/profile" component={Profile} />
 				<Route exact path="/profile/update" component={UpdateProfile} />
+				<Route exact path="/profile/update-password" component={UpdatePassword} />
 			</Switch>
 		)
   	}

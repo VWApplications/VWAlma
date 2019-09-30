@@ -23,7 +23,11 @@ export const validate = values => {
         errors.confirm_password = "Confirmação de senha deve ser passado."
     }
 
-    if (values.password !== values.confirm_password) {
+    if (!values.new_password) {
+        errors.new_password = "A nova senha deve ser passada."
+    }
+
+    if (values.confirm_password && values.new_password !== values.confirm_password) {
         errors.confirm_password = "As senhas não combinam."
     }
 

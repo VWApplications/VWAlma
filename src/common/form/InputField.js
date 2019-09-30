@@ -16,11 +16,11 @@ export const InputField = field => {
 
 	return (
 		<div className={"form-group " + formGroupClass + " has-feedback"}>
-			<label className="col-sm-2 control-label" htmlFor="inputID">
+			<label className="col-sm-2 control-label" htmlFor={field.id}>
 				{field.label}:
 			</label>
 			<div className="col-sm-10">
-				<input {...field.input} {...field} className={field.className} id="inputID" />
+				<input {...field.input} {...field} className={field.className} id={field.id} />
 				<span className={"form-control-feedback " + iconClass}></span>
 				<p className="text-danger">
 					{field.meta.touched && (field.meta.error && <span>{field.meta.error}</span>)}

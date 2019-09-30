@@ -21,6 +21,11 @@ export function updateUserAPI(data, userID) {
     return axios.patch(endpoint, data);
 }
 
+export function updatePasswordAPI(data) {
+    const endpoint = "/users/change_password/";
+    return axios.put(endpoint, data);
+}
+
 export function updateUserPhotoAPI(name, file) {
     const { formatedName, formData, headers } = configFile(name, file, "photo");
     const endpoint = `/users/change_photo/${formatedName}/`;

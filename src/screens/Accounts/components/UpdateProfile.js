@@ -47,6 +47,7 @@ class UpdateProfile extends Component {
                         <Fieldset title="Informações Pessoais">
                             <Field
                                 component={InputField}
+                                id="name"
                                 type="text"
                                 label="Nome"
                                 className="form-control"
@@ -56,6 +57,7 @@ class UpdateProfile extends Component {
 
                             <Field
                                 component={InputField}
+                                id="email"
                                 type="email"
                                 label="Email"
                                 className="form-control"
@@ -65,6 +67,7 @@ class UpdateProfile extends Component {
 
                             <Field
                                 component={InputField}
+                                id="identifier"
                                 type="text"
                                 label="Matrícula"
                                 className="form-control"
