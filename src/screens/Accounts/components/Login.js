@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { reduxForm, Field } from 'redux-form';
-import { SimpleInputField } from 'common/fields';
+import { SimpleInputField, CheckboxField } from 'common/fields';
 import { Navbar } from 'common';
 import { loginSagas } from '../actions';
 import { Container, Form, FormGroup, SubmitButton, ForgetPassword } from '../styles/login';
@@ -47,6 +47,13 @@ class Login extends Component {
                             />
                         </FormGroup>
 
+                        <Field
+                            component={CheckboxField}
+                            name="rememberMe"
+                            login={true}
+                            label="Lembrar"
+                        />
+
                         <SubmitButton disabled={submitting || invalid}>Entrar</SubmitButton>
                         <ForgetPassword onClick={() => this.__forgetPassword()}>Esqueceu a senha?</ForgetPassword>
                     </Form>
@@ -62,4 +69,15 @@ const form = reduxForm({
     enableReinitialize: true
 })(Login);
 
-export default connect()(form);
+const mapStateToProps = () => {
+    const remembered = JSON.parse(localStorage.getItem("remembered"));
+
+	return {
+		initialValues: {
+			email: remembered ? remembered.email : "",
+			rememberMe: remembered ? true : false
+		}
+	}
+}
+
+export default connect(mapStateToProps)(form);

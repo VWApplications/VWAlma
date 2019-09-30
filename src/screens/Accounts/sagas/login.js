@@ -22,7 +22,7 @@ function* login(action) {
 
         const state = {
             "token": token ? token : tokenResponse.data.access,
-            "remember": payload.rememberMe ? {"email": data.email, "password": data.password} : null
+            "remember": payload.rememberMe ? {"email": data.email} : null
         }
 
         yield put(loginAction(state));
