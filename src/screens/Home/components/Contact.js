@@ -7,6 +7,11 @@ import { ParallaxStyled } from '../styles/parallax';
 import { PageHeader, ContactSubmitButton, InputGroup, FormGroup } from '../styles/contact';
 
 class Contact extends Component {
+
+    __submit(data) {
+        console.log(data);
+	}
+
     render() {
         const { handleSubmit, submitting, invalid } = this.props;
 
@@ -15,7 +20,7 @@ class Contact extends Component {
                 <div className="row">
                     <PageHeader>Contato</PageHeader>
           
-                    <form className="container" onSubmit={handleSubmit} autoComplete="off" noValidate>
+                    <form className="container" onSubmit={handleSubmit((data) => this.__submit(data))} autoComplete="off" noValidate>
                         <div className="row">
                             <InputGroup icon="fa-user-circle" title="nome">
                                 <Field

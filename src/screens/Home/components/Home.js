@@ -9,19 +9,17 @@ import Footer from './Footer';
 
 class Home extends Component {
 
-	__submit(data) {
-        console.log(data);
-	}
-
     render() {
       	return (
 			<div>
-				<header><Navbar home={true} /></header>
+				<header>
+					<Navbar home={true} />
+				</header>
 				<main>
 					<Parallax />
 					<Features />
 					<News />
-					<Contact onSubmit={data => this.__submit(data)} />
+					<Contact />
 				</main>
 				<Footer />
 			</div>
