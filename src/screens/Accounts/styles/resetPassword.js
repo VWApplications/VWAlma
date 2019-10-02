@@ -37,6 +37,8 @@ const Group = styled.div`
 const Icon = styled.span`
     background-color: rgba(0,0,0,0.3);
     border: 1px solid rgba(0,0,0,0.3);
+    max-width: 35px;
+    min-width: 35px;
 `;
 
 export const FormGroup = ({ children, icon }) => (
