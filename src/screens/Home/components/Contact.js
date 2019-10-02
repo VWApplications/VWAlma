@@ -5,7 +5,10 @@ import { TextField, SimpleInputField } from 'common/fields';
 import { validate } from '../validate';
 import { contactAction } from '../actions';
 import { ParallaxStyled } from '../styles/parallax';
-import { PageHeader, ContactSubmitButton, InputGroup, FormGroup } from '../styles/contact';
+import {
+    PageHeader, ContactSubmitButton, InputGroup, FormGroup,
+    Container, Form, Formset
+} from '../styles/contact';
 
 class Contact extends Component {
 
@@ -19,11 +22,11 @@ class Contact extends Component {
 
       	return (
             <ParallaxStyled id="contact">
-                <div className="row">
+                <Container>
                     <PageHeader>Contato</PageHeader>
           
-                    <form className="container" onSubmit={handleSubmit((data) => this.__submit(data))} autoComplete="off" noValidate>
-                        <div className="row">
+                    <Form onSubmit={handleSubmit((data) => this.__submit(data))}>
+                        <Formset>
                             <InputGroup icon="fa-user-circle" title="nome">
                                 <Field
                                     component={SimpleInputField}
@@ -43,9 +46,7 @@ class Contact extends Component {
                                     placeholder="Email para contato."
                                 />
                             </InputGroup>
-                        </div>
-                
-                        <br />
+                        </Formset>
                 
                         <FormGroup>
                             <Field
@@ -58,8 +59,8 @@ class Contact extends Component {
                         </FormGroup>
 
                         <ContactSubmitButton not_submit={submitting || invalid} />
-                    </form>
-                </div>
+                    </Form>
+                </Container>
             </ParallaxStyled>          
 		)
   	}

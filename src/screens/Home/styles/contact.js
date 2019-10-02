@@ -1,6 +1,10 @@
 import React from 'react';
 import styled from 'styled-components';
 
+export const Container = ({ children }) => (
+    <div className="row">{children}</div>
+)
+
 const ContactHeader = styled.h1`
     text-align: center;
     margin-bottom: 30px;
@@ -14,22 +18,17 @@ export const PageHeader = ({ children }) => (
     </div>
 )
 
-const ButtonSubmitStyled = styled.button`
-    margin-left: 10px;
-    width: 150px;
-`;
-
-export const ContactSubmitButton = ({ not_submit }) => (
-    <div className="row">
-        <div className="col-sm-12">
-            <ButtonSubmitStyled type="submit" className="btn btn-primary" disabled={not_submit}>
-                <i className="fa fa-send"></i> Enviar
-            </ButtonSubmitStyled>
-        </div>
-    </div>
+export const Form = ({ children, onSubmit }) => (
+    <form className="container" onSubmit={onSubmit} autoComplete="off" noValidate>
+        {children}
+    </form>
 )
 
-export const ContactIconSize = styled.i`
+export const Formset = ({ children }) => (
+    <div className="row">{children}</div>
+)
+
+const ContactIconSize = styled.i`
     font-size: 20px
 `;
 
@@ -58,6 +57,21 @@ export const FormGroup = ({ children }) => (
     <div className="row">
         <div className="col-sm-12">
             <FormGroupStyled className="form-group">{children}</FormGroupStyled>
+        </div>
+    </div>
+)
+
+const ButtonSubmitStyled = styled.button`
+    margin-left: 10px;
+    width: 150px;
+`;
+
+export const ContactSubmitButton = ({ not_submit }) => (
+    <div className="row">
+        <div className="col-sm-12">
+            <ButtonSubmitStyled type="submit" className="btn btn-primary" disabled={not_submit}>
+                <i className="fa fa-send"></i> Enviar
+            </ButtonSubmitStyled>
         </div>
     </div>
 )

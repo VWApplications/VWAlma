@@ -7,6 +7,10 @@ export const validate = values => {
         errors.name = "Nome é obrigatório"
     }
 
+    if (!values.key) {
+        errors.key = "Chave de recuperação é obrigatória."
+    }
+
     if (!values.email) {
         errors.email = "Email de autenticação é obrigatório.";
     }
