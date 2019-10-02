@@ -1,6 +1,10 @@
 import React from 'react';
 import styled from 'styled-components';
 
+export const Container = ({ children }) => (
+    <div className="container">{children}</div>
+)
+
 export const PageHeader = ({ children }) => (
     <div className="page-header" id="features">
         <h1 id="timeline" className="white">

@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
-import { Timeline, TimelineItem, PageHeader } from '../styles/features';
+import { Timeline, TimelineItem, PageHeader, Container } from '../styles/features';
 
 class Features extends Component {
     render() {
         return (
-            <div className="container">
+            <Container>
                 <PageHeader>Funcionalidades</PageHeader>
 
                 <Timeline>
@@ -32,7 +32,7 @@ class Features extends Component {
                         entre outros locais do software.
                     </TimelineItem>
                 </Timeline>
-            </div>
+            </Container>
         )
     }
 }
