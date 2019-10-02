@@ -1,4 +1,4 @@
-import { LIST_NEWS, GET_NEWS, LIST_NEWS_SAGAS, GET_NEWS_SAGAS } from './types';
+import { LIST_NEWS, GET_NEWS, LIST_NEWS_SAGAS, GET_NEWS_SAGAS, CONTACT_SAGAS } from './types';
 
 export function listNewsSagas(activePage, queryString=null) {
     return {
@@ -20,4 +20,8 @@ export function getNewsSagas(newsID) {
 
 export function getNewsAction(newsID) {
     return {type: GET_NEWS, payload: newsID};
+}
+
+export function contactAction(data) {
+    return {type: CONTACT_SAGAS, payload: data};
 }

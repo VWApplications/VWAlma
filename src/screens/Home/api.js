@@ -12,3 +12,8 @@ export function getNewsAPI(newsID) {
     const endpoint = `/news/${newsID}/`;
     return axios.get(endpoint);
 }
+
+export function contactAPI(data) {
+    const endpoint = "/contact/";
+    return axios.post(endpoint, data);
+}

@@ -3,13 +3,15 @@ import { connect } from 'react-redux';
 import { reduxForm, Field } from 'redux-form';
 import { TextField, SimpleInputField } from 'common/fields';
 import { validate } from '../validate';
+import { contactAction } from '../actions';
 import { ParallaxStyled } from '../styles/parallax';
 import { PageHeader, ContactSubmitButton, InputGroup, FormGroup } from '../styles/contact';
 
 class Contact extends Component {
 
     __submit(data) {
-        console.log(data);
+        const { dispatch } = this.props;
+        dispatch(contactAction(data));
 	}
 
     render() {

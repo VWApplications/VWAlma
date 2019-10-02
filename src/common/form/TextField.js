@@ -3,7 +3,7 @@ import { Textarea } from '../styles/fields';
 
 export const TextField = field => (
 	<div className="form-group">
-		<label forhtml="comment">{field.label}:</label>
+		<label forhtml="comment">{field.label}{field.label ? ":" : ""}</label>
 		<Textarea {...field.input} {...field} className={"form-control " + field.className} id="comment" />
 		{field.meta.error ?
 			<p className="text-danger">
