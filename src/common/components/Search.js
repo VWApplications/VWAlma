@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { Form, SubmitButton } from '../styles/search';
 import { reduxForm, Field } from 'redux-form';
 
 class Search extends Component {
@@ -7,23 +8,17 @@ class Search extends Component {
         const { handleSubmit } = this.props;
 
         return (
-            <form onSubmit={handleSubmit} acceptCharset="utf-8">
-                <div className="input-group">
-                    <Field
-                        component={"input"}
-                        type="text"
-                        name="search"
-                        className="form-control"
-                        placeholder="Pesquisa"
-                    />
+            <Form onSubmit={handleSubmit}>
+                <Field
+                    component={"input"}
+                    type="text"
+                    name="search"
+                    className="form-control"
+                    placeholder="Pesquisa"
+                />
 
-                    <div className="input-group-btn">
-                        <button className="btn btn-primary btn-border" type="submit">
-                            <i className="fa fa-search"></i>
-                        </button>
-                    </div>
-                </div>
-            </form>
+                <SubmitButton />
+            </Form>
         )
     }
 }

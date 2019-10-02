@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import Pagination from 'react-js-pagination';
+import { Container } from '../styles/pagination';
 import { connect } from 'react-redux';
 
 class CustomPagination extends Component {
@@ -14,7 +15,7 @@ class CustomPagination extends Component {
 		const { pagination } = this.props;
 
 		return (
-			<div className="text-center">
+			<Container>
 				<Pagination
 					itemsCountPerPage={pagination.itemsCountPerPage}
 					totalItemsCount={pagination.totalItemsCount}
@@ -30,7 +31,7 @@ class CustomPagination extends Component {
 					activeLinkClass="text-white"
 					onChange={(page) => this.__handlePagination(page)}
 				/>
-			</div>
+			</Container>
 		);
 	}
 }
