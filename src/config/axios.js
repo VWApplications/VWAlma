@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { push } from 'connected-react-router';
-import Swal from 'sweetalert2';
+import { errorAlert } from 'common/alerts';
 import { logoutAction } from 'screens/Accounts/actions';
 import store from './store';
 
@@ -31,19 +31,11 @@ axios.interceptors.response.use(function(response) {
 }, function(error) {
     if (error.response) {
         if (error.response.status === 401) {
-            const state = store.getState();
-            const { authenticated } = state.account;
-
-            if (authenticated) {
-                Swal.fire({
-                    type: 'error',
-                    title: 'Ops...',
-                    text: 'Sua sessão expirou.'
-                }).then(() => {
-                    store.dispatch(logoutAction());
-                    store.dispatch(push('/'));
-                    window.location.reload();
-                });
+            if (error.response.data.code === "token_not_valid") {
+                errorAlert("Ops...", "Sua sessão expirou.")
+                store.dispatch(logoutAction());
+                store.dispatch(push('/'));
+                window.location.reload();
             }
         }
 

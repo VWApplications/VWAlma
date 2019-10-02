@@ -24,6 +24,7 @@ function accountsReducer(state=initialState, action) {
 
 		case LOGOUT:
 			localStorage.removeItem("alma-token");
+			localStorage.removeItem("user")
 
 			return {
 				...state,
