@@ -1,22 +1,20 @@
 import React, { Component } from 'react';
-import { Copyright, FooterStyled } from '../styles/footer';
+import { Copyright, FooterStyled, Container, Icon, Link } from '../styles/footer';
 
 class Footer extends Component {
     render() {
         return (
             <FooterStyled>
-                <div className="row">
-                    <div className="col-sm-9">
+                <Container>
                         <Copyright>
-                            <i className="fa fa-copyright"></i> Todos os direitos reservados.
+                            <Icon src="fa-copyright" /> Todos os direitos reservados.
                         </Copyright>
 
                         <Copyright>
                             Software desenvolvido e mantido pelo engenheiro 
-                            <a className="no-decoration" href="https://www.linkedin.com/in/victorarnaud" target="_blank" rel="noopener noreferrer"> Victor Deon.</a>
+                            <Link href="https://victordeon.github.io/portfolio/"> Victor Deon.</Link>
                         </Copyright>
-                    </div>
-                </div>
+                </Container>
             </FooterStyled>
         )
     }
