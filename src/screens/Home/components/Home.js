@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { Container, Header, Main } from '../styles/home';
 import Navbar from 'common/components/Navbar';
 import Parallax from './Parallax';
 import Features from './Features';
@@ -11,18 +12,18 @@ class Home extends Component {
 
     render() {
       	return (
-			<div>
-				<header>
+			<Container>
+				<Header>
 					<Navbar home={true} />
-				</header>
-				<main>
+				</Header>
+				<Main>
 					<Parallax />
 					<Features />
 					<News />
 					<Contact />
-				</main>
+				</Main>
 				<Footer />
-			</div>
+			</Container>
 		)
   	}
 }

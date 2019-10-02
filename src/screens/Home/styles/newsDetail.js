@@ -1,6 +1,14 @@
 import React from 'react';
 import styled from 'styled-components';
 
+export const Container = ({ children }) => (
+    <div>{children}</div>
+)
+
+export const Main = ({ children }) => (
+    <main><div className="container">{children}</div></main>
+)
+
 const TitleLink = styled.a`
     color: #efe1e1;
 
@@ -27,6 +35,12 @@ export const NewsTitle = ({ content }) => (
     </div>
 )
 
+export const NewsPanel = ({ children }) => (
+    <div className="panel panel-default">
+        <div className="panel-body">{children}</div>
+    </div>
+)
+
 export const NewsImage = ({ content }) => (
     <div>
         {content.image ?
@@ -49,6 +63,10 @@ export const NewsTags = ({ children }) => (
         <i className="fa fa-tags"></i> tags:
         {children}
     </p>
+)
+
+export const Tag = ({ children, id }) => (
+    <span key={id}>{children}</span>
 )
 
 export const NewsButton = ({ onClick }) => (

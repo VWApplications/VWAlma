@@ -4,7 +4,7 @@ import { reduxForm, Field } from 'redux-form';
 import { TextField, SimpleInputField } from 'common/fields';
 import { validate } from '../validate';
 import { contactAction } from '../actions';
-import { ParallaxStyled } from '../styles/parallax';
+import { ParallaxContainer } from '../styles/parallax';
 import {
     PageHeader, ContactSubmitButton, InputGroup, FormGroup,
     Container, Form, Formset
@@ -21,7 +21,7 @@ class Contact extends Component {
         const { handleSubmit, submitting, invalid } = this.props;
 
       	return (
-            <ParallaxStyled id="contact">
+            <ParallaxContainer id="contact">
                 <Container>
                     <PageHeader>Contato</PageHeader>
           
@@ -61,7 +61,7 @@ class Contact extends Component {
                         <ContactSubmitButton not_submit={submitting || invalid} />
                     </Form>
                 </Container>
-            </ParallaxStyled>          
+            </ParallaxContainer>          
 		)
   	}
 }

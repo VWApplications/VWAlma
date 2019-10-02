@@ -5,9 +5,13 @@ import { push } from 'connected-react-router';
 import { makeURL, moveToTop, getQueryString } from 'common/utils';
 import Navbar from 'common/components/Navbar';
 import CustomPagination from 'common/components/Pagination';
-import { PageHeader, NewsTitle, NewsBody, NewsTags, NewsPanel, TagButton } from '../styles/newsList';
 import { listNewsSagas } from '../actions';
 import SearchForm from 'common/components/Search';
+import {
+    PageHeader, NewsTitle, NewsBody, NewsTags, NewsPanel, TagButton,
+    Container, Main, News, Tag
+} from '../styles/newsList';
+
 
 class NewsList extends Component {
 
@@ -56,51 +60,47 @@ class NewsList extends Component {
         const { news_list, pagination } = this.props;
 
         return (
-            <div>
+            <Container>
                 <Navbar />
 
-                <main>
-                    <div className="container">
-                        <PageHeader tag={this.state.tag} onClick={() => this.__cleanTagFilter()} />
+                <Main>
+                    <PageHeader tag={this.state.tag} onClick={() => this.__cleanTagFilter()} />
 
-                        <SearchForm onSubmit={(data) => this.__search(data)} />
+                    <SearchForm onSubmit={(data) => this.__search(data)} />
 
-                        <NewsPanel className="panel panel-default">
-                            <div className="panel-body">
-                                {news_list.length === 0 ? "Não há notícias disponível." : ""}
-                                {news_list.map((currentNews, index) => (
-                                    <div key={currentNews.id}>
-                                        <NewsTitle created_at={currentNews.created_at}>
-                                            {currentNews.title}
-                                        </NewsTitle>
+                    <NewsPanel>
+                        {news_list.length === 0 ? "Não há notícias disponível." : ""}
+                        {news_list.map((currentNews, index) => (
+                            <News key={currentNews.id}>
+                                <NewsTitle created_at={currentNews.created_at}>
+                                    {currentNews.title}
+                                </NewsTitle>
 
-                                        <NewsBody onClick={() => this.__redirectToDetail(currentNews)}>
-                                            {currentNews.description}
-                                        </NewsBody>
+                                <NewsBody onClick={() => this.__redirectToDetail(currentNews)}>
+                                    {currentNews.description}
+                                </NewsBody>
 
-                                        <NewsTags>
-                                            {currentNews.tags.length === 0 ? " Não há tags" : ""}
-                                            {currentNews.tags.map((tag, index) => (
-                                                <span key={tag.id}>
-                                                    <TagButton onClick={() => this.__getTag(tag)} className="no-decoration btn-link">
-                                                        {tag.title}{currentNews.tags.length !== index + 1 ? "," : ""}
-                                                    </TagButton>
-                                                </span>
-                                            ))}
-                                        </NewsTags>
+                                <NewsTags>
+                                    {currentNews.tags.length === 0 ? " Não há tags" : ""}
+                                    {currentNews.tags.map((tag, index) => (
+                                        <Tag key={tag.id}>
+                                            <TagButton onClick={() => this.__getTag(tag)} className="no-decoration btn-link">
+                                                {tag.title}{currentNews.tags.length !== index + 1 ? "," : ""}
+                                            </TagButton>
+                                        </Tag>
+                                    ))}
+                                </NewsTags>
 
-                                        {news_list.length !== index + 1 ? <hr /> : ""}
-                                    </div>
-                                ))}
-                            </div>
-                        </NewsPanel>
-                        <CustomPagination
-                            pagination={pagination}
-                            listObjectAction={listNewsSagas}
-                        />
-                    </div>
-                </main>
-            </div>
+                                {news_list.length !== index + 1 ? <hr /> : ""}
+                            </News>
+                        ))}
+                    </NewsPanel>
+                    <CustomPagination
+                        pagination={pagination}
+                        listObjectAction={listNewsSagas}
+                    />
+                </Main>
+            </Container>
         )
     }
 }

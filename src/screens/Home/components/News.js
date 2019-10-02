@@ -4,7 +4,8 @@ import { push } from 'connected-react-router';
 import { makeURL } from 'common/utils';
 import {
     PageHeader, PanelBody, NewsImage, NewsTags,
-    NewsTitle, NewsContent, NewsTag, PanelNews
+    NewsTitle, NewsContent, NewsTag, PanelNews,
+    Container, AlertInfo, NewsRow
 } from '../styles/news';
 import { listNewsSagas } from '../actions';
 
@@ -29,15 +30,15 @@ class News extends Component {
         const { news_list } = this.props;
 
         return (
-            <div className="container">
+            <Container>
                 <PageHeader>Notícias</PageHeader>
 
                 <PanelNews functionRedirect={() => this.__redirectToNewsList()}>
-                    {news_list.length === 0 ? <div className="alert alert-info">Não há notícias disponível</div> : ""}
+                    {news_list.length === 0 ? <AlertInfo>Não há notícias disponível.</AlertInfo> : ""}
                     {news_list.slice(-2).map(lastNews => (
                         <PanelBody key={lastNews.id} onClick={() => this.__redirectToNewsDetail(lastNews)}>
                             <NewsImage img={lastNews.img} alt={lastNews.title} />
-                            <div className="row">
+                            <NewsRow>
                                 <NewsTags>
                                     {lastNews.tags.length === 0 ? <NewsTag>Não há tags</NewsTag> : ""}
                                     {lastNews.tags.map(tag => (
@@ -46,13 +47,13 @@ class News extends Component {
                                 </NewsTags>
 
                                 <NewsTitle created_at={lastNews.created_at}>{lastNews.title}</NewsTitle>
-                            </div>
+                            </NewsRow>
 
                             <NewsContent>{lastNews.description}</NewsContent>
                         </PanelBody>
                     ))}
                 </PanelNews>
-            </div>
+            </Container>
         )
     }
 }

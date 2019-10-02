@@ -1,7 +1,8 @@
+import React from 'react';
 import styled from 'styled-components';
 import parallax from '../../../asserts/img/parallax.jpg';
 
-export const ParallaxStyled = styled.div`
+export const ParallaxContainer = styled.div`
     background-image: url(${parallax});
     height: 570px;
     background-attachment: fixed;
@@ -9,6 +10,10 @@ export const ParallaxStyled = styled.div`
     background-repeat: no-repeat;
     background-size: cover;
 `;
+
+export const ParallaxStyled = ({ children }) => (
+    <div className="row"><div className="col-sm-12">{children}</div></div>
+)
 
 export const ParallaxHeader = styled.h1`
     text-align: center;
@@ -19,3 +24,5 @@ export const ParallaxHeader = styled.h1`
     top: 200px;
     font-size: 45px;
 `;
+
+export const BreakLine = () => (<br />)

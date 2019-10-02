@@ -1,6 +1,14 @@
 import React from 'react';
 import styled from 'styled-components';
 
+export const Container = ({ children }) => (
+    <div>{children}</div>
+)
+
+export const Main = ({ children }) => (
+    <main><div className="container">{children}</div></main>
+)
+
 export const PageHeader = ({ tag, onClick }) => (
     <div className="page-header">
         <h1 className="lighten-blue-grey">Notícias</h1>
@@ -12,6 +20,21 @@ export const PageHeader = ({ tag, onClick }) => (
             </div>
         : ""}
     </div>
+)
+
+export const NewsPanelStyled = styled.div`
+    margin-bottom: 0;
+    margin-top: 10px;
+`;
+
+export const NewsPanel = ({ children }) => (
+    <NewsPanelStyled className="panel panel-default">
+        <div className="panel-body">{children}</div>
+    </NewsPanelStyled>
+)
+
+export const News = ({ children, id }) => (
+    <div key={id}>{children}</div>
 )
 
 export const NewsTitle = ({ children, created_at }) => (
@@ -34,10 +57,9 @@ export const NewsTags = ({ children }) => (
     </p>
 )
 
-export const NewsPanel = styled.div`
-    margin-bottom: 0;
-    margin-top: 10px;
-`;
+export const Tag = ({ children, id }) => (
+    <span key={id}>{children}</span>
+)
 
 export const TagButton = styled.button`
     padding: 0;
