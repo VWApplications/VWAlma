@@ -6,8 +6,8 @@ import { logoutAction } from 'screens/Accounts/actions';
 import { successAlert } from 'common/alerts';
 import { startHelp } from '../utils';
 import {
-    NavbarBrand, CollapseButton, NavbarStyled, NavbarUL,
-    NavbarLink, Space
+    NavbarBrand, CollapseButton, NavbarStyled, NavbarLinkList,
+    NavbarLink, Space, Container, NavbarHeader
 } from '../styles/navbar';
 
 class Navbar extends Component {
@@ -28,48 +28,44 @@ class Navbar extends Component {
         const { home } = this.props;
 
       	return (
-              <div>
-                <NavbarStyled className="navbar navbar-inverse navbar-fixed-top">
-                    <div className="container-fluid">
-                        <div className="navbar-header">
-                            <CollapseButton></CollapseButton>
-                            <NavbarBrand functionRedirect={() => this.__redirectTo("/")}>
-                                ALMA Plataform
-                            </NavbarBrand>
-                        </div>
+              <Container>
+                <NavbarStyled>
+                    <NavbarHeader>
+                        <CollapseButton />
+                        <NavbarBrand functionRedirect={() => this.__redirectTo("/")}>
+                            ALMA Plataform
+                        </NavbarBrand>
+                    </NavbarHeader>
 
-                        <div className="collapse navbar-collapse" id="collapse-navbar">
-                            <NavbarUL className="nav navbar-nav navbar-right">
-                                {home ?
-                                    <NavbarLink icon="fa-puzzle-piece" link="#features" url={false}>Funcionalidades</NavbarLink>
-                                : ""}
-                                {home ?
-                                    <NavbarLink icon="fa-newspaper-o" link="#news" url={false}>Notícias</NavbarLink>
-                                : ""}
-                                {home ?
-                                    <NavbarLink icon="fa-envelope-o" link="#contact" url={false}>Contato</NavbarLink>
-                                : ""}
-                                {home && isAuthenticated() ?
-                                    <NavbarLink icon="fa-user" link={() => this.__redirectTo("/profile")}>Perfil</NavbarLink>
-                                : ""}
-                                {!isAuthenticated() ?
-                                    <NavbarLink icon="fa-user-plus" link={() => this.__redirectTo("register")}>Cadastrar</NavbarLink>
-                                : ""}
-                                {!isAuthenticated() ?
-                                    <NavbarLink icon="fa-sign-in" link={() => this.__redirectTo("/login")}>Entrar</NavbarLink>
-                                : ""}
-                                {!home && isAuthenticated() ?
-                                    <NavbarLink icon="fa-question-circle-o" link={() => startHelp()}>Ajuda</NavbarLink>
-                                : ""}
-                                {isAuthenticated() ?
-                                    <NavbarLink icon="fa-sign-out" link={() => this.__logout()}>Sair</NavbarLink>
-                                : ""}
-                            </NavbarUL>
-                        </div>
-                    </div>
+                    <NavbarLinkList>
+                        {home ?
+                            <NavbarLink icon="fa-puzzle-piece" link="#features" url={false}>Funcionalidades</NavbarLink>
+                        : ""}
+                        {home ?
+                            <NavbarLink icon="fa-newspaper-o" link="#news" url={false}>Notícias</NavbarLink>
+                        : ""}
+                        {home ?
+                            <NavbarLink icon="fa-envelope-o" link="#contact" url={false}>Contato</NavbarLink>
+                        : ""}
+                        {home && isAuthenticated() ?
+                            <NavbarLink icon="fa-user" link={() => this.__redirectTo("/profile")}>Perfil</NavbarLink>
+                        : ""}
+                        {!isAuthenticated() ?
+                            <NavbarLink icon="fa-user-plus" link={() => this.__redirectTo("register")}>Cadastrar</NavbarLink>
+                        : ""}
+                        {!isAuthenticated() ?
+                            <NavbarLink icon="fa-sign-in" link={() => this.__redirectTo("/login")}>Entrar</NavbarLink>
+                        : ""}
+                        {!home && isAuthenticated() ?
+                            <NavbarLink icon="fa-question-circle-o" link={() => startHelp()}>Ajuda</NavbarLink>
+                        : ""}
+                        {isAuthenticated() ?
+                            <NavbarLink icon="fa-sign-out" link={() => this.__logout()}>Sair</NavbarLink>
+                        : ""}
+                    </NavbarLinkList>
                 </NavbarStyled>
                 <Space />
-            </div>
+            </Container>
 		)
   	}
 }

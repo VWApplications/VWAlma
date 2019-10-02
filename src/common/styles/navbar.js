@@ -2,9 +2,24 @@ import React from 'react';
 import styled from 'styled-components';
 import logo from 'asserts/img/logo.png';
 
-export const Space = styled.div`
-    margin-top: 51px;
+export const Container = ({ children }) => (
+    <div>{children}</div>
+)
+
+const NavStyled = styled.nav`
+    margin-bottom: 0px;
+    background-color: #263238;
 `;
+
+export const NavbarStyled = ({ children }) => (
+    <NavStyled className="navbar navbar-inverse navbar-fixed-top">
+        <div className="container-fluid">{children}</div>
+    </NavStyled>
+)
+
+export const NavbarHeader = ({ children }) => (
+    <div className="navbar-header">{children}</div>
+)
 
 const NavbarToogle = styled.button`
     :focus {
@@ -26,45 +41,12 @@ export const CollapseButton = () => (
     </NavbarToogle>
 )
 
-export const NavbarStyled = styled.nav`
-    margin-bottom: 0px;
-    background-color: #263238;
-`;
-
 const NavbarLinkStyled = styled.a`
     color: #cfd8dc !important;
 
     :hover {
         color: white !important;
     }
-`;
-
-export const NavbarLink = ({ children, icon, link, url = true }) => (
-    <li>
-        {!url ?
-            <NavbarLinkStyled href={link} className="navbar-link">
-                <i className={"fa " + icon}></i> {children}
-            </NavbarLinkStyled>
-            :
-            <NavbarLinkStyled onClick={link} className="navbar-link on-click-link">
-                <i className={"fa " + icon}></i> {children}
-            </NavbarLinkStyled>
-        }
-    </li>
-)
-
-export const NavbarUL = styled.ul`
-    :active > a {
-        background-color: #1f272b;
-
-        :hover {
-            background-color: #1f272b;
-        }
-    }
-`;
-
-const ImgNavbar = styled.img`
-    max-width: 40px;
 `;
 
 const NavbarMedia = styled.div`
@@ -75,6 +57,10 @@ const NavbarMedia = styled.div`
     @media screen and (max-width: 480px) {
         width: 245px;
     }
+`;
+
+const ImgNavbar = styled.img`
+    max-width: 40px;
 `;
 
 const NavbarMediaBody = styled.div`
@@ -91,3 +77,37 @@ export const NavbarBrand = ({ children, functionRedirect }) => (
         </NavbarMedia>
     </NavbarLinkStyled>
 )
+
+export const NavbarLink = ({ children, icon, link, url = true }) => (
+    <li>
+        {!url ?
+            <NavbarLinkStyled href={link} className="navbar-link">
+                <i className={"fa " + icon}></i> {children}
+            </NavbarLinkStyled>
+            :
+            <NavbarLinkStyled onClick={link} className="navbar-link on-click-link">
+                <i className={"fa " + icon}></i> {children}
+            </NavbarLinkStyled>
+        }
+    </li>
+)
+
+const NavbarUL = styled.ul`
+    :active > a {
+        background-color: #1f272b;
+
+        :hover {
+            background-color: #1f272b;
+        }
+    }
+`;
+
+export const NavbarLinkList = ({ children }) => (
+    <div className="collapse navbar-collapse" id="collapse-navbar">
+        <NavbarUL className="nav navbar-nav navbar-right">{children}</NavbarUL>
+    </div>
+)
+
+export const Space = styled.div`
+    margin-top: 51px;
+`;
