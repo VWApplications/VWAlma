@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { reduxForm, Field } from 'redux-form';
 import { SimpleInputField, SelectField } from 'common/fields';
 import { Navbar } from 'common';
-import { Container, Form, FormGroup, SubmitButton, Line } from '../styles/register';
+import { Container, Form, FormGroup, SubmitButton, Line, Main } from '../styles/register';
 import { registerSagas } from '../actions';
 import { validate } from '../validate';
 
@@ -23,7 +23,7 @@ class Register extends Component {
         ]
 
       	return (
-            <main>
+            <Main>
                 <Navbar />
                 <Container>
                     <Form onSubmit={handleSubmit((data) => this.__submit(data))}>
@@ -80,7 +80,7 @@ class Register extends Component {
                         <SubmitButton disabled={submitting || invalid}>Enviar</SubmitButton>
                     </Form>
                 </Container>
-            </main>
+            </Main>
 		)
   	}
 }

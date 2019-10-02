@@ -4,7 +4,7 @@ import { reduxForm, Field } from 'redux-form';
 import { SimpleInputField } from 'common/fields';
 import { Navbar } from 'common';
 import { resetPasswordSagas } from '../actions';
-import { Container, Form, FormGroup, SubmitButton } from '../styles/resetPassword';
+import { Container, Form, FormGroup, SubmitButton, Main } from '../styles/resetPassword';
 import { validate } from '../validate';
 
 class ResetPassword extends Component {
@@ -18,7 +18,7 @@ class ResetPassword extends Component {
         const { handleSubmit, submitting, invalid } = this.props;
 
       	return (
-            <main>
+            <Main>
                 <Navbar />
                 <Container title="Resetar senha">
                     <Form onSubmit={handleSubmit((data) => this.__submit(data))}>
@@ -36,7 +36,7 @@ class ResetPassword extends Component {
                         <SubmitButton disabled={submitting || invalid}>Enviar</SubmitButton>
                     </Form>
                 </Container>
-            </main>
+            </Main>
 		)
   	}
 }

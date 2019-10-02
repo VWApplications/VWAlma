@@ -1,6 +1,10 @@
 import React from 'react';
 import styled from 'styled-components';
 
+export const Main = ({ children }) => (
+    <main>{children}</main>
+)
+
 const ContainerStyled = styled.div`
     position: absolute;
     top: 50%;
