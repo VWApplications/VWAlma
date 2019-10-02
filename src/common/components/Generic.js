@@ -1,5 +1,28 @@
 import React from 'react';
 import styled from 'styled-components';
+import Navbar from './Navbar';
+import Breadcrumb from './Breadcrumb';
+import Sidebar from './Sidebar';
+
+const Main = ({ children, navigation, menu }) => (
+    <main>
+        <Navbar />
+        <Breadcrumb navigation={navigation} />
+
+        <div className="row">
+            <BreakLine />
+            <div className="col-sm-2" style={{"paddingLeft": 0}}>
+                <Sidebar menu={menu} />
+            </div>
+
+            <div className="col-sm-10">
+                <div className="container-fluid">
+                    {children}
+                </div>
+            </div>
+        </div>
+    </main>
+)
 
 const PageHeader = ({ children }) => (
     <div className="page-header profile">
@@ -56,5 +79,6 @@ const Line = () => (<hr />)
 
 export {
     PageHeader, Container, Form, Fieldset,
-    BreakLine, Line, SubmitButton, Button
+    BreakLine, Line, SubmitButton, Button,
+    Main
 };

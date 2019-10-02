@@ -25,13 +25,17 @@ export const Container = ({ children }) => (
     </ContainerFixed>
 )
 
-export const BreadcrumbStyled = styled.ul`
+const Breadcrumb = styled.ul`
     padding: 0;
     margin-bottom: unset;
     list-style: none;
     background-color: transparent;
     border-radius: unset;
 `;
+
+export const BreadcrumbStyled = ({ children }) => (
+    <Breadcrumb className="breadcrumb pull-left">{children}</Breadcrumb>
+)
 
 const ButtonLink = styled.button`
     color: #B3B3B3;
