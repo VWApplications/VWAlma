@@ -41,3 +41,13 @@ export function removeUserPhotoAPI() {
     const endpoint = `/users/change_photo/photo.png/`;
     return axios.delete(endpoint);
 }
+
+export function resetPasswordAPI(email) {
+    const endpoint = "/users/reset_password/";
+    return axios.post(endpoint, email);
+}
+
+export function createNewPasswordAPI(data) {
+    const endpoint = "/users/create_new_password/";
+    return axios.put(endpoint, data);
+}

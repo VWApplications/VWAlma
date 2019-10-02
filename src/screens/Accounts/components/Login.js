@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { push } from 'connected-react-router';
 import { reduxForm, Field } from 'redux-form';
 import { SimpleInputField, CheckboxField } from 'common/fields';
 import { Navbar } from 'common';
@@ -10,7 +11,8 @@ import { validate } from '../validate';
 class Login extends Component {
 
     __forgetPassword() {
-        console.log("Esqueceu sua senha?")
+        const { dispatch } = this.props;
+        dispatch(push("/reset-password"));
     }
 
     __submit(data) {

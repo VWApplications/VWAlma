@@ -5,6 +5,8 @@ import createUser from './sagas/createUser';
 import updateUser from './sagas/updateUser';
 import updatePassword from './sagas/updatePassword';
 import deleteUser from './sagas/deleteUser';
+import resetPassword from './sagas/resetPassword';
+import createNewPassword from './sagas/createNewPassword';
 
 export default function* rootSaga() {
     yield all([
@@ -13,6 +15,8 @@ export default function* rootSaga() {
         createUser(),
         updateUser(),
         updatePassword(),
-        deleteUser()
+        deleteUser(),
+        resetPassword(),
+        createNewPassword()
     ]);
 }
