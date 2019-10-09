@@ -2,6 +2,12 @@ import React from 'react';
 import styled from 'styled-components';
 import user from 'asserts/img/user.png';
 
+export const Container = ({ children }) => (
+    <div className="panel panel-default">
+        <div className="panel-body">{children}</div>
+    </div>
+)
+
 export const Information = ({ children }) => (
     <div className="row">{children}</div>
 )
@@ -9,7 +15,6 @@ export const Information = ({ children }) => (
 const ImageSize = styled.img`
     height: 225px;
     width: 250px;
-    object-fit: cover;
 `;
 
 export const UserImage = ({ src }) => (
@@ -23,7 +28,6 @@ export const UserImage = ({ src }) => (
 )
 
 const Name = styled.h2`
-    color: white;
     margin-top: 10px;
 `;
 
@@ -31,11 +35,11 @@ export const UserPanel = ({ children, type, name, updateAt }) => (
     <div className="col-sm-9">
         <div className="row">
             <span className="label label-primary pull-left">{type}</span>
-            <span className="lighten-blue-grey pull-right">{updateAt}</span>
+            <span className="pull-right">{updateAt}</span>
         </div>
 
         <Name>{name}</Name>
-        <table className="lighten-blue-grey">
+        <table>
             <tbody>
                 {children}
             </tbody>
