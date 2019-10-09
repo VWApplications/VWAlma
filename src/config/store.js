@@ -9,6 +9,7 @@ import sagas from './sagas';
 // REDUCERS
 import homeReducer from 'screens/Home/reducers';
 import accountReducer from 'screens/Accounts/reducers';
+import disciplineReducer from 'screens/Disciplines/reducers';
 
 export const history = createBrowserHistory()
 
@@ -16,7 +17,8 @@ const reducers = combineReducers({
     router: connectRouter(history),
     form: formReducer,
     home: homeReducer,
-    account: accountReducer
+    account: accountReducer,
+    discipline: disciplineReducer
 });
 
 const sagaMiddleware = createSagaMiddleware();

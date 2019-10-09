@@ -1,14 +1,16 @@
 import React, { Component } from 'react';
 import Pagination from 'react-js-pagination';
+import { stringify } from 'query-string';
 import { Container } from '../styles/pagination';
 import { connect } from 'react-redux';
 
 class CustomPagination extends Component {
 
 	__handlePagination(page) {
-		const { dispatch, listObjectAction } = this.props;
-		const queryString = "page=" + page;
-		dispatch(listObjectAction(page, queryString))
+		const { dispatch, listObjectAction, filter=null } = this.props;
+		let queryString = stringify({page});
+		if (filter)	queryString = stringify({page, filter});
+		dispatch(listObjectAction(page, queryString));
 	}
 
 	render() {

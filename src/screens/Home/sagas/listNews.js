@@ -20,10 +20,10 @@ function* listNews(action) {
     }
 }
 
-function* watchListNews() {
+function* watch() {
     yield takeLatest(LIST_NEWS_SAGAS, listNews);
 }
 
 export default function* rootSaga() {
-    yield all([watchListNews()]);
+    yield all([watch()]);
 }

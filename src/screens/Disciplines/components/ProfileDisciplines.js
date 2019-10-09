@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { stringify } from 'query-string';
 import { BreakLine } from 'common';
+import { listDisciplinesSagas } from '../actions';
+import CustomPagination from 'common/components/Pagination';
 import {
     Main, TabList, Tab, Accordion, Panel, PanelHeader,
     PanelBody, CollapseBody, CollapseFooter, FooterInfo,
@@ -9,15 +12,26 @@ import {
 
 class ProfileDisciplines extends Component {
 
-    componentDidMount() {
-        console.log("entrei");
+    constructor(props) {
+        super(props);
+        this.state = {page: "1", filter: "all"}
     }
 
-    __filterDisciplines(id) {
-        console.log(id);
+    componentDidMount() {
+        const { dispatch } = this.props;
+        dispatch(listDisciplinesSagas(1, stringify(this.state)));
+    }
+
+    __filterDisciplines(filter) {
+        const { dispatch, pagination } = this.props;
+        this.setState({page: pagination.activePage, filter});
+        const queryString = stringify({page: pagination.activePage, filter});
+        dispatch(listDisciplinesSagas(pagination.activePage, queryString));
     }
 
     render() {
+        const { disciplines, pagination, user } = this.props;
+
         return (
             <Main>
                 <TabList>
@@ -25,47 +39,62 @@ class ProfileDisciplines extends Component {
                         Mostra todas as disciplinas das quais você faz parte.
                     </Tab>
 
-                    <Tab link="#student" title="Disciplinas como estudante" onClick={() => this.__filterDisciplines("student")}>
-                        Mostra as disciplinas das quais você faz parte.
-                    </Tab>
-
                     <Tab link="#monitor" title="Disciplinas como monitor" onClick={() => this.__filterDisciplines("monitor")}>
                         Mostra as disciplinas que você é monitor.
                     </Tab>
 
-                    <Tab link="#teacher" title="Disciplinas criadas" onClick={() => this.__filterDisciplines("teacher")}>
-                        Mostra as disciplinas que você criou.
-                    </Tab>
-                </TabList><BreakLine />
+                    {user.is_teacher ?
+                        <Tab link="#teacher" title="Disciplinas criadas" onClick={() => this.__filterDisciplines("created")}>
+                            Mostra as disciplinas que você criou.
+                        </Tab>
+                    :
+                        <Tab link="#student" title="Disciplinas como estudante" onClick={() => this.__filterDisciplines("student")}>
+                            Mostra as disciplinas das quais você faz parte.
+                        </Tab>
+                    }
+                </TabList>
+                <BreakLine />
 
                 <Accordion>
-                    {/* Percorrer as disciplinas */}
-                    <Panel>
-                        <PanelHeader id="1" classroom="Turma A">
-                            Teste de Software
-                        </PanelHeader>
+                    {disciplines.map((discipline, index) => (
+                        <Panel key={index}>
+                            <PanelHeader id={index} classroom={discipline.classroom}>
+                                {discipline.title}
+                            </PanelHeader>
 
-                        <PanelBody id="1">
-                            <CollapseBody qtdStudents="30" totalStudents="60">
-                                Descrição muito doida da disciplina.
-                            </CollapseBody>
+                            <PanelBody id={index}>
+                                <CollapseBody qtdStudents={discipline.students.length} totalStudents={discipline.students_limit}>
+                                    {discipline.description}
+                                </CollapseBody>
 
-                            <CollapseFooter>
-                                <FooterInfo teacher="Fulano de tal" course="Engenharia de Software" />
+                                <CollapseFooter>
+                                    <FooterInfo teacher={discipline.teacher.short_name} course={discipline.course} />
 
-                                <FooterButtonGroup>
-                                    <FooterButton icon="fa-eye" type="primary" title="Entrar" onClick={() => console.log("Entrar")} />
-                                    <FooterButton icon="fa-trophy" type="primary" title="Hall da fama" onClick={() => console.log("Hall da fama")} />
-                                    <FooterButton icon="fa-edit" type="primary" title="Editar" onClick={() => console.log("Editar")} />
-                                    <FooterButton icon="fa-trash" type="danger" title="Deletar" onClick={() => console.log("Deletar")} />
-                                </FooterButtonGroup>
-                            </CollapseFooter>
-                        </PanelBody>
-                    </Panel>
+                                    <FooterButtonGroup>
+                                        <FooterButton icon="fa-eye" type="primary" title="Entrar" onClick={() => console.log("Entrar")} />
+                                        <FooterButton icon="fa-trophy" type="primary" title="Hall da fama" onClick={() => console.log("Hall da fama")} />
+                                        <FooterButton icon="fa-edit" type="primary" title="Editar" onClick={() => console.log("Editar")} />
+                                        <FooterButton icon="fa-trash" type="danger" title="Deletar" onClick={() => console.log("Deletar")} />
+                                    </FooterButtonGroup>
+                                </CollapseFooter>
+                            </PanelBody>
+                        </Panel>
+                    ))}
                 </Accordion>
+                <CustomPagination
+                    pagination={pagination}
+                    listObjectAction={listDisciplinesSagas}
+                    filter={this.state.filter}
+                />
             </Main>
         )
     }
 }
 
-export default connect()(ProfileDisciplines);
+const mapStateToProps = state => {
+    const { list, pagination } = state.discipline;
+    const { user } = state.account;
+    return { disciplines: list, pagination, user };
+}
+
+export default connect(mapStateToProps)(ProfileDisciplines);
