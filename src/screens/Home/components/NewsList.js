@@ -2,7 +2,8 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import {reset} from 'redux-form';
 import { push } from 'connected-react-router';
-import { makeURL, moveToTop, getQueryString } from 'common/utils';
+import { stringify } from 'query-string';
+import { makeURL, moveToTop } from 'common/utils';
 import Navbar from 'common/components/Navbar';
 import CustomPagination from 'common/components/Pagination';
 import { listNewsSagas } from '../actions';
@@ -17,19 +18,22 @@ class NewsList extends Component {
 
     constructor(props) {
         super(props);
-        this.state = {queryString: "page=1", tag: ""}
+        this.state = {tag: "", search: ""};
     }
 
     componentDidMount() {
         const { dispatch } = this.props;
-        dispatch(listNewsSagas(1, this.state.queryString));
+        dispatch(listNewsSagas(1, stringify({page: "1"})));
     }
 
     __cleanTagFilter() {
         const { dispatch, pagination } = this.props;
-        this.setState({tag: ""});
-        const queryString = "page=" + pagination.activePage;
-        this.setState({queryString});
+        this.setState({tag: ""})
+
+        let queryString = stringify({page: pagination.activePage});
+        if (this.state.search)
+            queryString = stringify({page: pagination.activePage, search: this.state.search});
+
         dispatch(listNewsSagas(pagination.activePage, queryString));
     }
 
@@ -40,24 +44,41 @@ class NewsList extends Component {
     }
 
     __getTag(tag) {
-        const { dispatch } = this.props;
+        const { dispatch, pagination } = this.props;
         moveToTop();
         this.setState({tag: tag.title});
-        const queryString = getQueryString(this.state.queryString, tag.title, "tag");
-        this.setState({queryString});
-        dispatch(listNewsSagas(1, queryString));
+
+        let queryString = stringify({page: pagination.activePage, tag: tag.title})
+        if (this.state.search)
+            queryString = stringify({page: pagination.activePage, tag: tag.title, search: this.state.search});
+
+        dispatch(listNewsSagas(pagination.activePage, queryString));
     }
 
     __search(data) {
-        const { dispatch } = this.props;
-        const queryString = getQueryString(this.state.queryString, data.search, "search");
-        this.setState({queryString});
+        const { dispatch, pagination } = this.props;
+        if (data)
+            this.setState({search: data.search});
+        else
+            this.setState({search: ""});
+
+        let queryString = stringify({page: pagination.activePage, search: data.search})
+        if (this.state.tag)
+            queryString = stringify({page: pagination.activePage, tag: this.state.tag, search: data.search})
+
         dispatch(reset("SearchForm"));
-        dispatch(listNewsSagas(1, queryString));
+        dispatch(listNewsSagas(pagination.activePage, queryString));
     }
 
     render() {
         const { news_list, pagination } = this.props;
+
+        let filter = {}
+        if (this.state.search)
+            filter.search = this.state.search;
+
+        if (this.state.tag)
+            filter.tag = this.state.tag;
 
         return (
             <Container>
@@ -98,6 +119,7 @@ class NewsList extends Component {
                     <CustomPagination
                         pagination={pagination}
                         listObjectAction={listNewsSagas}
+                        filters={filter}
                     />
                 </Main>
             </Container>

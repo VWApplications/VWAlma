@@ -21,7 +21,7 @@ class ProfileDisciplines extends Component {
 
     componentDidMount() {
         const { dispatch } = this.props;
-        dispatch(listDisciplinesSagas(1, stringify(this.state)));
+        dispatch(listDisciplinesSagas(1, stringify({...this.state})));
     }
 
     __filterDisciplines(filter) {
@@ -99,7 +99,7 @@ class ProfileDisciplines extends Component {
                 <CustomPagination
                     pagination={pagination}
                     listObjectAction={listDisciplinesSagas}
-                    filter={this.state.filter}
+                    filters={{filter: this.state.filter}}
                 />
             </Main>
         )

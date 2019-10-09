@@ -7,9 +7,9 @@ import { connect } from 'react-redux';
 class CustomPagination extends Component {
 
 	__handlePagination(page) {
-		const { dispatch, listObjectAction, filter=null } = this.props;
+		const { dispatch, listObjectAction, filters=null } = this.props;
 		let queryString = stringify({page});
-		if (filter)	queryString = stringify({page, filter});
+		if (filters)	queryString = stringify({...filters, page});
 		dispatch(listObjectAction(page, queryString));
 	}
 
