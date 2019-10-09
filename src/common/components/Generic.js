@@ -74,11 +74,15 @@ const Button = ({ children, onClick, icon }) => (
     </button>
 )
 
+const Info = ({ children }) => (
+    <div className="alert alert-info">{children}</div>
+)
+
 const BreakLine = () => (<br />)
 const Line = () => (<hr />)
 
 export {
     PageHeader, Container, Form, Fieldset,
     BreakLine, Line, SubmitButton, Button,
-    Main
+    Main, Info
 };

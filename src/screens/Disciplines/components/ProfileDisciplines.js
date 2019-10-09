@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { stringify } from 'query-string';
-import { BreakLine } from 'common';
+import { push } from 'connected-react-router';
+import { BreakLine, Info } from 'common';
+import { choiceAlert } from 'common/alerts';
 import { listDisciplinesSagas } from '../actions';
 import CustomPagination from 'common/components/Pagination';
 import {
@@ -29,8 +31,20 @@ class ProfileDisciplines extends Component {
         dispatch(listDisciplinesSagas(pagination.activePage, queryString));
     }
 
+    async __deleteDiscipline(discipline) {
+        if (await choiceAlert(
+            "Deletar disciplina",
+            `Tem certeza que deseja deletar a disciplina: ${discipline.title}`,
+            "Sim", "Não",
+            "Disciplina deletada", "",
+            "Operação cancelada", ""
+        )) {
+            console.log("Deleteu a disciplina!");
+        }
+    }
+
     render() {
-        const { disciplines, pagination, user } = this.props;
+        const { disciplines, pagination, user, dispatch } = this.props;
 
         return (
             <Main>
@@ -56,6 +70,7 @@ class ProfileDisciplines extends Component {
                 <BreakLine />
 
                 <Accordion>
+                    {disciplines.length === 0 ? <Info>Não há disciplinas disponível.</Info> : null}
                     {disciplines.map((discipline, index) => (
                         <Panel key={index}>
                             <PanelHeader id={index} classroom={discipline.classroom}>
@@ -71,10 +86,10 @@ class ProfileDisciplines extends Component {
                                     <FooterInfo teacher={discipline.teacher.short_name} course={discipline.course} />
 
                                     <FooterButtonGroup>
-                                        <FooterButton icon="fa-eye" type="primary" title="Entrar" onClick={() => console.log("Entrar")} />
-                                        <FooterButton icon="fa-trophy" type="primary" title="Hall da fama" onClick={() => console.log("Hall da fama")} />
-                                        <FooterButton icon="fa-edit" type="primary" title="Editar" onClick={() => console.log("Editar")} />
-                                        <FooterButton icon="fa-trash" type="danger" title="Deletar" onClick={() => console.log("Deletar")} />
+                                        <FooterButton icon="fa-eye" type="primary" title="Entrar" onClick={() => dispatch(push("/profile"))} />
+                                        <FooterButton icon="fa-trophy" type="primary" title="Hall da fama" onClick={() => dispatch(push("/profile"))} />
+                                        <FooterButton icon="fa-edit" type="primary" title="Editar" onClick={() => dispatch(push("/profile", discipline))} />
+                                        <FooterButton icon="fa-trash" type="danger" title="Deletar" onClick={() => this.__deleteDiscipline(discipline)} />
                                     </FooterButtonGroup>
                                 </CollapseFooter>
                             </PanelBody>
