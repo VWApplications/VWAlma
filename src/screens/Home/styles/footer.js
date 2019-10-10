@@ -3,7 +3,7 @@ import styled from 'styled-components';
 
 export const FooterStyled = styled.footer`
     padding-top: 10px;
-    background-color: #263238;
+    background-color: #292C33;
 `;
 
 export const Container = ({ children }) => (

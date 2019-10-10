@@ -8,13 +8,13 @@ const BtnGroup = styled.div`
         width: 100%;
         height: 100px;
         background-color: transparent;
-        border: 1px solid #343841;
+        border: 1px solid #292C33;
         color: #B3B3B3;
         border-radius: 0;
 
         :hover, :focus {
             color: white;
-            border: 1px solid #343841;
+            border: 1px solid #292C33;
             border-left: 5px solid blue;
         }
     }
@@ -27,6 +27,10 @@ export const Container = ({ children }) => (
 
 const LinkStyled = styled.button`
     padding-bottom: 25px;
+    :first-child:not(:last-child) {
+        border-top-right-radius: 0 !important;
+        border-top-left-radius: 0 !important;
+    }
 `;
 
 const Icon = styled.i`

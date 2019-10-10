@@ -10,7 +10,14 @@ const MainContainer = styled.div`
 `;
 
 const PanelBody = styled.div`
-    padding-top: 0;
+    paddind-top: 0;
+`;
+
+const SidePanel = styled.div`
+    position: relative;
+    top: 8px;
+    padding-left: 0;
+    padding-right: 0;
 `;
 
 const Main = ({ children, navigation, menu }) => (
@@ -20,9 +27,9 @@ const Main = ({ children, navigation, menu }) => (
 
         <div className="row">
             <BreakLine />
-            <div className="col-sm-2" style={{"paddingLeft": 0, "paddingRight": 0}}>
+            <SidePanel className="col-sm-2">
                 <Sidebar menu={menu} />
-            </div>
+            </SidePanel>
 
             <MainContainer className="col-sm-10">
                 <div className="panel panel-default panel-content">

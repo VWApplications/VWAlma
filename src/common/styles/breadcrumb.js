@@ -3,11 +3,11 @@ import styled from 'styled-components';
 
 const Navigation = styled.div`
     background-color: #343841;
+    border-bottom: 1px solid #292C33;
 
     > p {
         padding-top: 4px;
         padding-left: 15px;
-        padding-right: 15px;
         color: #B3B3B3;
         margin 0;
     }
@@ -16,7 +16,8 @@ const Navigation = styled.div`
 const ContainerFixed = styled.div`
     position: fixed;
     width: 100%;
-    z-index: 999;
+    margin-top: -1px;
+    z-index: 99999;
 `;
 
 export const Container = ({ children }) => (
