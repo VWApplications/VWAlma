@@ -39,84 +39,82 @@ class DisciplineForm extends Component {
       	return (
             <Main navigation={navigator} menu="profile">
                 <PageHeader>{title}</PageHeader>
-                <Container>
-                    <Form onSubmit={handleSubmit((data) => this.__submit(data))}>
+                <Form onSubmit={handleSubmit((data) => this.__submit(data))}>
+                    <Field
+                        component={InputField}
+                        type="text"
+                        label="Título"
+                        className="form-control"
+                        name="title"
+                        placeholder="Título da disciplina."
+                    />
+
+                    <Field
+                        component={InputField}
+                        type="text"
+                        label="Curso"
+                        className="form-control"
+                        name="course"
+                        placeholder="Curso na qual a disciplina pertence."
+                    />
+
+                    <Field
+                        component={InputField}
+                        type="text"
+                        label="Instituição"
+                        className="form-control"
+                        name="institution"
+                        placeholder="Instituição de ensino na qual a disciplina pertence."
+                    />
+
+                    <Field 
+                        component={TextField}
+                        label="Descrição"
+                        name="description"
+                        placeholder="Ementa da disciplina."
+                        rows="10"
+                    />
+
+                    <Fieldset title="Turma">
                         <Field
                             component={InputField}
                             type="text"
-                            label="Título"
+                            label="Turma"
                             className="form-control"
-                            name="title"
-                            placeholder="Título da disciplina."
+                            name="classroom"
+                            placeholder="Turma da disciplina."
                         />
 
                         <Field
                             component={InputField}
-                            type="text"
-                            label="Curso"
+                            type="password"
+                            label="Senha"
                             className="form-control"
-                            name="course"
-                            placeholder="Curso na qual a disciplina pertence."
+                            name="password"
+                            placeholder="Senha da turma."
                         />
 
                         <Field
                             component={InputField}
-                            type="text"
-                            label="Instituição"
+                            type="number"
+                            label="Limite de estudantes"
                             className="form-control"
-                            name="institution"
-                            placeholder="Instituição de ensino na qual a disciplina pertence."
+                            name="students_limit"
+                            placeholder="Limite de estudantes para entrar na turma."
                         />
 
-                        <Field 
-                            component={TextField}
-                            label="Descrição"
-                            name="description"
-                            placeholder="Ementa da disciplina."
-                            rows="10"
+                        <Field
+                            component={InputField}
+                            type="number"
+                            label="Limite de monitores"
+                            className="form-control"
+                            name="monitors_limit"
+                            placeholder="Limite de monitores para entrar na turma."
                         />
+                    </Fieldset>
 
-                        <Fieldset title="Turma">
-                            <Field
-                                component={InputField}
-                                type="text"
-                                label="Turma"
-                                className="form-control"
-                                name="classroom"
-                                placeholder="Turma da disciplina."
-                            />
-
-                            <Field
-                                component={InputField}
-                                type="password"
-                                label="Senha"
-                                className="form-control"
-                                name="password"
-                                placeholder="Senha da turma."
-                            />
-
-                            <Field
-                                component={InputField}
-                                type="number"
-                                label="Limite de estudantes"
-                                className="form-control"
-                                name="students_limit"
-                                placeholder="Limite de estudantes para entrar na turma."
-                            />
-
-                            <Field
-                                component={InputField}
-                                type="number"
-                                label="Limite de monitores"
-                                className="form-control"
-                                name="monitors_limit"
-                                placeholder="Limite de monitores para entrar na turma."
-                            />
-                        </Fieldset>
-
-                        <SubmitButton disabled={submitting || invalid}>Enviar</SubmitButton>
-                    </Form>
-                </Container>
+                    <SubmitButton disabled={submitting || invalid}>Enviar</SubmitButton>
+                </Form>
             </Main>
 		)
   	}

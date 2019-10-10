@@ -4,6 +4,15 @@ import Navbar from './Navbar';
 import Breadcrumb from './Breadcrumb';
 import Sidebar from './Sidebar';
 
+const MainContainer = styled.div`
+    position: relative;
+    top: 25px;
+`;
+
+const PanelBody = styled.div`
+    padding-top: 0;
+`;
+
 const Main = ({ children, navigation, menu }) => (
     <main>
         <Navbar />
@@ -11,22 +20,31 @@ const Main = ({ children, navigation, menu }) => (
 
         <div className="row">
             <BreakLine />
-            <div className="col-sm-2" style={{"paddingLeft": 0}}>
+            <div className="col-sm-2" style={{"paddingLeft": 0, "paddingRight": 0}}>
                 <Sidebar menu={menu} />
             </div>
 
-            <div className="col-sm-10">
-                <div className="container-fluid">
-                    {children}
+            <MainContainer className="col-sm-10">
+                <div className="panel panel-default panel-content">
+                    <PanelBody className="panel-body">{children}</PanelBody>
                 </div>
-            </div>
+            </MainContainer>
         </div>
     </main>
 )
 
+const LineStyled = styled.hr`
+    margin-top: 10px;
+`;
+
+const H1 = styled.h1`
+    margin-top: 10px;
+`;
+
 const PageHeader = ({ children }) => (
-    <div className="page-header profile">
-        <h1 className="white">{children}</h1>
+    <div>
+        <H1>{children}</H1>
+        <LineStyled />
     </div>
 )
 

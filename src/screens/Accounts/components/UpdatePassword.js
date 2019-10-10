@@ -28,44 +28,42 @@ class UpdatePassword extends Component {
       	return (
             <Main navigation={navigator} menu="profile">
                 <PageHeader>Atualizar Senha</PageHeader>
-                <Container>
-                    <Form onSubmit={handleSubmit((data) => this.__submit(data))}>
-                        <Fieldset title="Antiga Senha">
-                            <Field
-                                component={InputField}
-                                type="password"
-                                id="password"
-                                label="Senha antiga"
-                                className="form-control"
-                                name="password"
-                                placeholder="Senha antiga"
-                            />
-                        </Fieldset>
-                        <Fieldset title="Nova senha">
-                            <Field
-                                component={InputField}
-                                id="new_password"
-                                type="password"
-                                label="Nova senha"
-                                className="form-control"
-                                name="new_password"
-                                placeholder="Nova senha"
-                            />
+                <Form onSubmit={handleSubmit((data) => this.__submit(data))}>
+                    <Fieldset title="Antiga Senha">
+                        <Field
+                            component={InputField}
+                            type="password"
+                            id="password"
+                            label="Senha antiga"
+                            className="form-control"
+                            name="password"
+                            placeholder="Senha antiga"
+                        />
+                    </Fieldset>
+                    <Fieldset title="Nova senha">
+                        <Field
+                            component={InputField}
+                            id="new_password"
+                            type="password"
+                            label="Nova senha"
+                            className="form-control"
+                            name="new_password"
+                            placeholder="Nova senha"
+                        />
 
-                            <Field
-                                component={InputField}
-                                type="password"
-                                id="confirm_password"
-                                label="Confirmar Senha"
-                                className="form-control"
-                                name="confirm_password"
-                                placeholder="Confirmar nova senha"
-                            />
-                        </Fieldset>
+                        <Field
+                            component={InputField}
+                            type="password"
+                            id="confirm_password"
+                            label="Confirmar Senha"
+                            className="form-control"
+                            name="confirm_password"
+                            placeholder="Confirmar nova senha"
+                        />
+                    </Fieldset>
 
-                        <SubmitButton disabled={submitting || invalid}>Enviar</SubmitButton>
-                    </Form>
-                </Container>
+                    <SubmitButton disabled={submitting || invalid}>Enviar</SubmitButton>
+                </Form>
             </Main>
 		)
   	}

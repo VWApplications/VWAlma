@@ -87,8 +87,12 @@ class ProfileDisciplines extends Component {
                                     <FooterButtonGroup>
                                         <FooterButton icon="fa-eye" type="primary" title="Entrar" onClick={() => dispatch(push("/profile"))} />
                                         <FooterButton icon="fa-trophy" type="primary" title="Hall da fama" onClick={() => dispatch(push("/profile"))} />
-                                        <FooterButton icon="fa-edit" type="primary" title="Editar" onClick={() => dispatch(push("/profile/discipline-form", discipline))} />
-                                        <FooterButton icon="fa-trash" type="danger" title="Deletar" onClick={() => this.__deleteDiscipline(discipline)} />
+                                        {user.is_teacher ?
+                                            <FooterButton icon="fa-edit" type="primary" title="Editar" onClick={() => dispatch(push("/profile/discipline-form", discipline))} />
+                                        : null}
+                                        {user.is_teacher ?
+                                            <FooterButton icon="fa-trash" type="danger" title="Deletar" onClick={() => this.__deleteDiscipline(discipline)} />
+                                        : null}
                                     </FooterButtonGroup>
                                 </CollapseFooter>
                             </PanelBody>

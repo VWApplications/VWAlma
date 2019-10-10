@@ -28,57 +28,55 @@ class UpdateProfile extends Component {
       	return (
             <Main navigation={navigator} menu="profile">
                 <PageHeader>Atualizar Informações Pessoais</PageHeader>
-                <Container>
-                    <Form onSubmit={handleSubmit((data) => this.__submit(data))}>
+                <Form onSubmit={handleSubmit((data) => this.__submit(data))}>
+                    <Field
+                        component={FileField}
+                        type="file"
+                        name="photo"
+                        className="form-control"
+                    />
+                    {user.photo ?
                         <Field
-                            component={FileField}
-                            type="file"
-                            name="photo"
-                            className="form-control"
+                            component={CheckboxField}
+                            name="clean"
+                            label="Remover foto"
                         />
-                        {user.photo ?
-                            <Field
-                                component={CheckboxField}
-                                name="clean"
-                                label="Remover foto"
-                            />
-                        : "" }
+                    : "" }
 
-                        <Fieldset title="Informações Pessoais">
-                            <Field
-                                component={InputField}
-                                id="name"
-                                type="text"
-                                label="Nome"
-                                className="form-control"
-                                name="name"
-                                placeholder="Nome do usuário"
-                            />
+                    <Fieldset title="Informações Pessoais">
+                        <Field
+                            component={InputField}
+                            id="name"
+                            type="text"
+                            label="Nome"
+                            className="form-control"
+                            name="name"
+                            placeholder="Nome do usuário"
+                        />
 
-                            <Field
-                                component={InputField}
-                                id="email"
-                                type="email"
-                                label="Email"
-                                className="form-control"
-                                name="email"
-                                placeholder="Email de autenticação"
-                            />
+                        <Field
+                            component={InputField}
+                            id="email"
+                            type="email"
+                            label="Email"
+                            className="form-control"
+                            name="email"
+                            placeholder="Email de autenticação"
+                        />
 
-                            <Field
-                                component={InputField}
-                                id="identifier"
-                                type="text"
-                                label="Matrícula"
-                                className="form-control"
-                                name="identifier"
-                                placeholder="Matrícula de identificação"
-                            />
-                        </Fieldset>
+                        <Field
+                            component={InputField}
+                            id="identifier"
+                            type="text"
+                            label="Matrícula"
+                            className="form-control"
+                            name="identifier"
+                            placeholder="Matrícula de identificação"
+                        />
+                    </Fieldset>
 
-                        <SubmitButton disabled={submitting || invalid}>Enviar</SubmitButton>
-                    </Form>
-                </Container>
+                    <SubmitButton disabled={submitting || invalid}>Enviar</SubmitButton>
+                </Form>
             </Main>
 		)
   	}

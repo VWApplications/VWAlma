@@ -19,22 +19,20 @@ class Profile extends Component {
             <Main navigation={navigator} menu="profile">
                 <PageHeader>Perfil</PageHeader>
 
-                <Container>
-                    <Information>
-                        <UserImage src={user.photo} />
-                        <UserPanel
-                            name={user.short_name}
-                            type={user.is_teacher ? "Professor" : "Aluno"}
-                            updateAt={user.updated_at_formated}>
-                            {user.identifier ?
-                                <UserInfo icon="fa-key" label="Matrícula">{user.identifier}</UserInfo>
-                            : null}
-                            <UserInfo icon="fa-envelope" label="Email">{user.email}</UserInfo>
-                        </UserPanel>
-                    </Information>
-                    <BreakLine />
-                    <ProfileDisciplines />
-                </Container>
+                <Information>
+                    <UserImage src={user.photo} />
+                    <UserPanel
+                        name={user.short_name}
+                        type={user.is_teacher ? "Professor" : "Aluno"}
+                        updateAt={user.updated_at_formated}>
+                        {user.identifier ?
+                            <UserInfo icon="fa-key" label="Matrícula">{user.identifier}</UserInfo>
+                        : null}
+                        <UserInfo icon="fa-envelope" label="Email">{user.email}</UserInfo>
+                    </UserPanel>
+                </Information>
+                <BreakLine />
+                <ProfileDisciplines />
             </Main>
         )
     }
