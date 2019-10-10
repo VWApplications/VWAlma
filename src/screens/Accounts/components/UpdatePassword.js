@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { reduxForm, Field } from 'redux-form';
 import { InputField } from 'common/fields';
 import { updatePasswordSagas } from '../actions';
-import { validate } from '../validate';
+import { validateUpdatePassword } from '../validate';
 import {
     Main, PageHeader, Container, Form, Fieldset,
     SubmitButton
@@ -73,7 +73,7 @@ class UpdatePassword extends Component {
 
 const form = reduxForm({
     form: "UpdatePasswordForm",
-    validate: validate,
+    validate: validateUpdatePassword,
     enableReinitialize: true
 })(UpdatePassword);
 

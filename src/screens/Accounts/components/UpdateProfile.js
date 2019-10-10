@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { reduxForm, Field } from 'redux-form';
 import { InputField, FileField, CheckboxField } from 'common/fields';
 import { updateUserSagas } from '../actions';
-import { validate } from '../validate';
+import { validateUpdateUser } from '../validate';
 import {
     Main, PageHeader, Container, Form, Fieldset,
     SubmitButton
@@ -86,7 +86,7 @@ class UpdateProfile extends Component {
 
 const form = reduxForm({
     form: "UpdateProfileForm",
-    validate: validate,
+    validate: validateUpdateUser,
     enableReinitialize: true
 })(UpdateProfile);
 

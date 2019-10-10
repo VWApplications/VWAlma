@@ -6,7 +6,7 @@ import { SimpleInputField, CheckboxField } from 'common/fields';
 import { Navbar } from 'common';
 import { loginSagas } from '../actions';
 import { Container, Form, FormGroup, SubmitButton, ForgetPassword, Main } from '../styles/login';
-import { validate } from '../validate';
+import { validateLogin } from '../validate';
 
 class Login extends Component {
 
@@ -67,7 +67,7 @@ class Login extends Component {
 
 const form = reduxForm({
     form: "LoginForm",
-    validate: validate,
+    validate: validateLogin,
     enableReinitialize: true
 })(Login);
 

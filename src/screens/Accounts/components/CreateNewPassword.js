@@ -5,7 +5,7 @@ import { SimpleInputField } from 'common/fields';
 import { Navbar } from 'common';
 import { createNewPasswordSagas } from '../actions';
 import { Container, Form, FormGroup, SubmitButton, Main } from '../styles/resetPassword';
-import { validate } from '../validate';
+import { validateNewPassword } from '../validate';
 
 class CreateNewPassword extends Component {
 
@@ -63,7 +63,7 @@ class CreateNewPassword extends Component {
 
 const form = reduxForm({
     form: "CreateNewPasswordForm",
-    validate: validate,
+    validate: validateNewPassword,
     enableReinitialize: true
 })(CreateNewPassword);
 

@@ -5,7 +5,7 @@ import { SimpleInputField, SelectField } from 'common/fields';
 import { Navbar } from 'common';
 import { Container, Form, FormGroup, SubmitButton, Line, Main } from '../styles/register';
 import { registerSagas } from '../actions';
-import { validate } from '../validate';
+import { validateRegister } from '../validate';
 
 class Register extends Component {
 
@@ -87,7 +87,7 @@ class Register extends Component {
 
 const form = reduxForm({
     form: "RegisterForm",
-    validate: validate,
+    validate: validateRegister,
     enableReinitialize: true
 })(Register);
 
