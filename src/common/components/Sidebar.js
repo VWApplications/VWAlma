@@ -26,6 +26,7 @@ class Sidebar extends Component {
     }
 
     __profileMenu() {
+        const { user } = this.props;
         return (
             <Container>
                 <SidebarLink icon="fa-user" title="Perfil" onClick={() => this.__redirectTo("/profile")}>
@@ -37,12 +38,15 @@ class Sidebar extends Component {
                 <SidebarLink icon="fa-expeditedssl" title="Atualizar Senha" onClick={() => this.__redirectTo("/profile/update-password")}>
                     Página para editar sua senha.
                 </SidebarLink>
-                <SidebarLink icon="fa-search" title="Pesquisar Disciplinas" onClick={() => this.__redirectTo("/profile")}>
-                    Página para pesquisar e entrar em uma disciplina específica.
-                </SidebarLink>
-                <SidebarLink icon="fa-book" title="Criar Disciplinas" onClick={() => this.__redirectTo("/profile/discipline-form")}>
-                    Página para criar uma nova disciplina.
-                </SidebarLink>
+                {!user.is_teacher ?
+                    <SidebarLink icon="fa-search" title="Pesquisar Disciplinas" onClick={() => this.__redirectTo("/profile")}>
+                        Página para pesquisar e entrar em uma disciplina específica.
+                    </SidebarLink>
+                :
+                    <SidebarLink icon="fa-book" title="Criar Disciplinas" onClick={() => this.__redirectTo("/profile/discipline-form")}>
+                        Página para criar uma nova disciplina.
+                    </SidebarLink>
+                }
                 <SidebarLink icon="fa-envelope" title={"5 Notificações"} onClick={() => this.__redirectTo("/profile")}>
                     Página para ver notificações recebidas.
                 </SidebarLink>
@@ -83,4 +87,9 @@ class Sidebar extends Component {
     render() { return this.__runMenu(); }
 }
 
-export default connect()(Sidebar);
+const mapStateToProps = state => {
+    const { user } = state.account;
+    return { user };
+}
+
+export default connect(mapStateToProps)(Sidebar);

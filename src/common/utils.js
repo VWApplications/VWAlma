@@ -31,17 +31,6 @@ export function moveToTop() {
     document.documentElement.scrollTop = 0;
 }
 
-export function getQueryString(queryString, data, str) {
-    if (queryString.includes(str)) {
-        const index = queryString.lastIndexOf(`${str}=`) + `${str}=`.length;
-        queryString = queryString.slice(0, index) + data;
-    } else {
-        queryString = queryString + `&${str}=` + data;
-    }
-
-    return queryString
-}
-
 export function validateError(error) {
     const msg = error.response.data.detail;
     if (msg) {
@@ -52,7 +41,10 @@ export function validateError(error) {
             errorAlert("Ops...", msg);
         } catch(e) {
             console.warn(error.response.data);
-            errorAlert("Ops...", "Por favor, preencha os campos corretamente.");
+            if (error.response.data.email)
+                errorAlert("Ops...", error.response.data.email.capitalize());
+            else
+                errorAlert("Ops...", "Por favor, preencha os campos corretamente.");
         }
         
     }

@@ -27,8 +27,7 @@ class Register extends Component {
                 <Navbar />
                 <Container>
                     <Form onSubmit={handleSubmit((data) => this.__submit(data))}>
-                        <Field
-                            component={SelectField}
+                        <SelectField
                             label="Selecione o tipo de usuário"
                             name="is_teacher"
                             className="input-login"

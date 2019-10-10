@@ -103,10 +103,6 @@ export const validateRegister = values => {
         errors.confirm_password = "As senhas não combinam."
     }
 
-    if (!values.is_teacher === null) {
-        errors.is_teacher = "Escolha entre professor e aluno."
-    }
-
     return errors;
 }
 

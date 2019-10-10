@@ -54,19 +54,17 @@ class ProfileDisciplines extends Component {
                         Mostra todas as disciplinas das quais você faz parte.
                     </Tab>
 
-                    <Tab link="#monitor" title="Disciplinas como monitor" onClick={() => this.__filterDisciplines("monitor")}>
-                        Mostra as disciplinas que você é monitor.
-                    </Tab>
-
-                    {user.is_teacher ?
-                        <Tab link="#teacher" title="Disciplinas criadas" onClick={() => this.__filterDisciplines("created")}>
-                            Mostra as disciplinas que você criou.
-                        </Tab>
-                    :
+                    {!user.is_teacher ? 
                         <Tab link="#student" title="Disciplinas como estudante" onClick={() => this.__filterDisciplines("student")}>
                             Mostra as disciplinas das quais você faz parte.
                         </Tab>
-                    }
+                    : null}
+
+                    {!user.is_teacher ?
+                        <Tab link="#monitor" title="Disciplinas como monitor" onClick={() => this.__filterDisciplines("monitor")}>
+                            Mostra as disciplinas que você é monitor.
+                        </Tab>
+                    : null}
                 </TabList>
                 <BreakLine />
 
