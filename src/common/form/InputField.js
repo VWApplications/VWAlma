@@ -1,4 +1,5 @@
 import React from 'react';
+import { FormGroup } from '../styles/fields';
 
 export const InputField = field => {
 	let formGroupClass = "";
@@ -15,7 +16,7 @@ export const InputField = field => {
 	}
 
 	return (
-		<div className={"form-group " + formGroupClass + " has-feedback"}>
+		<FormGroup className={"row form-group " + formGroupClass + " has-feedback"}>
 			<label className="col-sm-2 control-label" htmlFor={field.id}>
 				{field.label}:
 			</label>
@@ -26,6 +27,6 @@ export const InputField = field => {
 					{field.meta.touched && (field.meta.error && <span>{field.meta.error}</span>)}
 				</p>
 			</div>
-		</div>
+		</FormGroup>
 	)
 }

@@ -5,3 +5,18 @@ export function getDisciplinesAPI(queryString=null) {
     if (queryString) endpoint = `/disciplines/?${queryString}`;
     return axios.get(endpoint);
 }
+
+export function createDisciplineAPI(data) {
+    let endpoint = "/disciplines/";
+    return axios.post(endpoint, data);
+}
+
+export function updateDisciplineAPI(data, disciplineID) {
+    let endpoint = `/disciplines/${disciplineID}/`;
+    return axios.patch(endpoint, data);
+}
+
+export function deleteDisciplineAPI(disciplineID) {
+    let endpoint = `/disciplines/${disciplineID}/`;
+    return axios.delete(endpoint);
+}

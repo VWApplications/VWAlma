@@ -19,4 +19,13 @@ const IconMD = styled.i`
     font-size: 18px;
 `;
 
-export { Textarea, Icon, IconMD, Img };
+const FormGroup = styled.div`
+    margin-bottom: 7px;
+`;
+
+const DescriptionForm = styled.div`
+    margin-left: 15px;
+    margin-right: 15px;
+`;
+
+export { Textarea, Icon, IconMD, Img, FormGroup, DescriptionForm };

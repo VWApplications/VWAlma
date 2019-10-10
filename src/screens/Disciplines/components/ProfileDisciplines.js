@@ -4,7 +4,7 @@ import { stringify } from 'query-string';
 import { push } from 'connected-react-router';
 import { BreakLine, Info } from 'common';
 import { choiceAlert } from 'common/alerts';
-import { listDisciplinesSagas } from '../actions';
+import { listDisciplinesSagas, deleteDisciplineSagas } from '../actions';
 import CustomPagination from 'common/components/Pagination';
 import {
     Main, TabList, Tab, Accordion, Panel, PanelHeader,
@@ -39,7 +39,8 @@ class ProfileDisciplines extends Component {
             "Disciplina deletada", "",
             "Operação cancelada", ""
         )) {
-            console.log("Deleteu a disciplina!");
+            const { dispatch } = this.props;
+            dispatch(deleteDisciplineSagas(discipline.id));
         }
     }
 
@@ -88,7 +89,7 @@ class ProfileDisciplines extends Component {
                                     <FooterButtonGroup>
                                         <FooterButton icon="fa-eye" type="primary" title="Entrar" onClick={() => dispatch(push("/profile"))} />
                                         <FooterButton icon="fa-trophy" type="primary" title="Hall da fama" onClick={() => dispatch(push("/profile"))} />
-                                        <FooterButton icon="fa-edit" type="primary" title="Editar" onClick={() => dispatch(push("/profile", discipline))} />
+                                        <FooterButton icon="fa-edit" type="primary" title="Editar" onClick={() => dispatch(push("/profile/discipline-form", discipline))} />
                                         <FooterButton icon="fa-trash" type="danger" title="Deletar" onClick={() => this.__deleteDiscipline(discipline)} />
                                     </FooterButtonGroup>
                                 </CollapseFooter>

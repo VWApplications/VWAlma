@@ -5,6 +5,7 @@ import {
 	Login, Register, Profile, UpdateProfile,
 	UpdatePassword, ResetPassword, CreateNewPassword
 } from 'screens/Accounts';
+import { DisciplineForm } from 'screens/Disciplines';
 import "asserts/css/html.css";
 
 class App extends Component {
@@ -21,6 +22,7 @@ class App extends Component {
 				<Route exact path="/profile" component={Profile} />
 				<Route exact path="/profile/update" component={UpdateProfile} />
 				<Route exact path="/profile/update-password" component={UpdatePassword} />
+				<Route exact path="/profile/discipline-form" component={DisciplineForm} />
 			</Switch>
 		)
   	}

@@ -40,7 +40,7 @@ class Sidebar extends Component {
                 <SidebarLink icon="fa-search" title="Pesquisar Disciplinas" onClick={() => this.__redirectTo("/profile")}>
                     Página para pesquisar e entrar em uma disciplina específica.
                 </SidebarLink>
-                <SidebarLink icon="fa-book" title="Criar Disciplinas" onClick={() => this.__redirectTo("/profile")}>
+                <SidebarLink icon="fa-book" title="Criar Disciplinas" onClick={() => this.__redirectTo("/profile/discipline-form")}>
                     Página para criar uma nova disciplina.
                 </SidebarLink>
                 <SidebarLink icon="fa-envelope" title={"5 Notificações"} onClick={() => this.__redirectTo("/profile")}>
