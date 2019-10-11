@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { Main, PageHeader, BreakLine } from 'common';
 import ProfileDisciplines from 'screens/Disciplines/components/ProfileDisciplines';
 import {
-    Information, UserImage, UserPanel, UserInfo, Container
+    Information, UserImage, UserPanel, UserInfo
 } from '../styles/profile';
 
 class Profile extends Component {

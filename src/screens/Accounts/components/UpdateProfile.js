@@ -5,7 +5,7 @@ import { InputField, FileField, CheckboxField } from 'common/fields';
 import { updateUserSagas } from '../actions';
 import { validateUpdateUser } from '../validate';
 import {
-    Main, PageHeader, Container, Form, Fieldset,
+    Main, PageHeader, Form, Fieldset,
     SubmitButton
 } from 'common';
 

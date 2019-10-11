@@ -48,4 +48,11 @@ const validateEmail = email => {
     return false;
 }
 
-export { validatePhoto, validateEmail };
+const validateTextEditor = description => {
+    if (description && !description.startsWith("<p></p>"))
+        return true;
+        
+    return false;
+}
+
+export { validatePhoto, validateEmail, validateTextEditor };

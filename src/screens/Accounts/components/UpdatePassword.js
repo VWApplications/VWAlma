@@ -5,7 +5,7 @@ import { InputField } from 'common/fields';
 import { updatePasswordSagas } from '../actions';
 import { validateUpdatePassword } from '../validate';
 import {
-    Main, PageHeader, Container, Form, Fieldset,
+    Main, PageHeader, Form, Fieldset,
     SubmitButton
 } from 'common';
 

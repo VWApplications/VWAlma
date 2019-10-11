@@ -1,13 +1,10 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { reduxForm, Field } from 'redux-form';
-import { InputField, TextField } from 'common/fields';
+import { InputField, EditorField } from 'common/fields';
 import { validateDiscipline } from '../validate';
 import { createDisciplineSagas, updateDisciplineSagas } from '../actions';
-import {
-    Main, PageHeader, Container, Form, Fieldset,
-    SubmitButton
-} from 'common';
+import { Main, PageHeader, Form, Fieldset, SubmitButton } from 'common';
 
 class DisciplineForm extends Component {
 
@@ -67,12 +64,9 @@ class DisciplineForm extends Component {
                         placeholder="Instituição de ensino na qual a disciplina pertence."
                     />
 
-                    <Field 
-                        component={TextField}
-                        label="Descrição"
+                    <EditorField
                         name="description"
-                        placeholder="Ementa da disciplina."
-                        rows="10"
+                        placeholder="Insira a ementa da disciplina aqui!"
                     />
 
                     <Fieldset title="Turma">

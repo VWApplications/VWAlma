@@ -5,8 +5,9 @@ import { SimpleInputField } from './form/SimpleInputField';
 import { FileField } from './form/FileField';
 import { SelectField } from './form/SelectField';
 import { RadioFields } from './form/RadioField';
+import EditorField from './form/EditorField';
 
 export {
     InputField, CheckboxField, TextField, SimpleInputField,
-    FileField, SelectField, RadioFields
+    FileField, SelectField, RadioFields, EditorField
 };

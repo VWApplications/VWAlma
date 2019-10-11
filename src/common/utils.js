@@ -1,6 +1,7 @@
 import { errorAlert } from './alerts';
 import axios from 'config/axios';
 import introJs from 'intro.js/intro.js';
+import draftToHtml from 'draftjs-to-html';
 
 export function isEmpty(obj) {
     for(var key in obj) {
@@ -42,7 +43,7 @@ export function validateError(error) {
         } catch(e) {
             console.warn(error.response.data);
             if (error.response.data.email)
-                errorAlert("Ops...", error.response.data.email.capitalize());
+                errorAlert("Ops...", error.response.data.email);
             else
                 errorAlert("Ops...", "Por favor, preencha os campos corretamente.");
         }

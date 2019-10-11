@@ -1,3 +1,5 @@
+import { validateTextEditor } from 'common/validations';
+
 export const validateDiscipline = values => {
     const errors = {};
 
@@ -13,7 +15,7 @@ export const validateDiscipline = values => {
     if (values.institution && values.institution.length > 50)
         errors.institution = "Tamanho do texto inválido.";
 
-    if (!values.description)
+    if (!validateTextEditor(values.description))
         errors.description = "Ementa da disciplina é obrigatório.";
 
     if (!values.classroom)

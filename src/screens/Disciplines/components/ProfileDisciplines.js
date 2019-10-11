@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { stringify } from 'query-string';
 import { push } from 'connected-react-router';
-import { BreakLine, Info } from 'common';
+import { BreakLine, Info, StringToHtml } from 'common';
 import { choiceAlert } from 'common/alerts';
 import { listDisciplinesSagas, deleteDisciplineSagas } from '../actions';
 import CustomPagination from 'common/components/Pagination';
@@ -78,7 +78,7 @@ class ProfileDisciplines extends Component {
 
                             <PanelBody id={index}>
                                 <CollapseBody qtdStudents={discipline.students.length} totalStudents={discipline.students_limit}>
-                                    {discipline.description}
+                                    <StringToHtml>{discipline.description}</StringToHtml>
                                 </CollapseBody>
 
                                 <CollapseFooter>

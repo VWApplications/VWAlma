@@ -103,11 +103,15 @@ const Info = ({ children }) => (
     <div className="alert alert-info">{children}</div>
 )
 
+const StringToHtml = ({ children }) => (
+    <div dangerouslySetInnerHTML={{__html: children}}></div>
+)
+
 const BreakLine = () => (<br />)
 const Line = () => (<hr />)
 
 export {
     PageHeader, Container, Form, Fieldset,
     BreakLine, Line, SubmitButton, Button,
-    Main, Info
+    Main, Info, StringToHtml
 };
