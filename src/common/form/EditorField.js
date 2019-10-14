@@ -1,9 +1,7 @@
 import React, { Component } from "react";
-import { Field } from "redux-form";
 import { connect } from 'react-redux';
 import { EditorState, convertToRaw, ContentState } from "draft-js";
 import { Editor } from "react-draft-wysiwyg";
-import { validateTextEditor } from 'common/validations';
 import draftToHtml from "draftjs-to-html";
 import htmlToDraft from 'html-to-draftjs';
 import { unemojify } from "node-emoji";
@@ -26,8 +24,6 @@ class ControlledEditor extends Component {
 
     componentWillReceiveProps() {
         const { location } = this.props;
-        console.log(this.state.create)
-        console.log(location.state)
         if (this.state.create && location.state === undefined)
             this.setState({ editorState: EditorState.createEmpty(), create: false })
     }
@@ -60,53 +56,37 @@ class ControlledEditor extends Component {
 
     render() {
         const { editorState } = this.state;
-        const { placeholder, input } = this.props;
+        const { placeholder, input, meta } = this.props;
 
         return (
-            <Editor
-                spellCheck
-                onFocus={input.onFocus}
-                onBlur={input.onBlur}
-                editorState={editorState}
-                placeholder={placeholder}
-                onEditorStateChange={(editor) => this.__editorOnChange(editor)}
-                localization={{locale: 'pt'}}
-                editorRef={(ref) => this.__setEditorFocus(ref)}
-                toolbar={{
-                    list: { inDropdown: true },
-                    textAlign: { inDropdown: true },
-                    link: { inDropdown: true },
-                    history: { inDropdown: true }
-                }}
-            />
+            <div className="row">
+                <div className="col-sm-12">
+                    <Editor
+                        spellCheck
+                        onFocus={input.onFocus}
+                        onBlur={input.onBlur}
+                        editorState={editorState}
+                        placeholder={placeholder}
+                        onEditorStateChange={(editor) => this.__editorOnChange(editor)}
+                        localization={{locale: 'pt'}}
+                        editorRef={(ref) => this.__setEditorFocus(ref)}
+                        toolbar={{
+                            list: { inDropdown: true },
+                            textAlign: { inDropdown: true },
+                            link: { inDropdown: true },
+                            history: { inDropdown: true }
+                        }}
+                    />
+                    {meta.error ?
+                        <p className="text-danger">
+                            {meta.touched && (meta.error && <span>{meta.error}</span>)}
+                        </p>
+                    : ""}
+                </div>
+            </div>
         );
     }
 }
-
-const EditorFieldComponent = props => {
-    const { placeholder, input, meta, location } = props;
-  
-    return (
-        <div className="row">
-            <div className="col-sm-12">
-                <ControlledEditor
-                    placeholder={placeholder}
-                    input={input}
-                    location={location}
-                />
-                {meta.error ?
-                    <p className="text-danger">
-                        {meta.touched && (meta.error && <span>{meta.error}</span>)}
-                    </p>
-                : ""}
-            </div>
-        </div>
-    );
-  };
-
-const EditorField = props => {
-    return <Field {...props} component={EditorFieldComponent} />;
-};
 
 const mapStateToProps = state => {
     const { location } = state.router;
@@ -114,4 +94,4 @@ const mapStateToProps = state => {
     return { location }
 }
 
-export default connect(mapStateToProps)(EditorField);
+export default connect(mapStateToProps)(ControlledEditor);

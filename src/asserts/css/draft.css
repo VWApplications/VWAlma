@@ -818,7 +818,7 @@
     right: 0;
   }
   .rdw-editor-main {
-    height: 100%;
+    height: 300px;
     overflow: auto;
     box-sizing: border-box;
     border: 1px solid #F1F1F1;

@@ -93,7 +93,7 @@ export const FooterInfo = ({ teacher, course }) => (
     <div className="col-md-9 col-sm-8 col-xs-12">
         <span><b>Professor</b>: {teacher}</span>
         <br />
-        <span><b>Curso</b>:{course}</span>
+        <span><b>Curso</b>: {course}</span>
     </div>
 )
 

@@ -64,7 +64,8 @@ class DisciplineForm extends Component {
                         placeholder="Instituição de ensino na qual a disciplina pertence."
                     />
 
-                    <EditorField
+                    <Field
+                        component={EditorField}
                         name="description"
                         placeholder="Insira a ementa da disciplina aqui!"
                     />
