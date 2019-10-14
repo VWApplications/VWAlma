@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { push } from 'connected-react-router';
 import { Container, SidebarLink } from '../styles/sidebar';
+import { TEACHER } from 'common/constants';
 import { deleteUserSagas } from 'screens/Accounts/actions';
 import { choiceAlert } from 'common/alerts';
 
@@ -38,7 +39,7 @@ class Sidebar extends Component {
                 <SidebarLink icon="fa-expeditedssl" title="Atualizar Senha" onClick={() => this.__redirectTo("/profile/update-password")}>
                     Página para editar sua senha.
                 </SidebarLink>
-                {!user.is_teacher ?
+                {!user.permission === TEACHER ?
                     <SidebarLink icon="fa-search" title="Pesquisar Disciplinas" onClick={() => this.__redirectTo("/profile")}>
                         Página para pesquisar e entrar em uma disciplina específica.
                     </SidebarLink>

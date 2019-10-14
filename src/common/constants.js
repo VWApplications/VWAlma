@@ -1,0 +1,6 @@
+const ADMIN = "ADMIN";
+const TEACHER = "TEACHER";
+const STUDENT = "STUDENT";
+const MONITOR = "MONITOR";
+
+export { ADMIN, TEACHER, STUDENT, MONITOR };

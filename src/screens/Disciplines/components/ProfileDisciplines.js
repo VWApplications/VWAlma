@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { stringify } from 'query-string';
 import { push } from 'connected-react-router';
+import { TEACHER } from 'common/constants';
 import { BreakLine, Info, StringToHtml } from 'common';
 import { choiceAlert } from 'common/alerts';
 import { listDisciplinesSagas, deleteDisciplineSagas } from '../actions';
@@ -54,13 +55,13 @@ class ProfileDisciplines extends Component {
                         Mostra todas as disciplinas das quais você faz parte.
                     </Tab>
 
-                    {!user.is_teacher ? 
+                    {!user.permission === TEACHER ? 
                         <Tab link="#student" title="Disciplinas como estudante" onClick={() => this.__filterDisciplines("student")}>
                             Mostra as disciplinas das quais você faz parte.
                         </Tab>
                     : null}
 
-                    {!user.is_teacher ?
+                    {!user.permission === TEACHER ?
                         <Tab link="#monitor" title="Disciplinas como monitor" onClick={() => this.__filterDisciplines("monitor")}>
                             Mostra as disciplinas que você é monitor.
                         </Tab>
@@ -87,10 +88,10 @@ class ProfileDisciplines extends Component {
                                     <FooterButtonGroup>
                                         <FooterButton icon="fa-eye" type="primary" title="Entrar" onClick={() => dispatch(push("/profile"))} />
                                         <FooterButton icon="fa-trophy" type="primary" title="Hall da fama" onClick={() => dispatch(push("/profile"))} />
-                                        {user.is_teacher ?
+                                        {user.permission === TEACHER ?
                                             <FooterButton icon="fa-edit" type="primary" title="Editar" onClick={() => dispatch(push("/profile/discipline-form", discipline))} />
                                         : null}
-                                        {user.is_teacher ?
+                                        {user.permission === TEACHER ?
                                             <FooterButton icon="fa-trash" type="danger" title="Deletar" onClick={() => this.__deleteDiscipline(discipline)} />
                                         : null}
                                     </FooterButtonGroup>

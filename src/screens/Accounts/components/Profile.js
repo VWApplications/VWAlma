@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Main, PageHeader, BreakLine } from 'common';
+import { TEACHER } from 'common/constants';
 import ProfileDisciplines from 'screens/Disciplines/components/ProfileDisciplines';
 import {
     Information, UserImage, UserPanel, UserInfo
@@ -23,7 +24,7 @@ class Profile extends Component {
                     <UserImage src={user.photo} />
                     <UserPanel
                         name={user.short_name}
-                        type={user.is_teacher ? "Professor" : "Aluno"}
+                        type={user.permission === TEACHER ? "Professor" : "Aluno"}
                         updateAt={user.updated_at_formated}>
                         {user.identifier ?
                             <UserInfo icon="fa-key" label="Matrícula">{user.identifier}</UserInfo>

@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { reduxForm, Field } from 'redux-form';
 import { SimpleInputField, SelectField } from 'common/fields';
 import { Navbar } from 'common';
+import { TEACHER, STUDENT } from 'common/constants';
 import { Container, Form, FormGroup, SubmitButton, Line, Main } from '../styles/register';
 import { registerSagas } from '../actions';
 import { validateRegister } from '../validate';
@@ -18,8 +19,8 @@ class Register extends Component {
         const { handleSubmit, submitting, invalid } = this.props;
 
         const options = [
-            {title: "Professor", value: true},
-            {title: "Aluno", value: false}
+            {title: "Professor", value: TEACHER},
+            {title: "Aluno", value: STUDENT}
         ]
 
       	return (
@@ -29,7 +30,7 @@ class Register extends Component {
                     <Form onSubmit={handleSubmit((data) => this.__submit(data))}>
                         <SelectField
                             label="Selecione o tipo de usuário"
-                            name="is_teacher"
+                            name="permission"
                             className="input-login"
                             options={options}
                         />

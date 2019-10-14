@@ -3,6 +3,7 @@ import Breadcrumb from './components/Breadcrumb';
 import Pagination from './components/Pagination';
 import Search from './components/Search';
 import Sidebar from './components/Sidebar';
+import PrivateRouter from './components/PrivateRoute';
 import {
     PageHeader, Container, Form, Fieldset,
     BreakLine, Line, SubmitButton, Button,
@@ -15,5 +16,5 @@ export {
     PageHeader, Container, Form,
     Fieldset, BreakLine, Line,
     SubmitButton, Button, Info,
-    StringToHtml
+    StringToHtml, PrivateRouter
 };

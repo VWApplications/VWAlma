@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import { Route, Switch } from 'react-router';
+import { PrivateRouter } from 'common';
+import { TEACHER, STUDENT, MONITOR } from 'common/constants';
 import { Home, NewsList, NewsDetail } from 'screens/Home';
 import {
 	Login, Register, Profile, UpdateProfile,
@@ -19,10 +21,11 @@ class App extends Component {
 				<Route exact path="/register" component={Register} />
 				<Route exact path="/reset-password" component={ResetPassword} />
 				<Route exact path="/create-new-password" component={CreateNewPassword} />
-				<Route exact path="/profile" component={Profile} />
-				<Route exact path="/profile/update" component={UpdateProfile} />
-				<Route exact path="/profile/update-password" component={UpdatePassword} />
-				<Route exact path="/profile/discipline-form" component={DisciplineForm} />
+				<PrivateRouter exact path="/profile" component={Profile} />
+				<PrivateRouter exact path="/profile/update" component={UpdateProfile} />
+				<PrivateRouter exact path="/profile/update-password" component={UpdatePassword} />
+				<PrivateRouter exact path="/profile/discipline-form" component={DisciplineForm} requiredPermission={[TEACHER]} />
+				<PrivateRouter exact path="/profile/discipline-search" component={DisciplineForm} requiredPermission={[STUDENT, MONITOR]} />
 			</Switch>
 		)
   	}

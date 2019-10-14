@@ -1,7 +1,7 @@
 import { errorAlert } from './alerts';
 import axios from 'config/axios';
 import introJs from 'intro.js/intro.js';
-import draftToHtml from 'draftjs-to-html';
+import { ADMIN } from 'common/constants';
 
 export function isEmpty(obj) {
     for(var key in obj) {
@@ -66,4 +66,12 @@ export function configFile(name, file, attr) {
     formData.append(attr, file);
     const headers = axios.defaults.headers.put['Content-Type'] = 'multipart/form-data';
     return { formatedName, headers, formData };
+}
+
+export function hasPermission(requiredPermissions, userPermissions) {
+    if (!requiredPermissions) return true;
+    if (userPermissions.indexOf(ADMIN) !== -1) return true;
+
+    const allowedPermissions = new Set(requiredPermissions.filter(item => userPermissions.includes(item)));
+    return allowedPermissions.size > 0;
 }
