@@ -19,8 +19,8 @@ class Register extends Component {
         const { handleSubmit, submitting, invalid } = this.props;
 
         const options = [
-            {title: "Professor", value: TEACHER},
-            {title: "Aluno", value: STUDENT}
+            {title: "Aluno", value: STUDENT},
+            {title: "Professor", value: TEACHER}
         ]
 
       	return (
