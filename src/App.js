@@ -7,7 +7,7 @@ import {
 	Login, Register, Profile, UpdateProfile,
 	UpdatePassword, ResetPassword, CreateNewPassword
 } from 'screens/Accounts';
-import { DisciplineForm } from 'screens/Disciplines';
+import { DisciplineForm, DisciplineSearch } from 'screens/Disciplines';
 import "asserts/css/html.css";
 
 class App extends Component {
@@ -25,7 +25,7 @@ class App extends Component {
 				<PrivateRouter exact path="/profile/update" component={UpdateProfile} />
 				<PrivateRouter exact path="/profile/update-password" component={UpdatePassword} />
 				<PrivateRouter exact path="/profile/discipline-form" component={DisciplineForm} requiredPermission={[TEACHER]} />
-				<PrivateRouter exact path="/profile/discipline-search" component={DisciplineForm} requiredPermission={[STUDENT, MONITOR]} />
+				<PrivateRouter exact path="/profile/discipline-search" component={DisciplineSearch} requiredPermission={[STUDENT, MONITOR]} />
 			</Switch>
 		)
   	}

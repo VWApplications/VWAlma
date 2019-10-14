@@ -39,6 +39,11 @@ class Sidebar extends Component {
                 <SidebarLink icon="fa-expeditedssl" title="Atualizar Senha" onClick={() => this.__redirectTo("/profile/update-password")}>
                     Página para editar sua senha.
                 </SidebarLink>
+                {user.permission === ADMIN ?
+                    <SidebarLink icon="fa-search" title="Pesquisar Disciplinas" onClick={() => this.__redirectTo("/profile/discipline-search")}>
+                        Página para pesquisar e entrar em uma disciplina específica.
+                    </SidebarLink>
+                : null}
                 {user.permission !== TEACHER && user.permission !== ADMIN ?
                     <SidebarLink icon="fa-search" title="Pesquisar Disciplinas" onClick={() => this.__redirectTo("/profile/discipline-search")}>
                         Página para pesquisar e entrar em uma disciplina específica.
