@@ -21,11 +21,11 @@ export const FilterItem = ({ children }) => (
 export const FilterStyled = ({ title, icon, children, onClick }) => {
     return (
         <div className="dropdown input-group-btn">
-            <button className="btn btn-primary dropdown-toggle btn-border" type="button" data-toggle="dropdown" onClick={onClick}>
+            <button className="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown" onClick={onClick}>
                 <span className={"fa " + icon}></span> <b>{title}</b>
             </button>
 
-            <ul className="dropdown-menu">
+            <ul className="dropdown-menu" role="menu">
                 {children}
             </ul>
         </div>

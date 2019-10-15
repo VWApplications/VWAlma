@@ -22,12 +22,13 @@ class Filter extends Component {
     __filterClick(value, title) {
         const { filterSubmit, filterTitle } = this.props;
         this.__changeIcon();
-        if (value) {
+
+        if (value)
             this.setState({ title: `Ordenado por ${title}` });
-            filterSubmit(value);
-        } else {
+        else
             this.setState({ title: filterTitle });
-        }
+
+        filterSubmit(value);
     }
 
     render() {
