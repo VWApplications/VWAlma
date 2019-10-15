@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { reset } from 'redux-form';
-import { Main, PageHeader, Form, Search, Pagination, Info, StringToHtml } from 'common';
 import { stringify } from 'query-string';
 import { reduxForm, Field } from 'redux-form';
 import { validateEnterDiscipline } from '../validate';
+import { Main, PageHeader, Form, Search, Pagination, Info, StringToHtml } from 'common';
 import {
     Panel, PanelHeader, PanelContainer, PanelBody, CollapseBody,
     CollapseFooter, FooterInfo, FooterPassword, InputGroup, SubmitButton
@@ -36,8 +36,6 @@ class DisciplineSearch extends Component {
 
         const queryString = stringify({page: pagination.activePage, search: data.search, order: this.state.order});
 
-        console.log(queryString);
-
         dispatch(reset("SearchForm"));
         dispatch(listAllDisciplinesSagas(pagination.activePage, queryString));
     }
@@ -52,14 +50,13 @@ class DisciplineSearch extends Component {
 
         const queryString = stringify({page: pagination.activePage, search: this.state.search, order: value});
 
-        console.log(queryString);
         dispatch(listAllDisciplinesSagas(pagination.activePage, queryString));
     }
 
-    __enterDisciplineSubmit(data) {
+    __enterDisciplineSubmit(data, disciplineID) {
         const { dispatch } = this.props;
-        console.log(data);
-        dispatch(enterDisciplineSagas(data));
+        dispatch(reset("EnterDisciplineForm"));
+        dispatch(enterDisciplineSagas(data, disciplineID));
     } 
 
     render() {
@@ -103,7 +100,7 @@ class DisciplineSearch extends Component {
                                 <CollapseFooter>
                                     <FooterInfo teacher={discipline.teacher.short_name} course={discipline.course} />
                                     <FooterPassword>
-                                        <Form onSubmit={handleSubmit((data) => this.__enterDisciplineSubmit(data))}>
+                                        <Form onSubmit={handleSubmit((data) => this.__enterDisciplineSubmit(data, discipline.id))}>
                                             <InputGroup>
                                                 <Field
                                                     component={"input"}
@@ -132,7 +129,7 @@ class DisciplineSearch extends Component {
 }
 
 const form = reduxForm({
-    form: "SearchDisciplineForm",
+    form: "EnterDisciplineForm",
     validate: validateEnterDiscipline,
     enableReinitialize: true
 })(DisciplineSearch);

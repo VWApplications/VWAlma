@@ -32,6 +32,6 @@ export function listAllDisciplinesSagas(activePage, queryString=null) {
     return {type: LIST_ALL_DISCIPLINE_SAGAS, payload: {activePage, queryString}};
 }
 
-export function enterDisciplineSagas(data) {
-    return {type: ENTER_DISCIPLINE_SAGAS, payload: data};
+export function enterDisciplineSagas(data, disciplineID) {
+    return {type: ENTER_DISCIPLINE_SAGAS, payload: {data, disciplineID}};
 }

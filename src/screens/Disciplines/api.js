@@ -26,3 +26,8 @@ export function deleteDisciplineAPI(disciplineID) {
     let endpoint = `/disciplines/${disciplineID}/`;
     return axios.delete(endpoint);
 }
+
+export function enterDisciplineAPI(data, disciplineID) {
+    let endpoint = `/disciplines/${disciplineID}/enter/`;
+    return axios.post(endpoint, data);
+}

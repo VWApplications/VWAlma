@@ -3,10 +3,9 @@ import { connect } from 'react-redux';
 import { stringify } from 'query-string';
 import { push } from 'connected-react-router';
 import { TEACHER } from 'common/constants';
-import { BreakLine, Info, StringToHtml } from 'common';
+import { BreakLine, Info, StringToHtml, Pagination } from 'common';
 import { choiceAlert } from 'common/alerts';
 import { listDisciplinesSagas, deleteDisciplineSagas } from '../actions';
-import { Pagination } from 'common';
 import {
     Main, TabList, Tab, Accordion, Panel, PanelHeader,
     PanelBody, CollapseBody, CollapseFooter, FooterInfo,

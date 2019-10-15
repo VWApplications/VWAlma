@@ -4,6 +4,7 @@ import createDiscipline from './sagas/createDiscipline';
 import updateDiscipline from './sagas/updateDiscipline';
 import deleteDiscipline from './sagas/deleteDiscipline';
 import listAllDisciplines from './sagas/listDisciplines';
+import enterDiscipline from './sagas/enterDiscipline';
 
 export default function* rootSaga() {
     yield all([
@@ -11,6 +12,7 @@ export default function* rootSaga() {
         createDiscipline(),
         updateDiscipline(),
         deleteDiscipline(),
-        listAllDisciplines()
+        listAllDisciplines(),
+        enterDiscipline()
     ]);
 }
