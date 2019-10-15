@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import {reset} from 'redux-form';
+import { reset } from 'redux-form';
 import { push } from 'connected-react-router';
 import { stringify } from 'query-string';
 import { makeURL, moveToTop } from 'common/utils';
