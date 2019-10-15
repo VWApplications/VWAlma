@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Main, PageHeader, BreakLine } from 'common';
+import { Main, BreakLine } from 'common';
 import { TEACHER, ADMIN } from 'common/constants';
 import ProfileDisciplines from 'screens/Disciplines/components/ProfileDisciplines';
 import {

@@ -14,6 +14,7 @@ const SidePanel = styled.div`
     top: 8px;
     padding-left: 0;
     padding-right: 0;
+    box-shadow: 1px 0px 8px #292C33;
 `;
 
 const PanelHeading = styled.div`
@@ -51,21 +52,6 @@ const Main = ({ children, navigation, menu, title }) => (
             </MainContainer>
         </div>
     </main>
-)
-
-const LineStyled = styled.hr`
-    margin-top: 10px;
-`;
-
-const H1 = styled.h1`
-    margin-top: 10px;
-`;
-
-const PageHeader = ({ children }) => (
-    <div>
-        <H1>{children}</H1>
-        <LineStyled />
-    </div>
 )
 
 const Container = ({ children }) => (
@@ -124,7 +110,7 @@ const BreakLine = () => (<br />)
 const Line = () => (<hr />)
 
 export {
-    PageHeader, Container, Form, Fieldset,
+    Container, Form, Fieldset,
     BreakLine, Line, SubmitButton, Button,
     Main, Info, StringToHtml
 };

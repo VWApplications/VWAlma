@@ -6,7 +6,7 @@ import Filter from './components/Filter';
 import Sidebar from './components/Sidebar';
 import PrivateRouter from './components/PrivateRoute';
 import {
-    PageHeader, Container, Form, Fieldset,
+    Container, Form, Fieldset,
     BreakLine, Line, SubmitButton, Button,
     Main, Info, StringToHtml
 } from './components/Generic';
@@ -14,9 +14,8 @@ import {
 export {
     Main, Navbar, Breadcrumb,
     Pagination, Search, Sidebar,
-    PageHeader, Container, Form,
+    Container, Form, Filter,
     Fieldset, BreakLine, Line,
     SubmitButton, Button, Info,
     StringToHtml, PrivateRouter,
-    Filter
 };

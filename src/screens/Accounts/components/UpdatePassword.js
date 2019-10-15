@@ -4,10 +4,7 @@ import { reduxForm, Field } from 'redux-form';
 import { InputField } from 'common/fields';
 import { updatePasswordSagas } from '../actions';
 import { validateUpdatePassword } from '../validate';
-import {
-    Main, PageHeader, Form, Fieldset,
-    SubmitButton
-} from 'common';
+import { Main, Form, Fieldset, SubmitButton } from 'common';
 
 class UpdatePassword extends Component {
 

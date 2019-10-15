@@ -4,10 +4,7 @@ import { reduxForm, Field } from 'redux-form';
 import { InputField, FileField, CheckboxField } from 'common/fields';
 import { updateUserSagas } from '../actions';
 import { validateUpdateUser } from '../validate';
-import {
-    Main, PageHeader, Form, Fieldset,
-    SubmitButton
-} from 'common';
+import { Main, Form, Fieldset, SubmitButton } from 'common';
 
 class UpdateProfile extends Component {
 

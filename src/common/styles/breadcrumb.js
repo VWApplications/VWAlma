@@ -4,6 +4,7 @@ import styled from 'styled-components';
 const Navigation = styled.div`
     background-color: #343841;
     border-bottom: 1px solid #292C33;
+    box-shadow: 227px 5px 8px #292C33;
 
     > p {
         padding-top: 4px;

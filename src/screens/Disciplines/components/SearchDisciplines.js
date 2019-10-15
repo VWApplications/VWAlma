@@ -4,7 +4,7 @@ import { reset } from 'redux-form';
 import { stringify } from 'query-string';
 import { reduxForm, Field } from 'redux-form';
 import { validateEnterDiscipline } from '../validate';
-import { Main, PageHeader, Form, Search, Pagination, Info, StringToHtml } from 'common';
+import { Main, Form, Search, Pagination, Info, StringToHtml } from 'common';
 import {
     Panel, PanelHeader, PanelContainer, PanelBody, CollapseBody,
     CollapseFooter, FooterInfo, FooterPassword, InputGroup, SubmitButton

@@ -4,7 +4,7 @@ import { reduxForm, Field } from 'redux-form';
 import { InputField, EditorField } from 'common/fields';
 import { validateDiscipline } from '../validate';
 import { createDisciplineSagas, updateDisciplineSagas } from '../actions';
-import { Main, PageHeader, Form, Fieldset, SubmitButton } from 'common';
+import { Main, Form, Fieldset, SubmitButton } from 'common';
 
 class DisciplineForm extends Component {
 
