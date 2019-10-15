@@ -6,7 +6,7 @@ import { TEACHER } from 'common/constants';
 import { BreakLine, Info, StringToHtml } from 'common';
 import { choiceAlert } from 'common/alerts';
 import { listDisciplinesSagas, deleteDisciplineSagas } from '../actions';
-import CustomPagination from 'common/components/Pagination';
+import { Pagination } from 'common';
 import {
     Main, TabList, Tab, Accordion, Panel, PanelHeader,
     PanelBody, CollapseBody, CollapseFooter, FooterInfo,
@@ -100,7 +100,7 @@ class ProfileDisciplines extends Component {
                         </Panel>
                     ))}
                 </Accordion>
-                <CustomPagination
+                <Pagination
                     pagination={pagination}
                     listObjectAction={listDisciplinesSagas}
                     filters={{filter: this.state.filter}}
@@ -111,7 +111,7 @@ class ProfileDisciplines extends Component {
 }
 
 const mapStateToProps = state => {
-    const { list, pagination } = state.discipline;
+    const { list, pagination } = state.discipline.profile;
     const { user } = state.account;
     return { disciplines: list, pagination, user };
 }

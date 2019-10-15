@@ -6,6 +6,12 @@ export function getDisciplinesAPI(queryString=null) {
     return axios.get(endpoint);
 }
 
+export function getAllDisciplinesAPI(queryString=null) {
+    let endpoint = "/disciplines/search/";
+    if (queryString) endpoint = `/disciplines/search/?${queryString}`;
+    return axios.get(endpoint);
+}
+
 export function createDisciplineAPI(data) {
     let endpoint = "/disciplines/";
     return axios.post(endpoint, data);

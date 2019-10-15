@@ -3,12 +3,14 @@ import profileDisciplines from './sagas/profileDisciplines';
 import createDiscipline from './sagas/createDiscipline';
 import updateDiscipline from './sagas/updateDiscipline';
 import deleteDiscipline from './sagas/deleteDiscipline';
+import listAllDisciplines from './sagas/listDisciplines';
 
 export default function* rootSaga() {
     yield all([
         profileDisciplines(),
         createDiscipline(),
         updateDiscipline(),
-        deleteDiscipline()
+        deleteDiscipline(),
+        listAllDisciplines()
     ]);
 }

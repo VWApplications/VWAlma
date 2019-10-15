@@ -1,14 +1,25 @@
-import { LIST_DISCIPLINE } from './types';
+import { LIST_DISCIPLINE, LIST_ALL_DISCIPLINES } from './types';
 
 const initialState = {
-  	list: [],
-	obj: null,
-	pagination: {
-        totalItemsCount: 0,
-		itemsCountPerPage: 5,
-		pageRangeDisplayed: 10,
-		activePage: 1
-    }
+	all: {
+		list: [],
+		pagination: {
+			totalItemsCount: 0,
+			itemsCountPerPage: 5,
+			pageRangeDisplayed: 10,
+			activePage: 1
+		}
+	},
+	profile: {
+		list: [],
+		obj: null,
+		pagination: {
+			totalItemsCount: 0,
+			itemsCountPerPage: 5,
+			pageRangeDisplayed: 10,
+			activePage: 1
+		}
+	}
 }
 
 function disciplinesReducer(state=initialState, action) {
@@ -19,14 +30,31 @@ function disciplinesReducer(state=initialState, action) {
 
 			return {
 				...state,
-				list: payload.disciplines,
-				obj: null,
-				pagination: {
-                    ...state.pagination,
-                    activePage: payload.activePage,
-                    totalItemsCount: payload.count
-                }
+				profile: {
+					list: payload.disciplines,
+					obj: null,
+					pagination: {
+						...state.pagination,
+						activePage: payload.activePage,
+						totalItemsCount: payload.count
+					}
+				}
 			};
+
+			case LIST_ALL_DISCIPLINES:
+				payload = action.payload;
+	
+				return {
+					...state,
+					all: {
+						list: payload.disciplines,
+						pagination: {
+							...state.pagination,
+							activePage: payload.activePage,
+							totalItemsCount: payload.count
+						}
+					}
+				};
 
 		default:
 			return state;

@@ -41,3 +41,12 @@ export const validateDiscipline = values => {
 
     return errors;
 }
+
+export const validateEnterDiscipline = values => {
+    const errors = {};
+
+    if (!values.password)
+        errors.password = "A senha da disciplina é obrigatória.";
+
+    return errors;
+}

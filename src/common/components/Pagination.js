@@ -9,7 +9,7 @@ class CustomPagination extends Component {
 	__handlePagination(page) {
 		const { dispatch, listObjectAction, filters=null } = this.props;
 		let queryString = stringify({page});
-		if (filters)	queryString = stringify({...filters, page});
+		if (filters) queryString = stringify({...filters, page});
 		dispatch(listObjectAction(page, queryString));
 	}
 
