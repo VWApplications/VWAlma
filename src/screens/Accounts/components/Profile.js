@@ -17,9 +17,7 @@ class Profile extends Component {
         ]
 
         return (
-            <Main navigation={navigator} menu="profile">
-                <PageHeader>Perfil</PageHeader>
-
+            <Main navigation={navigator} menu="profile" title="Perfil">
                 <Information>
                     <UserImage src={user.photo} />
                     <UserPanel

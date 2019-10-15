@@ -15,7 +15,7 @@ const BtnGroup = styled.div`
         :hover, :focus {
             color: white;
             border: 1px solid #292C33;
-            border-left: 5px solid blue;
+            border-left: 5px solid #286090;
         }
     }
 `;

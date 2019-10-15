@@ -26,8 +26,7 @@ class UpdatePassword extends Component {
         ]
 
       	return (
-            <Main navigation={navigator} menu="profile">
-                <PageHeader>Atualizar Senha</PageHeader>
+            <Main navigation={navigator} menu="profile" title="Atualizar Senha">
                 <Form onSubmit={handleSubmit((data) => this.__submit(data))}>
                     <Fieldset title="Antiga Senha">
                         <Field

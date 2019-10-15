@@ -9,10 +9,6 @@ const MainContainer = styled.div`
     top: 25px;
 `;
 
-const PanelBody = styled.div`
-    paddind-top: 0;
-`;
-
 const SidePanel = styled.div`
     position: relative;
     top: 8px;
@@ -20,7 +16,21 @@ const SidePanel = styled.div`
     padding-right: 0;
 `;
 
-const Main = ({ children, navigation, menu }) => (
+const PanelHeading = styled.div`
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+`;
+
+const H2 = styled.h2`
+    margin-top: 10px;
+`;
+
+const PanelBody = styled.div`
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+`;
+
+const Main = ({ children, navigation, menu, title }) => (
     <main>
         <Navbar />
         <Breadcrumb navigation={navigation} />
@@ -32,9 +42,12 @@ const Main = ({ children, navigation, menu }) => (
             </SidePanel>
 
             <MainContainer className="col-sm-10">
-                <div className="panel panel-default panel-content">
-                    <PanelBody className="panel-body">{children}</PanelBody>
-                </div>
+                <PanelHeading className="panel-heading gradient">
+                    <H2>{title}</H2>
+                </PanelHeading>
+                <PanelBody className="panel panel-default panel-content">
+                    <div className="panel-body">{children}</div>
+                </PanelBody>
             </MainContainer>
         </div>
     </main>

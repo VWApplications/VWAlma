@@ -26,8 +26,7 @@ class UpdateProfile extends Component {
         ]
 
       	return (
-            <Main navigation={navigator} menu="profile">
-                <PageHeader>Atualizar Informações Pessoais</PageHeader>
+            <Main navigation={navigator} menu="profile" title="Atualizar Informações Pessoais">
                 <Form onSubmit={handleSubmit((data) => this.__submit(data))}>
                     <Field
                         component={FileField}
