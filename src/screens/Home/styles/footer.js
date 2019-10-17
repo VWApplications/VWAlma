@@ -3,7 +3,7 @@ import styled from 'styled-components';
 
 export const FooterStyled = styled.footer`
     padding-top: 10px;
-    background-color: #292C33;
+    background-image: linear-gradient(#213038, #286090);
 `;
 
 export const Container = ({ children }) => (
@@ -23,6 +23,13 @@ export const Icon = ({ src }) => (
     <i className={"fa " + src}></i>
 )
 
+const LinkStyled = styled.a`
+    color: white;
+    :hover, :focus {
+        color: white;
+    }
+`;
+
 export const Link = ({ children, href }) => (
-    <a className="no-decoration" href={href} target="_blank" rel="noopener noreferrer">{children}</a>
+    <LinkStyled className="no-decoration" href={href} target="_blank" rel="noopener noreferrer">{children}</LinkStyled>
 )
