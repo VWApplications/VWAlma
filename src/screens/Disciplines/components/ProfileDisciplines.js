@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { stringify } from 'query-string';
 import { push } from 'connected-react-router';
+import { makeURL } from 'common/utils';
 import { TEACHER } from 'common/constants';
 import { BreakLine, Info, StringToHtml, Pagination } from 'common';
 import { choiceAlert } from 'common/alerts';
@@ -42,6 +43,12 @@ class ProfileDisciplines extends Component {
             const { dispatch } = this.props;
             dispatch(deleteDisciplineSagas(discipline.id));
         }
+    }
+
+    __redirectToDisciplineDetail(discipline) {
+        const { dispatch } = this.props;
+        const location = {pathname: `/profile/${makeURL(discipline.title)}/detail`, state: discipline}
+        dispatch(push(location.pathname, location.state));
     }
 
     render() {
@@ -85,7 +92,7 @@ class ProfileDisciplines extends Component {
                                     <FooterInfo teacher={discipline.teacher.short_name} course={discipline.course} />
 
                                     <FooterButtonGroup>
-                                        <FooterButton icon="fa-eye" type="primary" title="Entrar" onClick={() => dispatch(push("/profile"))} />
+                                        <FooterButton icon="fa-eye" type="primary" title="Entrar" onClick={() => this.__redirectToDisciplineDetail(discipline)} />
                                         <FooterButton icon="fa-trophy" type="primary" title="Hall da fama" onClick={() => dispatch(push("/profile"))} />
                                         {user.permission === TEACHER ?
                                             <FooterButton icon="fa-edit" type="primary" title="Editar" onClick={() => dispatch(push("/profile/discipline-form", discipline))} />

@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { push } from 'connected-react-router';
+import { makeURL } from 'common/utils';
 import { Container, SidebarLink } from '../styles/sidebar';
 import { TEACHER, ADMIN } from 'common/constants';
 import { deleteUserSagas } from 'screens/Accounts/actions';
@@ -8,9 +9,9 @@ import { choiceAlert } from 'common/alerts';
 
 class Sidebar extends Component {
 
-    __redirectTo(url) {
+    __redirectTo(url, state=null) {
         const { dispatch } = this.props;
-        dispatch(push(url));
+        dispatch(push(url, state));
     }
 
     async __deleteAccount() {
@@ -64,8 +65,54 @@ class Sidebar extends Component {
     }
 
     __disciplineMenu() {
+        const { location } = this.props;
+        const discipline = location.state;
+
         return (
-            <h1>Menu da disciplina</h1>
+            <Container>
+                <SidebarLink
+                    icon="fa-book"
+                    title="Ementa"
+                    onClick={() => this.__redirectTo(`/profile/${makeURL(discipline.title)}/detail`, discipline)}>
+                    Ementa da disciplina.
+                </SidebarLink>
+                <SidebarLink
+                    icon="fa-slideshare"
+                    title="Lista de Estudantes"
+                    onClick={() => this.__redirectTo(`/profile/${makeURL(discipline.title)}/detail`, discipline)}>
+                    Lista de estudantes e monitores da disciplina.
+                </SidebarLink>
+                <SidebarLink
+                    icon="fa-graduation-cap"
+                    title="Notas Finais"
+                    onClick={() => this.__redirectTo(`/profile/${makeURL(discipline.title)}/detail`, discipline)}>
+                    Notas finais da disciplina.
+                </SidebarLink>
+                <SidebarLink
+                    icon="fa-group"
+                    title="Grupos"
+                    onClick={() => this.__redirectTo(`/profile/${makeURL(discipline.title)}/detail`, discipline)}>
+                    Formação de grupos para respectivas atividades.
+                </SidebarLink>
+                <SidebarLink
+                    icon="fa-puzzle-piece"
+                    title="Sessões"
+                    onClick={() => this.__redirectTo(`/profile/${makeURL(discipline.title)}/detail`, discipline)}>
+                    Sessões da disciplina.
+                </SidebarLink>
+                <SidebarLink
+                    icon="fa-folder-open-o"
+                    title="Arquivos"
+                    onClick={() => this.__redirectTo(`/profile/${makeURL(discipline.title)}/detail`, discipline)}>
+                    Arquivos da disciplina.
+                </SidebarLink>
+                <SidebarLink
+                    icon="fa-comments-o"
+                    title="Forum"
+                    onClick={() => this.__redirectTo(`/profile/${makeURL(discipline.title)}/detail`, discipline)}>
+                    Fórum de dúvidas da disciplina.
+                </SidebarLink>
+            </Container>
         )
     }
 
@@ -95,7 +142,9 @@ class Sidebar extends Component {
 
 const mapStateToProps = state => {
     const { user } = state.account;
-    return { user };
+    const { location } = state.router;
+
+    return { user, location };
 }
 
 export default connect(mapStateToProps)(Sidebar);

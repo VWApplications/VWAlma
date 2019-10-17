@@ -5,9 +5,9 @@ import { BreadcrumbStyled, BreadLink, Container, Welcome } from '../styles/bread
 
 class Breadcrumb extends Component {
 
-    __redirect(url) {
+    __redirect(url, state) {
         const { dispatch } = this.props;
-        dispatch(push(url))
+        dispatch(push(url, state));
     }
 
     render() {
@@ -17,7 +17,7 @@ class Breadcrumb extends Component {
             <Container>
                     <BreadcrumbStyled>
                         {navigation.map((item, index) => (
-                            <BreadLink key={index} onClick={() => this.__redirect(item.url)}>{item.title}</BreadLink>
+                            <BreadLink key={index} onClick={() => this.__redirect(item.url, item.state)}>{item.title}</BreadLink>
                         ))}
                     </BreadcrumbStyled>
 

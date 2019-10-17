@@ -5,17 +5,14 @@ import Search from './components/Search';
 import Filter from './components/Filter';
 import Sidebar from './components/Sidebar';
 import PrivateRouter from './components/PrivateRoute';
-import {
+export {
     Container, Form, Fieldset,
     BreakLine, Line, SubmitButton, Button,
-    Main, Info, StringToHtml
+    Main, Info, StringToHtml, ActionsButton
 } from './components/Generic';
 
 export {
-    Main, Navbar, Breadcrumb,
+    Navbar, Breadcrumb,
     Pagination, Search, Sidebar,
-    Container, Form, Filter,
-    Fieldset, BreakLine, Line,
-    SubmitButton, Button, Info,
-    StringToHtml, PrivateRouter,
+    Filter, PrivateRouter
 };
