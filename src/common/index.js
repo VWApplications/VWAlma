@@ -8,7 +8,8 @@ import PrivateRouter from './components/PrivateRoute';
 export {
     Container, Form, Fieldset,
     BreakLine, Line, SubmitButton, Button,
-    Main, Info, StringToHtml, ActionsButton
+    Main, Info, StringToHtml, ActionsButton,
+    Label
 } from './components/Generic';
 
 export {

@@ -12,6 +12,11 @@ export function getAllDisciplinesAPI(queryString=null) {
     return axios.get(endpoint);
 }
 
+export function fetchDisciplineAPI(disciplineID) {
+    let endpoint = `/disciplines/${disciplineID}/`;
+    return axios.get(endpoint);
+}
+
 export function createDisciplineAPI(data) {
     let endpoint = "/disciplines/";
     return axios.post(endpoint, data);
@@ -30,4 +35,14 @@ export function deleteDisciplineAPI(disciplineID) {
 export function enterDisciplineAPI(data, disciplineID) {
     let endpoint = `/disciplines/${disciplineID}/enter/`;
     return axios.post(endpoint, data);
+}
+
+export function resetDisciplineAPI(disciplineID) {
+    let endpoint = `/disciplines/${disciplineID}/reset/`;
+    return axios.get(endpoint);
+}
+
+export function toogleDisciplineStatusAPI(disciplineID) {
+    let endpoint = `/disciplines/${disciplineID}/toogle_status/`;
+    return axios.get(endpoint);
 }

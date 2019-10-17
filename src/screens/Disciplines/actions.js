@@ -1,7 +1,8 @@
 import {
     LIST_DISCIPLINE, LIST_DISCIPLINE_SAGAS, CREATE_DISCIPLINE_SAGAS,
     UPDATE_DISCIPLINE_SAGAS, DELETE_DISCIPLINE_SAGAS, LIST_ALL_DISCIPLINES,
-    LIST_ALL_DISCIPLINE_SAGAS, ENTER_DISCIPLINE_SAGAS
+    LIST_ALL_DISCIPLINE_SAGAS, ENTER_DISCIPLINE_SAGAS, RESET_DISCIPLINE_SAGAS,
+    TOOGLE_DISCIPLINE_STATUS_SAGAS, FETCH_DISCIPLINE_SAGAS, FETCH_DISCIPLINE
 } from './types';
 
 export function listDisciplinesAction(disciplines, activePage, count) {
@@ -10,6 +11,14 @@ export function listDisciplinesAction(disciplines, activePage, count) {
 
 export function listDisciplinesSagas(activePage, queryString=null) {
     return {type: LIST_DISCIPLINE_SAGAS, payload: {activePage, queryString}};
+}
+
+export function fetchDisciplineAction(disciplineID) {
+    return {type: FETCH_DISCIPLINE, payload: disciplineID};
+}
+
+export function fetchDisciplineSagas(disciplineID) {
+    return {type: FETCH_DISCIPLINE_SAGAS, payload: disciplineID};
 }
 
 export function createDisciplineSagas(data) {
@@ -34,4 +43,12 @@ export function listAllDisciplinesSagas(activePage, queryString=null) {
 
 export function enterDisciplineSagas(data, disciplineID) {
     return {type: ENTER_DISCIPLINE_SAGAS, payload: {data, disciplineID}};
+}
+
+export function resetDisciplineSagas(disciplineID, path) {
+    return {type: RESET_DISCIPLINE_SAGAS, payload: { disciplineID, path }}
+}
+
+export function toogleDisciplineStatusSagas(disciplineID, path) {
+    return {type: TOOGLE_DISCIPLINE_STATUS_SAGAS, payload: { disciplineID, path }}
 }

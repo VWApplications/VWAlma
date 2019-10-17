@@ -140,11 +140,14 @@ const ActionsButton = ({ children, actions }) => (
     </div>
 )
 
+const Label = ({ children, type="primary gradient" }) => (<span className={"label label-" + type}>{children}</span>)
+
 const BreakLine = () => (<br />)
 const Line = () => (<hr />)
 
 export {
     Container, Form, Fieldset,
     BreakLine, Line, SubmitButton, Button,
-    Main, Info, StringToHtml, ActionsButton
+    Main, Info, StringToHtml, ActionsButton,
+    Label
 };

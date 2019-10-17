@@ -47,8 +47,7 @@ class ProfileDisciplines extends Component {
 
     __redirectToDisciplineDetail(discipline) {
         const { dispatch } = this.props;
-        const location = {pathname: `/profile/${makeURL(discipline.title)}/detail`, state: discipline}
-        dispatch(push(location.pathname, location.state));
+        dispatch(push(`/profile/${makeURL(discipline.title)}/detail`, discipline));
     }
 
     render() {
@@ -93,7 +92,6 @@ class ProfileDisciplines extends Component {
 
                                     <FooterButtonGroup>
                                         <FooterButton icon="fa-eye" type="primary" title="Entrar" onClick={() => this.__redirectToDisciplineDetail(discipline)} />
-                                        <FooterButton icon="fa-trophy" type="primary" title="Hall da fama" onClick={() => dispatch(push("/profile"))} />
                                         {user.permission === TEACHER ?
                                             <FooterButton icon="fa-edit" type="primary" title="Editar" onClick={() => dispatch(push("/profile/discipline-form", discipline))} />
                                         : null}
