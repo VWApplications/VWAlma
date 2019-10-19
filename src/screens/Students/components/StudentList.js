@@ -1,15 +1,21 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { stringify } from 'query-string';
 import { makeURL, formatWithLeftZero } from 'common/utils';
-import { Main, Info, ActionsButton, Search } from 'common';
+import { Main, Info, ActionsButton, Search, Pagination } from 'common';
 import { listStudentsSagas } from '../actions';
 import { StudentContainer, StudentBox, StudentHeader, StudentBody } from '../styles/studentList';
 
 class StudentList extends Component {
 
+    constructor(props) {
+        super(props);
+        this.state = {"filter": undefined}
+    }
+
     componentDidMount() {
-        const { dispatch, state } = this.props;
-        dispatch(listStudentsSagas(state.discipline, 1))
+        const { dispatch, state, pagination } = this.props;
+        dispatch(listStudentsSagas(state.discipline, pagination.activePage));
     }
 
     __changeStudentStatus(studentID) {
@@ -32,12 +38,21 @@ class StudentList extends Component {
         }
     }
 
-    __filterStudents(type, discipline) {
-        console.log(type, discipline);
+    __filterStudents(filter) {
+        const { dispatch, state, pagination } = this.props;
+
+        if (filter)
+            this.setState({ filter });
+        else
+            this.setState({ filter: undefined });
+
+        const queryString = stringify({page: pagination.activePage, filter});
+
+        dispatch(listStudentsSagas(state.discipline, pagination.activePage, queryString));
     }
 
     render() {
-        const { state, students } = this.props;
+        const { state, students, pagination } = this.props;
         const discipline = state.discipline;
 
         const navigator = [
@@ -49,8 +64,8 @@ class StudentList extends Component {
 
         const filters = [
             {title: "Todos", run: () => this.__filterStudents("all", discipline)},
-            {title: `${this.__formatFilter(discipline, "students")} Estudantes`, run: () => this.__filterStudents("students", discipline)},
-            {title: `${this.__formatFilter(discipline, "monitors")} Monitores`, run: () => this.__filterStudents("monitors", discipline)}
+            {title: `${this.__formatFilter(discipline, "students")} Estudantes`, run: () => this.__filterStudents("students")},
+            {title: `${this.__formatFilter(discipline, "monitors")} Monitores`, run: () => this.__filterStudents("monitors")}
         ]
 
         const FilterComponent = <ActionsButton actions={filters}>Filtros</ActionsButton>
@@ -78,6 +93,11 @@ class StudentList extends Component {
                         </StudentBox>
                     ))}
                 </StudentContainer>
+                <Pagination
+                    pagination={pagination}
+                    listObjectAction={listStudentsSagas}
+                    filters={{filter: this.state.filter}}
+                />
             </Main>
         )
     }
@@ -85,9 +105,9 @@ class StudentList extends Component {
 
 const mapStateToProps = state => {
     const { location } = state.router;
-    const { list } = state.student;
+    const { list, pagination } = state.student;
 
-    return { state: location.state, students: list };
+    return { state: location.state, students: list, pagination };
 }
 
 export default connect(mapStateToProps)(StudentList);
