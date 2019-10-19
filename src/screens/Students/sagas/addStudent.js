@@ -1,21 +1,21 @@
 import { all, put, call, takeLatest, take, select } from 'redux-saga/effects';
 import { push } from 'connected-react-router';
 import { makeURL } from 'common/utils';
-import { REMOVE_STUDENT_SAGAS, LIST_STUDENTS } from '../types';
+import { ADD_STUDENT_SAGAS, LIST_STUDENTS } from '../types';
 import { fetchDisciplineAPI } from 'screens/Disciplines/api';
 import { listStudentsSagas } from '../actions';
-import { removeStudentAPI } from '../api';
+import { addStudentAPI } from '../api';
 import { validateError } from 'common/utils';
 import { successAlert } from 'common/alerts';
 
-function* removeStudent(action) {
+function* addStudent(action) {
     const { discipline, data, queryString } = action.payload;
 
     try {
-        const response = yield call(removeStudentAPI, discipline.id, data);
+        const response = yield call(addStudentAPI, discipline.id, data);
 
         if (response.data.success) {
-            successAlert("Removeu!", "Aluno removido da turma com sucesso!")
+            successAlert("Adicionado!", "Aluno adicionado a turma com sucesso!")
 
             const pagination = yield select(state => state.student.pagination);
             yield put(listStudentsSagas(discipline, pagination.activePage, queryString));
@@ -31,7 +31,7 @@ function* removeStudent(action) {
 }
 
 function* watch() {
-    yield takeLatest(REMOVE_STUDENT_SAGAS, removeStudent);
+    yield takeLatest(ADD_STUDENT_SAGAS, addStudent);
 }
 
 export default function* rootSaga() {

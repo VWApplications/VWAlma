@@ -19,14 +19,14 @@ export function fetchStudentSagas(studentID) {
     return {type: FETCH_STUDENT_SAGAS, payload: studentID};
 }
 
-export function changeStudentStatusSagas(discipline, studentID) {
-    return {type: CHANGE_STUDENT_STATUS_SAGAS, payload: { discipline, studentID }};
+export function changeStudentStatusSagas(discipline, data) {
+    return {type: CHANGE_STUDENT_STATUS_SAGAS, payload: { discipline, data }};
 }
 
-export function removeStudentSagas(discipline, studentID, queryString) {
-    return {type: REMOVE_STUDENT_SAGAS, payload: { discipline, studentID, queryString }};
+export function removeStudentSagas(discipline, data, queryString) {
+    return {type: REMOVE_STUDENT_SAGAS, payload: { discipline, data, queryString }};
 }
 
-export function addStudentSagas(discipline, studentEmail, queryString) {
-    return {type: ADD_STUDENT_SAGAS, payload: { discipline, studentEmail, queryString }};
+export function addStudentSagas(discipline, data, queryString) {
+    return {type: ADD_STUDENT_SAGAS, payload: { discipline, data, queryString }};
 }

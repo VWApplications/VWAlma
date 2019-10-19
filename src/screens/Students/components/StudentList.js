@@ -1,13 +1,13 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { reset } from 'redux-form';
 import { stringify } from 'query-string';
 import { makeURL, formatWithLeftZero } from 'common/utils';
 import { Main, Info, ActionsButton, Search, Pagination } from 'common';
-import { listStudentsSagas, removeStudentSagas } from '../actions';
+import { listStudentsSagas, removeStudentSagas, addStudentSagas } from '../actions';
 import { StudentContainer, StudentBox, StudentHeader, StudentBody } from '../styles/studentList';
 
 class StudentList extends Component {
-
     constructor(props) {
         super(props);
         this.state = {"filter": undefined}
@@ -22,14 +22,17 @@ class StudentList extends Component {
         console.log(studentID);
     }
 
-    __removeStudentFromClass(studentID) {
+    __removeStudentFromClass(data) {
         const { dispatch, state, pagination } = this.props;
         const queryString = stringify({page: pagination.activePage, filter: this.state.filter});
-        dispatch(removeStudentSagas(state.discipline, studentID, queryString));
+        dispatch(removeStudentSagas(state.discipline, data, queryString));
     }
 
     __addStudent(data) {
-        console.log(data);
+        const { dispatch, state, pagination } = this.props;
+        const queryString = stringify({page: pagination.activePage, filter: this.state.filter});
+        dispatch(addStudentSagas(state.discipline, data, queryString));
+        dispatch(reset("SearchForm"));
     }
 
     __formatFilter(discipline, type) {
@@ -85,11 +88,11 @@ class StudentList extends Component {
                     {students.length === 0 ? <Info>Não há estudantes nessa disciplina.</Info> : null}
                     {students.map((student, index) => (
                         <StudentBox key={index}>
-                            <StudentHeader src={student.photo} onClick={() => this.__changeStudentStatus(student)}>
+                            <StudentHeader src={student.photo} onClick={() => this.__changeStudentStatus({"id": student.id})}>
                                 Estudante
                             </StudentHeader>
 
-                            <StudentBody email={student.email} id={student.identifier} onClose={() => this.__removeStudentFromClass(student)}>
+                            <StudentBody email={student.email} id={student.identifier} onClose={() => this.__removeStudentFromClass({"id": student.id})}>
                                 {student.short_name}
                             </StudentBody>
                         </StudentBox>
