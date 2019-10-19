@@ -96,6 +96,7 @@ class StudentList extends Component {
                 <Pagination
                     pagination={pagination}
                     listObjectAction={listStudentsSagas}
+                    object={discipline}
                     filters={{filter: this.state.filter}}
                 />
             </Main>
