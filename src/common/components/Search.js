@@ -6,7 +6,7 @@ import { reduxForm, Field } from 'redux-form';
 
 class Search extends Component {
     render() {
-        const { handleSubmit, filterList, filterTitle, filterSubmit } = this.props;
+        const { handleSubmit, filterList, filterTitle, filterSubmit, placeholder="Pesquisa", name="search", icon="fa-search" } = this.props;
 
         return (
             <Form onSubmit={handleSubmit}>
@@ -16,12 +16,12 @@ class Search extends Component {
                 <Field
                     component={"input"}
                     type="text"
-                    name="search"
+                    name={name}
                     className="form-control"
-                    placeholder="Pesquisa"
+                    placeholder={placeholder}
                 />
 
-                <SubmitButton />
+                <SubmitButton icon={icon} />
             </Form>
         )
     }

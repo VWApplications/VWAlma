@@ -75,3 +75,7 @@ export function hasPermission(requiredPermissions, userPermissions) {
     const allowedPermissions = new Set(requiredPermissions.filter(item => userPermissions.includes(item)));
     return allowedPermissions.size > 0;
 }
+
+export function formatWithLeftZero(number) {
+    return number < 10 ? `0${number}` : number;
+}

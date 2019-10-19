@@ -8,22 +8,23 @@ import { fetchDisciplineSagas, resetDisciplineSagas, toogleDisciplineStatusSagas
 
 class DisciplineDetail extends Component {
     componentDidMount() {
-        const { dispatch, discipline } = this.props;
-        dispatch(fetchDisciplineSagas(discipline.id));
+        const { dispatch, state } = this.props;
+        dispatch(fetchDisciplineSagas(state.discipline.id));
     }
 
     __resetDiscipline(id) {
-        const { dispatch, discipline, state } = this.props;
-        dispatch(resetDisciplineSagas(id, `/profile/${makeURL(discipline.title)}/detail`, state));
+        const { dispatch, state } = this.props;
+        dispatch(resetDisciplineSagas(id, `/profile/${makeURL(state.discipline.title)}/detail`, state));
     }
 
     __closeDiscipline(id) {
-        const { dispatch, discipline, state } = this.props;
-        dispatch(toogleDisciplineStatusSagas(id, `/profile/${makeURL(discipline.title)}/detail`, state));
+        const { dispatch, state } = this.props;
+        dispatch(toogleDisciplineStatusSagas(id, `/profile/${makeURL(state.discipline.title)}/detail`, state));
     }
 
     render() {
-        const { user, discipline, state } = this.props;
+        const { user, state } = this.props;
+        const discipline = state.discipline;
 
         const navigator = [
             {title: "Home", url: "/", state: null},
@@ -58,7 +59,7 @@ const mapStateToProps = state => {
     const { user } = state.account;
     const { location } = state.router;
 
-    return { user, discipline: location.state.discipline, state: location.state }
+    return { user, state: location.state }
 }
 
 export default connect(mapStateToProps)(DisciplineDetail);

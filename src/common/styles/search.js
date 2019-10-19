@@ -6,10 +6,10 @@ export const Form = ({ children, onSubmit }) => (
     </form>
 )
 
-export const SubmitButton = () => (
+export const SubmitButton = ({ icon }) => (
     <div className="input-group-btn">
         <button className="btn btn-primary btn-border" type="submit">
-            <i className="fa fa-search"></i>
+            <i className={"fa " + icon}></i>
         </button>
     </div>
 )
