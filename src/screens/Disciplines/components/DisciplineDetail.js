@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { makeURL } from 'common/utils';
 import { Main, StringToHtml, ActionsButton, Label } from 'common';
+import { TEACHER } from 'common/constants';
 import { TeacherPhoto } from '../styles/disciplineDetail';
 import { fetchDisciplineSagas, resetDisciplineSagas, toogleDisciplineStatusSagas } from '../actions';
 
@@ -22,7 +23,7 @@ class DisciplineDetail extends Component {
     }
 
     render() {
-        const { location } = this.props;
+        const { location, user } = this.props;
         const discipline = this.props.discipline ? this.props.discipline : location.state;
 
         const navigator = [
@@ -47,7 +48,7 @@ class DisciplineDetail extends Component {
                 title="Detalhes da disciplina"
                 rightComponent={<TeacherPhoto src={discipline.teacher.photo}>{discipline.teacher.short_name}</TeacherPhoto>}>
                 {discipline.is_closed ? <Label type="danger">Disciplina Fechada</Label> : <Label type="success">Disciplina Aberta</Label>}
-                <ActionsButton actions={actions}>Ações</ActionsButton>
+                {user.permission === TEACHER ? <ActionsButton actions={actions}>Ações</ActionsButton> : null}
                 <StringToHtml>{discipline.description}</StringToHtml>
             </Main>
         )
