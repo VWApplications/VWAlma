@@ -11,17 +11,17 @@ export function fetchStudentAPI(studentID) {
     return axios.get(endpoint);
 }
 
-export function changeStudentStatusAPI(disciplineID, studentID) {
+export function changeStudentStatusAPI(disciplineID, data) {
     let endpoint = `/disciplines/${disciplineID}/toogle_student_status/`;
-    return axios.post(endpoint, studentID);
+    return axios.post(endpoint, data);
 }
 
-export function removeStudentAPI(disciplineID, studentID) {
+export function removeStudentAPI(disciplineID, data) {
     let endpoint = `/disciplines/${disciplineID}/remove_student/`;
-    return axios.post(endpoint, studentID);
+    return axios.post(endpoint, data);
 }
 
-export function addStudentAPI(disciplineID, studentEmail) {
+export function addStudentAPI(disciplineID, data) {
     let endpoint = `/disciplines/${disciplineID}/add_student/`;
-    return axios.post(endpoint, studentEmail);
+    return axios.post(endpoint, data);
 }

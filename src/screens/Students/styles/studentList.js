@@ -27,7 +27,6 @@ const ChangeStudentStatusLink = styled.button`
     border:none;
     padding:0 !important;
     margin-top: 5px;
-    margin-left: 0;
     font: inherit;
     cursor: pointer;
 

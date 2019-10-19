@@ -4,8 +4,9 @@ import { reset } from 'redux-form';
 import { stringify } from 'query-string';
 import { makeURL, formatWithLeftZero } from 'common/utils';
 import { Main, Info, ActionsButton, Search, Pagination } from 'common';
-import { listStudentsSagas, removeStudentSagas, addStudentSagas } from '../actions';
+import { listStudentsSagas, removeStudentSagas, addStudentSagas, changeStudentStatusSagas } from '../actions';
 import { StudentContainer, StudentBox, StudentHeader, StudentBody } from '../styles/studentList';
+import { choiceAlert } from 'common/alerts';
 
 class StudentList extends Component {
     constructor(props) {
@@ -18,14 +19,44 @@ class StudentList extends Component {
         dispatch(listStudentsSagas(state.discipline, pagination.activePage));
     }
 
-    __changeStudentStatus(studentID) {
-        console.log(studentID);
+    __isMonitor(studentID) {
+        const { state } = this.props;
+        if (state.discipline.monitors.indexOf(studentID) >= 0)
+            return true
+
+        return false
     }
 
-    __removeStudentFromClass(data) {
+    async __changeStudentStatus(data) {
         const { dispatch, state, pagination } = this.props;
         const queryString = stringify({page: pagination.activePage, filter: this.state.filter});
-        dispatch(removeStudentSagas(state.discipline, data, queryString));
+
+        let text = "Tem certeza que deseja modificar o status do estudante para monitor?";
+        if (this.__isMonitor(data['id']))
+            text = "Tem certeza que deseja modificar o status do monitor para estudante?";
+
+        const success = await choiceAlert(
+            "Modificando status",
+            text, "Sim", "Não",
+            "Status modificado com sucesso",
+            "", "Operação Cancelada!", ""
+        )
+        if (success)
+            dispatch(changeStudentStatusSagas(state.discipline, data, queryString));
+    }
+
+    async __removeStudentFromClass(data) {
+        const { dispatch, state, pagination } = this.props;
+        const queryString = stringify({page: pagination.activePage, filter: this.state.filter});
+
+        const success = await choiceAlert(
+            "Removendo studante",
+            "Tem certeza que deseja remover o estudante?",
+            "Sim", "Não", "Aluno removido da turma com sucesso!",
+            "", "Operação Cancelada!", ""
+        )
+        if (success)
+            dispatch(removeStudentSagas(state.discipline, data, queryString));
     }
 
     __addStudent(data) {
@@ -89,7 +120,7 @@ class StudentList extends Component {
                     {students.map((student, index) => (
                         <StudentBox key={index}>
                             <StudentHeader src={student.photo} onClick={() => this.__changeStudentStatus({"id": student.id})}>
-                                Estudante
+                                {this.__isMonitor(student.id) ? "Monitor" : "Estudante"}
                             </StudentHeader>
 
                             <StudentBody email={student.email} id={student.identifier} onClose={() => this.__removeStudentFromClass({"id": student.id})}>

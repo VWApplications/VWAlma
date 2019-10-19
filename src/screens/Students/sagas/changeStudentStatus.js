@@ -1,17 +1,17 @@
 import { all, put, call, takeLatest, take, select } from 'redux-saga/effects';
 import { push } from 'connected-react-router';
 import { makeURL } from 'common/utils';
-import { REMOVE_STUDENT_SAGAS, LIST_STUDENTS } from '../types';
+import { CHANGE_STUDENT_STATUS_SAGAS, LIST_STUDENTS } from '../types';
 import { fetchDisciplineAPI } from 'screens/Disciplines/api';
 import { listStudentsSagas } from '../actions';
-import { removeStudentAPI } from '../api';
+import { changeStudentStatusAPI } from '../api';
 import { validateError } from 'common/utils';
 
-function* removeStudent(action) {
+function* changeStudentStatus(action) {
     const { discipline, data, queryString } = action.payload;
 
     try {
-        const response = yield call(removeStudentAPI, discipline.id, data);
+        const response = yield call(changeStudentStatusAPI, discipline.id, data);
 
         if (response.data.success) {
             const pagination = yield select(state => state.student.pagination);
@@ -28,7 +28,7 @@ function* removeStudent(action) {
 }
 
 function* watch() {
-    yield takeLatest(REMOVE_STUDENT_SAGAS, removeStudent);
+    yield takeLatest(CHANGE_STUDENT_STATUS_SAGAS, changeStudentStatus);
 }
 
 export default function* rootSaga() {
