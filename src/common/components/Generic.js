@@ -108,7 +108,7 @@ const Button = ({ children, onClick, icon }) => (
 )
 
 const Info = ({ children }) => (
-    <div className="alert alert-info">{children}</div>
+    <div className="alert alert-info" style={{"marginTop": "10px"}}>{children}</div>
 )
 
 const StringToHtml = ({ children }) => (

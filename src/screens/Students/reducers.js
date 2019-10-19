@@ -19,13 +19,11 @@ function studentReducer(state=initialState, action) {
 
 			return {
 				...state,
-				profile: {
-					list: payload.students,
-					pagination: {
-						...state.pagination,
-						activePage: payload.activePage,
-						totalItemsCount: payload.count
-					}
+				list: payload.students,
+				pagination: {
+					...state.pagination,
+					activePage: payload.activePage,
+					totalItemsCount: payload.count
 				}
 			};
 

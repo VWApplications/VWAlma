@@ -2,12 +2,14 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { makeURL, formatWithLeftZero } from 'common/utils';
 import { Main, Info, ActionsButton, Search } from 'common';
+import { listStudentsSagas } from '../actions';
 import { StudentContainer, StudentBox, StudentHeader, StudentBody } from '../styles/studentList';
 
 class StudentList extends Component {
 
     componentDidMount() {
-        console.log("Pegar a lista de estudates/monitores da disciplina")
+        const { dispatch, state } = this.props;
+        dispatch(listStudentsSagas(state.discipline, 1))
     }
 
     __changeStudentStatus(studentID) {
@@ -35,9 +37,8 @@ class StudentList extends Component {
     }
 
     render() {
-        const { state } = this.props;
+        const { state, students } = this.props;
         const discipline = state.discipline;
-        const students = discipline.students;
 
         const navigator = [
             {title: "Home", url: "/", state: null},
@@ -84,8 +85,9 @@ class StudentList extends Component {
 
 const mapStateToProps = state => {
     const { location } = state.router;
+    const { list } = state.student;
 
-    return { state: location.state };
+    return { state: location.state, students: list };
 }
 
 export default connect(mapStateToProps)(StudentList);
