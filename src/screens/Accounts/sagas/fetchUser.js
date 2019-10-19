@@ -4,7 +4,7 @@ import { fetchUserAction } from '../actions';
 import { getUserAPI } from '../api';
 import { validateError } from 'common/utils';
 
-function* fetchUser() {
+function* fetchCurrentUser() {
     try {
         const userResponse = yield call(getUserAPI);
 
@@ -15,7 +15,7 @@ function* fetchUser() {
 }
 
 function* watchUser() {
-    yield takeLatest(FETCH_USER_SAGAS, fetchUser);
+    yield takeLatest(FETCH_USER_SAGAS, fetchCurrentUser);
 }
 
 export default function* rootSaga() {

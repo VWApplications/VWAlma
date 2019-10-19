@@ -6,6 +6,10 @@ import { StudentContainer, StudentBox, StudentHeader, StudentBody } from '../sty
 
 class StudentList extends Component {
 
+    componentDidMount() {
+        console.log("Pegar a lista de estudates/monitores da disciplina")
+    }
+
     __changeStudentStatus(studentID) {
         console.log(studentID);
     }
