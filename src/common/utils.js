@@ -33,21 +33,25 @@ export function moveToTop() {
 }
 
 export function validateError(error) {
-    const msg = error.response.data.detail;
-    if (msg) {
-        errorAlert("Ops...", msg);
-    } else {
-        try {
-            const msg = error.response.data.non_field_errors[0];
+    try {
+        const msg = error.response.data.detail;
+        if (msg) {
             errorAlert("Ops...", msg);
-        } catch(e) {
-            console.warn(error.response.data);
-            if (error.response.data.email)
-                errorAlert("Ops...", error.response.data.email);
-            else
-                errorAlert("Ops...", "Por favor, preencha os campos corretamente.");
+        } else {
+            try {
+                const msg = error.response.data.non_field_errors[0];
+                errorAlert("Ops...", msg);
+            } catch(e) {
+                console.warn(error.response.data);
+                if (error.response.data.email)
+                    errorAlert("Ops...", error.response.data.email);
+                else
+                    errorAlert("Ops...", "Por favor, preencha os campos corretamente.");
+            }
         }
-        
+    } catch(e) {
+        console.warn(e);
+        errorAlert("Ops...", "Ocorreu algum problema inesperado, por favor contacte o administrador do sistema.");
     }
 }
 

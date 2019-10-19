@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { stringify } from 'query-string';
 import { makeURL, formatWithLeftZero } from 'common/utils';
 import { Main, Info, ActionsButton, Search, Pagination } from 'common';
-import { listStudentsSagas } from '../actions';
+import { listStudentsSagas, removeStudentSagas } from '../actions';
 import { StudentContainer, StudentBox, StudentHeader, StudentBody } from '../styles/studentList';
 
 class StudentList extends Component {
@@ -23,7 +23,9 @@ class StudentList extends Component {
     }
 
     __removeStudentFromClass(studentID) {
-        console.log(studentID);
+        const { dispatch, state, pagination } = this.props;
+        const queryString = stringify({page: pagination.activePage, filter: this.state.filter});
+        dispatch(removeStudentSagas(state.discipline, studentID, queryString));
     }
 
     __addStudent(data) {

@@ -23,10 +23,10 @@ export function changeStudentStatusSagas(discipline, studentID) {
     return {type: CHANGE_STUDENT_STATUS_SAGAS, payload: { discipline, studentID }};
 }
 
-export function removeStudentSagas(discipline, studentID) {
-    return {type: REMOVE_STUDENT_SAGAS, payload: { discipline, studentID }};
+export function removeStudentSagas(discipline, studentID, queryString) {
+    return {type: REMOVE_STUDENT_SAGAS, payload: { discipline, studentID, queryString }};
 }
 
-export function addStudentSagas(discipline, studentEmail) {
-    return {type: ADD_STUDENT_SAGAS, payload: { discipline, studentEmail }};
+export function addStudentSagas(discipline, studentEmail, queryString) {
+    return {type: ADD_STUDENT_SAGAS, payload: { discipline, studentEmail, queryString }};
 }
