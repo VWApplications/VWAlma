@@ -7,7 +7,7 @@ export const Container = ({ children }) => (
 )
 
 const NavStyled = styled.nav`
-    background-image: linear-gradient(#286090, #213038);
+    background-color: #263238;
     margin-bottom: 0px;
     border-width: 0 0 0;
 `;

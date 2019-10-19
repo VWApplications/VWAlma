@@ -31,9 +31,13 @@ class DisciplineDetail extends Component {
             {title: discipline.title, url: `/profile/${makeURL(discipline.title)}/detail`, state: discipline}
         ]
 
+        let actionTitle = "Fechar Disciplina";
+        if (discipline.is_closed)
+            actionTitle = "Abrir Disciplina";
+
         const actions = [
             {title: "Resetar Disciplina", icon: "fa-backward", run: () => this.__resetDiscipline(discipline.id)},
-            {title: "Fechar Disciplina", icon: "fa-eye-slash", run: () => this.__closeDiscipline(discipline.id)},
+            {title: actionTitle, icon: "fa-eye-slash", run: () => this.__closeDiscipline(discipline.id)},
         ]
 
         return (
