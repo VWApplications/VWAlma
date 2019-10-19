@@ -47,7 +47,8 @@ class ProfileDisciplines extends Component {
 
     __redirectToDisciplineDetail(discipline) {
         const { dispatch } = this.props;
-        dispatch(push(`/profile/${makeURL(discipline.title)}/detail`, discipline));
+        const state = { discipline };
+        dispatch(push(`/profile/${makeURL(discipline.title)}/detail`, state));
     }
 
     render() {

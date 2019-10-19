@@ -22,9 +22,7 @@ class Sidebar extends Component {
             "Sim", "Não",
             "Conta deletada com sucesso!",
             "", "Operação Cancelada", ""
-        )) {
-            dispatch(deleteUserSagas());
-        }
+        )) { dispatch(deleteUserSagas()); }
     }
 
     __profileMenu() {
@@ -66,50 +64,50 @@ class Sidebar extends Component {
 
     __disciplineMenu() {
         const { location } = this.props;
-        const discipline = location.state;
+        const discipline = location.state.discipline
 
         return (
             <Container>
                 <SidebarLink
                     icon="fa-book"
                     title="Ementa"
-                    onClick={() => this.__redirectTo(`/profile/${makeURL(discipline.title)}/detail`, discipline)}>
+                    onClick={() => this.__redirectTo(`/profile/${makeURL(discipline.title)}/detail`, location.state)}>
                     Ementa da disciplina.
                 </SidebarLink>
                 <SidebarLink
                     icon="fa-slideshare"
                     title="Lista de Estudantes"
-                    onClick={() => this.__redirectTo(`/profile/${makeURL(discipline.title)}/detail`, discipline)}>
+                    onClick={() => this.__redirectTo(`/profile/${makeURL(discipline.title)}/students`, location.state)}>
                     Lista de estudantes e monitores da disciplina.
                 </SidebarLink>
                 <SidebarLink
                     icon="fa-graduation-cap"
                     title="Notas Finais"
-                    onClick={() => this.__redirectTo(`/profile/${makeURL(discipline.title)}/detail`, discipline)}>
+                    onClick={() => this.__redirectTo(`/profile/${makeURL(discipline.title)}/detail`, location.state)}>
                     Notas finais da disciplina.
                 </SidebarLink>
                 <SidebarLink
                     icon="fa-group"
                     title="Grupos"
-                    onClick={() => this.__redirectTo(`/profile/${makeURL(discipline.title)}/detail`, discipline)}>
+                    onClick={() => this.__redirectTo(`/profile/${makeURL(discipline.title)}/detail`, location.state)}>
                     Formação de grupos para respectivas atividades.
                 </SidebarLink>
                 <SidebarLink
                     icon="fa-puzzle-piece"
                     title="Sessões"
-                    onClick={() => this.__redirectTo(`/profile/${makeURL(discipline.title)}/detail`, discipline)}>
+                    onClick={() => this.__redirectTo(`/profile/${makeURL(discipline.title)}/detail`, location.state)}>
                     Sessões da disciplina.
                 </SidebarLink>
                 <SidebarLink
                     icon="fa-folder-open-o"
                     title="Arquivos"
-                    onClick={() => this.__redirectTo(`/profile/${makeURL(discipline.title)}/detail`, discipline)}>
+                    onClick={() => this.__redirectTo(`/profile/${makeURL(discipline.title)}/detail`, location.state)}>
                     Arquivos da disciplina.
                 </SidebarLink>
                 <SidebarLink
                     icon="fa-comments-o"
                     title="Forum"
-                    onClick={() => this.__redirectTo(`/profile/${makeURL(discipline.title)}/detail`, discipline)}>
+                    onClick={() => this.__redirectTo(`/profile/${makeURL(discipline.title)}/detail`, location.state)}>
                     Fórum de dúvidas da disciplina.
                 </SidebarLink>
             </Container>

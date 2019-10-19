@@ -14,7 +14,7 @@ function* toogleDisciplineStatus(action) {
 
         yield take([FETCH_DISCIPLINE]);
         const discipline = yield select(state => state.discipline.obj);
-        yield put(push(path, discipline));
+        yield put(push(path, { discipline }));
     } catch(error) {
         validateError(error);
     }

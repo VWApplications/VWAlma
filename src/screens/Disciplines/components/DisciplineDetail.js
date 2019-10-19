@@ -8,28 +8,27 @@ import { fetchDisciplineSagas, resetDisciplineSagas, toogleDisciplineStatusSagas
 
 class DisciplineDetail extends Component {
     componentDidMount() {
-        const { dispatch, location } = this.props;
-        dispatch(fetchDisciplineSagas(location.state.id));
+        const { dispatch, discipline } = this.props;
+        dispatch(fetchDisciplineSagas(discipline.id));
     }
 
     __resetDiscipline(id) {
-        const { dispatch, location } = this.props;
-        dispatch(resetDisciplineSagas(id, `/profile/${makeURL(location.state.title)}/detail`, location.state));
+        const { dispatch, discipline, state } = this.props;
+        dispatch(resetDisciplineSagas(id, `/profile/${makeURL(discipline.title)}/detail`, state));
     }
 
     __closeDiscipline(id) {
-        const { dispatch, location } = this.props;
-        dispatch(toogleDisciplineStatusSagas(id, `/profile/${makeURL(location.state.title)}/detail`, location.state));
+        const { dispatch, discipline, state } = this.props;
+        dispatch(toogleDisciplineStatusSagas(id, `/profile/${makeURL(discipline.title)}/detail`, state));
     }
 
     render() {
-        const { location, user } = this.props;
-        const discipline = this.props.discipline ? this.props.discipline : location.state;
+        const { user, discipline, state } = this.props;
 
         const navigator = [
             {title: "Home", url: "/", state: null},
             {title: "Perfil", url: "/profile", state: null},
-            {title: discipline.title, url: `/profile/${makeURL(discipline.title)}/detail`, state: discipline}
+            {title: discipline.title, url: `/profile/${makeURL(discipline.title)}/detail`, state: state }
         ]
 
         let actionTitle = "Fechar Disciplina";
@@ -58,9 +57,8 @@ class DisciplineDetail extends Component {
 const mapStateToProps = state => {
     const { user } = state.account;
     const { location } = state.router;
-    const { obj } = state.discipline;
 
-    return { user, location, discipline: obj }
+    return { user, discipline: location.state.discipline, state: location.state }
 }
 
 export default connect(mapStateToProps)(DisciplineDetail);
