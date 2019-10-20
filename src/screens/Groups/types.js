@@ -1,0 +1,5 @@
+// ACTIONS
+export const LIST_GROUPS = "LIST_GROUPS";
+
+// SAGAS
+export const LIST_GROUPS_SAGAS = "LIST_GROUPS_SAGAS";

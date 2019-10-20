@@ -3,8 +3,9 @@ import { connect } from 'react-redux';
 import { reduxForm, Field, reset } from 'redux-form';
 import { makeURL } from 'common/utils';
 import { InputField } from 'common/fields';
-import { Main, Info, Search, Form, SubmitButton, Fieldset } from 'common';
+import { Main, Info, Search, Form, SubmitButton, Fieldset, Pagination } from 'common';
 import { validateCreateGroup } from '../validate';
+import { listGroupsSagas } from '../actions';
 import {
     StudentContainer, StudentBox, StudentHeader, StudentBody,
     GroupContainer, GroupPanel, GroupPanelHeader, GroupPanelBody,
@@ -18,7 +19,8 @@ class GroupList extends Component {
     }
 
     componentDidMount() {
-        console.log("Listar todos os grupos da disciplina.")
+        const { dispatch, pagination, state } = this.props;
+        dispatch(listGroupsSagas(state.discipline, pagination.activePage));
     }
 
     __addStudent(data) {
@@ -52,7 +54,7 @@ class GroupList extends Component {
     }
 
     render() {
-        const { state, handleSubmit, submitting, invalid } = this.props;
+        const { state, handleSubmit, submitting, invalid, pagination, groups } = this.props;
         const discipline = state.discipline;
 
         const navigator = [
@@ -64,19 +66,19 @@ class GroupList extends Component {
 
         const AddButton = <AddGroupButton opened={this.state.form} onClick={() => this.setState({form: !this.state.form, formTitle: "Criar novo grupo"})} />
 
-        const students = [
-            {id: 1, short_name: "Aluno1", email: "aluno1@gmail.com", identifier: "13/0129348"},
-            {id: 2, short_name: "Aluno2", email: "aluno2@gmail.com"},
-            {id: 3, short_name: "Aluno3", email: "aluno3@gmail.com"},
-            {id: 4, short_name: "Aluno4", email: "aluno4@gmail.com"},
-            {id: 5, short_name: "Aluno5", email: "aluno5@gmail.com"},
-            {id: 6, short_name: "Aluno6", email: "aluno6@gmail.com"},
-            {id: 7, short_name: "Aluno7", email: "aluno7@gmail.com"}
-        ];
+        // const students = [
+        //     {id: 1, short_name: "Aluno1", email: "aluno1@gmail.com", identifier: "13/0129348"},
+        //     {id: 2, short_name: "Aluno2", email: "aluno2@gmail.com"},
+        //     {id: 3, short_name: "Aluno3", email: "aluno3@gmail.com"},
+        //     {id: 4, short_name: "Aluno4", email: "aluno4@gmail.com"},
+        //     {id: 5, short_name: "Aluno5", email: "aluno5@gmail.com"},
+        //     {id: 6, short_name: "Aluno6", email: "aluno6@gmail.com"},
+        //     {id: 7, short_name: "Aluno7", email: "aluno7@gmail.com"}
+        // ];
 
-        const groups = [
-            {id: 1, title: "Cavaleiros do zodiaco", students: [...students], students_limit: 6}
-        ];
+        // const groups = [
+        //     {id: 1, title: "Cavaleiros do zodiaco", students: [...students], students_limit: 6}
+        // ];
 
         return (
             <Main navigation={navigator} menu="discipline" title="Lista de Grupos" rightComponent={AddButton}>
@@ -149,6 +151,11 @@ class GroupList extends Component {
                         </GroupPanel>
                     ))}
                 </GroupContainer>
+                <Pagination
+                    pagination={pagination}
+                    listObjectAction={listGroupsSagas}
+                    object={discipline}
+                />
             </Main>
         )
     }
@@ -162,8 +169,9 @@ const form = reduxForm({
 
 const mapStateToProps = state => {
     const { location } = state.router;
+    const { list, pagination } = state.group;
 
-    return { state: location.state };
+    return { state: location.state, groups: list, pagination };
 }
 
 export default connect(mapStateToProps)(form);
