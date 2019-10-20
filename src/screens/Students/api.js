@@ -6,11 +6,6 @@ export function getStudentsAPI(disciplineID, queryString=null) {
     return axios.get(endpoint);
 }
 
-export function fetchStudentAPI(studentID) {
-    let endpoint = `/users/${studentID}/`;
-    return axios.get(endpoint);
-}
-
 export function changeStudentStatusAPI(disciplineID, data) {
     let endpoint = `/disciplines/${disciplineID}/toogle_student_status/`;
     return axios.post(endpoint, data);

@@ -1,8 +1,7 @@
-import { LIST_STUDENTS, FETCH_STUDENT } from './types';
+import { LIST_STUDENTS } from './types';
 
 const initialState = {
     list: [],
-	obj: null,
     pagination: {
         totalItemsCount: 0,
         itemsCountPerPage: 5,
@@ -26,11 +25,6 @@ function studentReducer(state=initialState, action) {
 					totalItemsCount: payload.count
 				}
 			};
-
-		case FETCH_STUDENT:
-			payload = action.payload;
-
-			return {...state, obj: payload};
 
 		default:
 			return state;
