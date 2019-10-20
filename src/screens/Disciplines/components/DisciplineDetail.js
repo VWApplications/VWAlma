@@ -8,22 +8,12 @@ import { fetchDisciplineSagas, resetDisciplineSagas, toogleDisciplineStatusSagas
 
 class DisciplineDetail extends Component {
     componentDidMount() {
-        const { dispatch, state } = this.props;
-        dispatch(fetchDisciplineSagas(state.discipline.id));
-    }
-
-    __resetDiscipline(id) {
-        const { dispatch, state } = this.props;
-        dispatch(resetDisciplineSagas(id, `/profile/${makeURL(state.discipline.title)}/detail`, state));
-    }
-
-    __closeDiscipline(id) {
-        const { dispatch, state } = this.props;
-        dispatch(toogleDisciplineStatusSagas(id, `/profile/${makeURL(state.discipline.title)}/detail`, state));
+        const { dispatch } = this.props;
+        dispatch(fetchDisciplineSagas());
     }
 
     render() {
-        const { user, state } = this.props;
+        const { user, state, dispatch } = this.props;
         const discipline = state.discipline;
 
         const navigator = [
@@ -37,8 +27,8 @@ class DisciplineDetail extends Component {
             actionTitle = "Abrir Disciplina";
 
         const actions = [
-            {title: "Resetar Disciplina", icon: "fa-backward", run: () => this.__resetDiscipline(discipline.id)},
-            {title: actionTitle, icon: "fa-eye-slash", run: () => this.__closeDiscipline(discipline.id)},
+            {title: "Resetar Disciplina", icon: "fa-backward", run: () => dispatch(resetDisciplineSagas())},
+            {title: actionTitle, icon: "fa-eye-slash", run: () => dispatch(toogleDisciplineStatusSagas())},
         ]
 
         return (

@@ -17,8 +17,8 @@ export function fetchDisciplineAction(disciplineID) {
     return {type: FETCH_DISCIPLINE, payload: disciplineID};
 }
 
-export function fetchDisciplineSagas(disciplineID) {
-    return {type: FETCH_DISCIPLINE_SAGAS, payload: disciplineID};
+export function fetchDisciplineSagas() {
+    return {type: FETCH_DISCIPLINE_SAGAS};
 }
 
 export function createDisciplineSagas(data) {
@@ -45,10 +45,10 @@ export function enterDisciplineSagas(data, disciplineID) {
     return {type: ENTER_DISCIPLINE_SAGAS, payload: {data, disciplineID}};
 }
 
-export function resetDisciplineSagas(disciplineID, path) {
-    return {type: RESET_DISCIPLINE_SAGAS, payload: { disciplineID, path }}
+export function resetDisciplineSagas() {
+    return {type: RESET_DISCIPLINE_SAGAS}
 }
 
-export function toogleDisciplineStatusSagas(disciplineID, path) {
-    return {type: TOOGLE_DISCIPLINE_STATUS_SAGAS, payload: { disciplineID, path }}
+export function toogleDisciplineStatusSagas() {
+    return {type: TOOGLE_DISCIPLINE_STATUS_SAGAS}
 }
