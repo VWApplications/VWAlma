@@ -1,7 +1,8 @@
-import { LIST_GROUPS } from './types';
+import { LIST_GROUPS, UPDATE_FORM } from './types';
 
 const initialState = {
-    list: [],
+	list: [],
+	form: null,
     pagination: {
         totalItemsCount: 0,
         itemsCountPerPage: 5,
@@ -25,6 +26,14 @@ function groupReducer(state=initialState, action) {
 					totalItemsCount: payload.count
 				}
 			};
+
+		case UPDATE_FORM:
+			payload = action.payload;
+
+			return {
+				...state,
+				form: payload
+			}
 
 		default:
 			return state;

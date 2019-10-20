@@ -1,11 +1,15 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { reduxForm, Field, reset } from 'redux-form';
+import { choiceAlert } from 'common/alerts';
 import { makeURL } from 'common/utils';
 import { InputField } from 'common/fields';
 import { Main, Info, Search, Form, SubmitButton, Fieldset, Pagination } from 'common';
 import { validateCreateGroup } from '../validate';
-import { listGroupsSagas } from '../actions';
+import {
+    listGroupsSagas, createGroupsSagas, updateFormAction,
+    updateGroupsSagas, deleteGroupsSagas
+} from '../actions';
 import {
     StudentContainer, StudentBox, StudentHeader, StudentBody,
     GroupContainer, GroupPanel, GroupPanelHeader, GroupPanelBody,
@@ -15,7 +19,7 @@ import {
 class GroupList extends Component {
     constructor(props) {
         super(props);
-        this.state = {form: false, formTitle: "Criar novo grupo"};
+        this.state = {opened: false, formTitle: "Criar novo grupo"};
     }
 
     componentDidMount() {
@@ -37,20 +41,43 @@ class GroupList extends Component {
         console.log(data);
     }
 
-    __editGroup(data) {
-        console.log(data);
-        this.setState({form: true, formTitle: "Editar grupo"});
-    }
-
-    __deleteGroup(data) {
-        console.log(data);
-    }
-
-    __addGroup(data) {
+    __editGroup(group) {
         const { dispatch } = this.props;
-        console.log(data);
+        this.setState({opened: true, formTitle: "Editar grupo"});
+        dispatch(updateFormAction(group));
+    }
+
+    async __deleteGroup(groupID) {
+        const { dispatch, state } = this.props;
+
+        const success = await choiceAlert(
+            "Removendo grupo",
+            "Tem certeza que deseja remover o grupo?",
+            "Sim", "Não", "Grupo removido com sucesso!",
+            "", "Operação Cancelada!", ""
+        )
+        if (success)
+            dispatch(deleteGroupsSagas(state.discipline, groupID));
+    }
+
+    __submit(data) {
+        const { dispatch, state, groupForm } = this.props;
+
+        if (groupForm)
+            dispatch(updateGroupsSagas(state.discipline, data, groupForm.id));
+        else
+            dispatch(createGroupsSagas(state.discipline, data));
+
         dispatch(reset("GroupForm"));
-        this.setState({form: false, formTitle: "Criar novo grupo"});
+        this.setState({opened: false, formTitle: "Criar novo grupo"});
+    }
+
+    __toogleForm() {
+        const { dispatch, groupForm } = this.props;
+
+        if (groupForm) dispatch(updateFormAction(null));
+
+        this.setState({opened: !this.state.opened, formTitle: "Criar novo grupo"})
     }
 
     render() {
@@ -64,7 +91,7 @@ class GroupList extends Component {
             {title: "Grupos", url: `/profile/${makeURL(discipline.title)}/groups`, state }
         ]
 
-        const AddButton = <AddGroupButton opened={this.state.form} onClick={() => this.setState({form: !this.state.form, formTitle: "Criar novo grupo"})} />
+        const AddButton = <AddGroupButton opened={this.state.opened} onClick={() => this.__toogleForm()} />
 
         // const students = [
         //     {id: 1, short_name: "Aluno1", email: "aluno1@gmail.com", identifier: "13/0129348"},
@@ -82,8 +109,8 @@ class GroupList extends Component {
 
         return (
             <Main navigation={navigator} menu="discipline" title="Lista de Grupos" rightComponent={AddButton}>
-                {this.state.form ? 
-                    <Form onSubmit={handleSubmit((data) => this.__addGroup(data))}>
+                {this.state.opened ? 
+                    <Form onSubmit={handleSubmit((data) => this.__submit(data))}>
                         <Fieldset title={this.state.formTitle}>
                             <Field
                                 component={InputField}
@@ -134,7 +161,10 @@ class GroupList extends Component {
                                             <StudentBox key={index}>
                                                 <StudentHeader src={student.photo} />
 
-                                                <StudentBody email={student.email} id={student.identifier} onClose={() => this.__removeStudent({"id": student.id})}>
+                                                <StudentBody
+                                                    email={student.email}
+                                                    id={student.identifier}
+                                                    onClose={() => this.__removeStudent({"id": student.id})}>
                                                     {student.short_name}
                                                 </StudentBody>
                                             </StudentBox>
@@ -143,9 +173,9 @@ class GroupList extends Component {
                                 </GroupPanelContent>
 
                                 <GroupPanelFooter
-                                    sendClick={() => this.__provideGroup({"id": group.id})}
-                                    editClick={() => this.__editGroup({"id": group.id})}
-                                    deleteClick={() => this.__deleteGroup({"id": group.id})}
+                                    sendClick={() => this.__provideGroup(group.id)}
+                                    editClick={() => this.__editGroup(group)}
+                                    deleteClick={() => this.__deleteGroup(group.id)}
                                 />
                             </GroupPanelBody>
                         </GroupPanel>
@@ -169,9 +199,17 @@ const form = reduxForm({
 
 const mapStateToProps = state => {
     const { location } = state.router;
-    const { list, pagination } = state.group;
+    const { list, pagination, form } = state.group;
 
-    return { state: location.state, groups: list, pagination };
+    let initialValues = {};
+    if (form) {
+        initialValues = {
+            title: form.title || "",
+            students_limit: form.students_limit || ""
+        }
+    }
+
+    return {state: location.state, groups: list, pagination, initialValues, groupForm: form}
 }
 
 export default connect(mapStateToProps)(form);
