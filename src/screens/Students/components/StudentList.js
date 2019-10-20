@@ -111,7 +111,7 @@ class StudentList extends Component {
                 <Search
                     onSubmit={data => this.__addStudent(data)}
                     name="email"
-                    placeholder="Insira o email do estudante."
+                    placeholder="Insira o email do estudante para adicioná-lo a turma."
                     icon="fa-plus"
                 />
 
