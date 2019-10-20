@@ -9,7 +9,8 @@ import { validateError } from 'common/utils';
 import { successAlert } from 'common/alerts';
 
 function* addStudent(action) {
-    const { discipline, data, queryString } = action.payload;
+    const { data, queryString } = action.payload;
+    const discipline = yield select(state => state.router.location.state.discipline);
 
     try {
         const response = yield call(addStudentAPI, discipline.id, data);
@@ -18,7 +19,7 @@ function* addStudent(action) {
             successAlert("Adicionado!", "Aluno adicionado a turma com sucesso!")
 
             const pagination = yield select(state => state.student.pagination);
-            yield put(listStudentsSagas(discipline, pagination.activePage, queryString));
+            yield put(listStudentsSagas(pagination.activePage, queryString));
             yield take([LIST_STUDENTS]);
 
             const response = yield call(fetchDisciplineAPI, discipline.id);

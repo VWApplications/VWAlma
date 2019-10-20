@@ -8,14 +8,15 @@ import { changeStudentStatusAPI } from '../api';
 import { validateError } from 'common/utils';
 
 function* changeStudentStatus(action) {
-    const { discipline, data, queryString } = action.payload;
+    const { data, queryString } = action.payload;
+    const discipline = yield select(state => state.router.location.state.discipline);
 
     try {
         const response = yield call(changeStudentStatusAPI, discipline.id, data);
 
         if (response.data.success) {
             const pagination = yield select(state => state.student.pagination);
-            yield put(listStudentsSagas(discipline, pagination.activePage, queryString));
+            yield put(listStudentsSagas(pagination.activePage, queryString));
             yield take([LIST_STUDENTS]);
 
             const response = yield call(fetchDisciplineAPI, discipline.id);

@@ -15,8 +15,8 @@ class StudentList extends Component {
     }
 
     componentDidMount() {
-        const { dispatch, state, pagination } = this.props;
-        dispatch(listStudentsSagas(state.discipline, pagination.activePage));
+        const { dispatch, pagination } = this.props;
+        dispatch(listStudentsSagas(pagination.activePage));
     }
 
     __isMonitor(studentID) {
@@ -28,7 +28,7 @@ class StudentList extends Component {
     }
 
     async __changeStudentStatus(data) {
-        const { dispatch, state, pagination } = this.props;
+        const { dispatch, pagination } = this.props;
         const queryString = stringify({page: pagination.activePage, filter: this.state.filter});
 
         let text = "Tem certeza que deseja modificar o status do estudante para monitor?";
@@ -42,11 +42,11 @@ class StudentList extends Component {
             "", "Operação Cancelada!", ""
         )
         if (success)
-            dispatch(changeStudentStatusSagas(state.discipline, data, queryString));
+            dispatch(changeStudentStatusSagas(data, queryString));
     }
 
     async __removeStudentFromClass(data) {
-        const { dispatch, state, pagination } = this.props;
+        const { dispatch, pagination } = this.props;
         const queryString = stringify({page: pagination.activePage, filter: this.state.filter});
 
         const success = await choiceAlert(
@@ -56,13 +56,13 @@ class StudentList extends Component {
             "", "Operação Cancelada!", ""
         )
         if (success)
-            dispatch(removeStudentSagas(state.discipline, data, queryString));
+            dispatch(removeStudentSagas(data, queryString));
     }
 
     __addStudent(data) {
-        const { dispatch, state, pagination } = this.props;
+        const { dispatch, pagination } = this.props;
         const queryString = stringify({page: pagination.activePage, filter: this.state.filter});
-        dispatch(addStudentSagas(state.discipline, data, queryString));
+        dispatch(addStudentSagas(data, queryString));
         dispatch(reset("SearchForm"));
     }
 
@@ -75,7 +75,7 @@ class StudentList extends Component {
     }
 
     __filterStudents(filter) {
-        const { dispatch, state, pagination } = this.props;
+        const { dispatch, pagination } = this.props;
 
         if (filter)
             this.setState({ filter });
@@ -84,7 +84,7 @@ class StudentList extends Component {
 
         const queryString = stringify({page: pagination.activePage, filter});
 
-        dispatch(listStudentsSagas(state.discipline, pagination.activePage, queryString));
+        dispatch(listStudentsSagas(pagination.activePage, queryString));
     }
 
     render() {
@@ -132,7 +132,6 @@ class StudentList extends Component {
                 <Pagination
                     pagination={pagination}
                     listObjectAction={listStudentsSagas}
-                    object={discipline}
                     filters={{filter: this.state.filter}}
                 />
             </Main>

@@ -1,11 +1,13 @@
-import { all, put, call, takeLatest } from 'redux-saga/effects';
+import { all, put, call, takeLatest, select } from 'redux-saga/effects';
 import { LIST_STUDENTS_SAGAS } from '../types';
 import { listStudentsAction } from '../actions';
 import { getStudentsAPI } from '../api';
 import { validateError } from 'common/utils';
 
 function* listStudents(action) {
-    const { discipline, activePage, queryString } = action.payload;
+    const { activePage, queryString } = action.payload;
+    console.log(queryString);
+    const discipline = yield select(state => state.router.location.state.discipline);
 
     try {
         const response = yield call(getStudentsAPI, discipline.id, queryString);
