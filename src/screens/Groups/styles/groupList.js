@@ -90,8 +90,8 @@ const MediaStudents = styled.div`
     margin-top: 20px !important;
 `;
 
-export const StudentBox = ({ children }) => (
-    <div className="col-sm-4">
+export const StudentBox = ({ children, col }) => (
+    <div className={`col-sm-${col}`}>
         <MediaStudents className="media">{children}</MediaStudents>
     </div>
 )

@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { reduxForm, Field, reset } from 'redux-form';
 import { choiceAlert } from 'common/alerts';
-import { makeURL } from 'common/utils';
+import { makeURL, rowMap } from 'common/utils';
 import { InputField } from 'common/fields';
 import { Main, Info, Search, Form, SubmitButton, Fieldset, Pagination } from 'common';
 import { validateCreateGroup } from '../validate';
@@ -92,7 +92,7 @@ class GroupList extends Component {
     }
 
     render() {
-        const { state, handleSubmit, submitting, invalid, pagination, groups } = this.props;
+        const { state, handleSubmit, submitting, invalid, pagination } = this.props;
         const discipline = state.discipline;
 
         const navigator = [
@@ -104,19 +104,19 @@ class GroupList extends Component {
 
         const AddButton = <AddGroupButton opened={this.state.opened} onClick={() => this.__toogleForm()} />
 
-        // const students = [
-        //     {id: 1, short_name: "Aluno1", email: "aluno1@gmail.com", identifier: "13/0129348"},
-        //     {id: 2, short_name: "Aluno2", email: "aluno2@gmail.com"},
-        //     {id: 3, short_name: "Aluno3", email: "aluno3@gmail.com"},
-        //     {id: 4, short_name: "Aluno4", email: "aluno4@gmail.com"},
-        //     {id: 5, short_name: "Aluno5", email: "aluno5@gmail.com"},
-        //     {id: 6, short_name: "Aluno6", email: "aluno6@gmail.com"},
-        //     {id: 7, short_name: "Aluno7", email: "aluno7@gmail.com"}
-        // ];
+        const students = [
+            {id: 1, short_name: "Aluno1", email: "aluno1@gmail.com", identifier: "13/0129348"},
+            {id: 2, short_name: "Aluno2", email: "aluno2@gmail.com"},
+            {id: 3, short_name: "Aluno3", email: "aluno3@gmail.com"},
+            {id: 4, short_name: "Aluno4", email: "aluno4@gmail.com"},
+            {id: 5, short_name: "Aluno5", email: "aluno5@gmail.com"},
+            {id: 6, short_name: "Aluno6", email: "aluno6@gmail.com"},
+            {id: 7, short_name: "Aluno7", email: "aluno7@gmail.com"}
+        ];
 
-        // const groups = [
-        //     {id: 1, title: "Cavaleiros do zodiaco", students: [...students], students_limit: 6}
-        // ];
+        const groups = [
+            {id: 1, title: "Cavaleiros do zodiaco", students: [...students], students_limit: 6}
+        ];
 
         return (
             <Main navigation={navigator} menu="discipline" title="Lista de Grupos" rightComponent={AddButton}>
@@ -168,8 +168,8 @@ class GroupList extends Component {
                                     />
                                     <StudentContainer>
                                         {group.students.length === 0 ? <Info>Não há estudantes nesse grupo.</Info> : null}
-                                        {group.students.map((student, index) => (
-                                            <StudentBox key={index}>
+                                        {rowMap(group.students, 3, (student, index, col) => (
+                                            <StudentBox key={index} col={col}>
                                                 <StudentHeader src={student.photo} />
 
                                                 <StudentBody

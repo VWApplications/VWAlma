@@ -1,3 +1,4 @@
+import React from 'react';
 import { errorAlert } from './alerts';
 import axios from 'config/axios';
 import introJs from 'intro.js/intro.js';
@@ -82,4 +83,30 @@ export function hasPermission(requiredPermissions, userPermissions) {
 
 export function formatWithLeftZero(number) {
     return number < 10 ? `0${number}` : number;
+}
+
+export function range(N) {
+    return N ? range(N-1).concat(N) : [];
+}
+
+export const rowMap = (list, qtdCols=3, rowFunction) => {
+    let qtdLines = list.length / qtdCols;
+    if (!Number.isInteger(qtdLines))
+        qtdLines = parseInt(qtdLines) + 1;
+
+    const rows = range(qtdLines);
+
+    return (
+        <div>
+            {rows.map(item => (
+                <div key={item} className="row">
+                    {list.slice((item-1) * qtdCols, ((item-1) * qtdCols) + qtdCols).map((item, index) => (
+                        <div key={index}>
+                            {rowFunction(item, index, 12 / qtdCols)}
+                        </div>
+                    ))}
+                </div>
+            ))}
+        </div>
+    );
 }
