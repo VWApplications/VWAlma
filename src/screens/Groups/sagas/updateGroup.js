@@ -9,13 +9,14 @@ import { UPDATE_GROUP_SAGAS, LIST_GROUPS } from '../types';
 import { updateGroupAPI } from '../api';
 
 function* updateGroup(action) {
-    const { discipline, data, groupID } = action.payload;
+    const { data, groupID } = action.payload;
 
     try {
         yield call(updateGroupAPI, data, groupID);
         successAlert("Grupo atualizado!", "Grupo atualizado com sucesso!");
 
         const pagination = yield select(state => state.group.pagination);
+        const discipline = yield select(state => state.router.location.state.discipline);
         yield put(listGroupsSagas(discipline, pagination.activePage, "page=" + pagination.activePage));
         yield take([LIST_GROUPS]);
 

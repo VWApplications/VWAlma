@@ -9,7 +9,8 @@ import { validateError } from 'common/utils';
 import { successAlert } from 'common/alerts';
 
 function* createGroup(action) {
-    const { discipline, data } = action.payload;
+    const data = action.payload;
+    const discipline = yield select(state => state.router.location.state.discipline);
     data['discipline'] = discipline.id;
 
     try {

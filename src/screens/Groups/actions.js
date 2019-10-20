@@ -12,28 +12,28 @@ export function listGroupsAction(groups, activePage, count) {
     return {type: LIST_GROUPS, payload: {groups, activePage, count}};
 }
 
-export function listGroupsSagas(discipline, activePage, queryString=null) {
-    return {type: LIST_GROUPS_SAGAS, payload: {discipline, activePage, queryString}};
+export function listGroupsSagas(activePage, queryString=null) {
+    return {type: LIST_GROUPS_SAGAS, payload: {activePage, queryString}};
 }
 
-export function createGroupsSagas(discipline, data) {
-    return {type: CREATE_GROUP_SAGAS, payload: {discipline, data}};
+export function createGroupsSagas(data) {
+    return {type: CREATE_GROUP_SAGAS, payload: data};
 }
 
-export function updateGroupsSagas(discipline, data, groupID) {
-    return {type: UPDATE_GROUP_SAGAS, payload: {discipline, data, groupID}};
+export function updateGroupsSagas(data, groupID) {
+    return {type: UPDATE_GROUP_SAGAS, payload: {data, groupID}};
 }
 
-export function deleteGroupsSagas(discipline, groupID) {
-    return {type: DELETE_GROUP_SAGAS, payload: {discipline, groupID}};
+export function deleteGroupsSagas(groupID) {
+    return {type: DELETE_GROUP_SAGAS, payload: groupID};
 }
 
-export function addStudentGroupsSagas(discipline, data) {
-    return {type: ADD_STUDENT_GROUP_SAGAS, payload: {discipline, data}};
+export function addStudentGroupsSagas(data) {
+    return {type: ADD_STUDENT_GROUP_SAGAS, payload: data};
 }
 
-export function removeStudentGroupsSagas(discipline, data) {
-    return {type: REMOVE_STUDENT_GROUP_SAGAS, payload: {discipline, data}};
+export function removeStudentGroupsSagas(data) {
+    return {type: REMOVE_STUDENT_GROUP_SAGAS, payload: data};
 }
 
 export function provideGroupsSagas(groupID) {

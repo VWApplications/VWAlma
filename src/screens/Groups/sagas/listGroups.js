@@ -1,11 +1,12 @@
-import { all, put, call, takeLatest } from 'redux-saga/effects';
+import { all, put, call, takeLatest, select } from 'redux-saga/effects';
 import { LIST_GROUPS_SAGAS } from '../types';
 import { listGroupsAction } from '../actions';
 import { getGroupsAPI } from '../api';
 import { validateError } from 'common/utils';
 
 function* listGroups(action) {
-    const { discipline, activePage, queryString } = action.payload;
+    const { activePage, queryString } = action.payload;
+    const discipline = yield select(state => state.router.location.state.discipline);
     const data = {disciplineID: discipline.id};
 
     try {

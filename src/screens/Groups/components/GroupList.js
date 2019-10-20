@@ -23,8 +23,8 @@ class GroupList extends Component {
     }
 
     componentDidMount() {
-        const { dispatch, pagination, state } = this.props;
-        dispatch(listGroupsSagas(state.discipline, pagination.activePage));
+        const { dispatch, pagination } = this.props;
+        dispatch(listGroupsSagas(pagination.activePage));
     }
 
     __addStudent(data) {
@@ -38,7 +38,6 @@ class GroupList extends Component {
     }
 
     __provideGroup(groupID) {
-        console.log(groupID);
         const { dispatch } = this.props;
         dispatch(provideGroupsSagas(groupID));
     }
@@ -50,7 +49,7 @@ class GroupList extends Component {
     }
 
     async __deleteGroup(groupID) {
-        const { dispatch, state } = this.props;
+        const { dispatch } = this.props;
 
         const success = await choiceAlert(
             "Removendo grupo",
@@ -59,16 +58,16 @@ class GroupList extends Component {
             "", "Operação Cancelada!", ""
         )
         if (success)
-            dispatch(deleteGroupsSagas(state.discipline, groupID));
+            dispatch(deleteGroupsSagas(groupID));
     }
 
     __submit(data) {
-        const { dispatch, state, groupForm } = this.props;
+        const { dispatch, groupForm } = this.props;
 
         if (groupForm)
-            dispatch(updateGroupsSagas(state.discipline, data, groupForm.id));
+            dispatch(updateGroupsSagas(data, groupForm.id));
         else
-            dispatch(createGroupsSagas(state.discipline, data));
+            dispatch(createGroupsSagas(data));
 
         dispatch(reset("GroupForm"));
         this.setState({opened: false, formTitle: "Criar novo grupo"});

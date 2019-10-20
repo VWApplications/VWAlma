@@ -8,12 +8,13 @@ import { DELETE_GROUP_SAGAS, LIST_GROUPS } from '../types';
 import { deleteGroupAPI } from '../api';
 
 function* deleteGroup(action) {
-    const { discipline, groupID } = action.payload;
+    const groupID = action.payload;
 
     try {
         yield call(deleteGroupAPI, groupID);
 
         const pagination = yield select(state => state.group.pagination);
+        const discipline = yield select(state => state.router.location.state.discipline);
         yield put(listGroupsSagas(discipline, pagination.activePage, "page=" + pagination.activePage));
         yield take([LIST_GROUPS]);
 
