@@ -24,6 +24,14 @@ export const errorAlert = (title, text) => {
     })
 }
 
+export const infoAlert = (title, text) => {
+    return Swal.fire({
+        type: 'info',
+        title: title,
+        text: text
+    })
+}
+
 export const successAlert = (title, text) => {
     return Swal.fire({
         type: 'success',

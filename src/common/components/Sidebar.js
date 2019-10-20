@@ -5,7 +5,7 @@ import { makeURL } from 'common/utils';
 import { Container, SidebarLink } from '../styles/sidebar';
 import { TEACHER, ADMIN } from 'common/constants';
 import { deleteUserSagas } from 'screens/Accounts/actions';
-import { choiceAlert } from 'common/alerts';
+import { choiceAlert, infoAlert } from 'common/alerts';
 
 class Sidebar extends Component {
 
@@ -23,6 +23,10 @@ class Sidebar extends Component {
             "Conta deletada com sucesso!",
             "", "Operação Cancelada", ""
         )) { dispatch(deleteUserSagas()); }
+    }
+
+    __developing() {
+        infoAlert("Em desenvolvimento", "Funcionalidade ainda está em desenvolvimento.");
     }
 
     __profileMenu() {
@@ -52,7 +56,7 @@ class Sidebar extends Component {
                         Página para criar uma nova disciplina.
                     </SidebarLink>
                 }
-                <SidebarLink icon="fa-envelope" title={"5 Notificações"} onClick={() => this.__redirectTo("/profile")}>
+                <SidebarLink icon="fa-envelope" title={"5 Notificações"} onClick={() => this.__developing()}>
                     Página para ver notificações recebidas.
                 </SidebarLink>
                 <SidebarLink icon="fa-trash" title="Deletar Conta" onClick={() => this.__deleteAccount()}>
@@ -101,13 +105,13 @@ class Sidebar extends Component {
                 <SidebarLink
                     icon="fa-folder-open-o"
                     title="Arquivos"
-                    onClick={() => this.__redirectTo(`/profile/${makeURL(discipline.title)}/detail`, location.state)}>
+                    onClick={() => this.__developing()}>
                     Arquivos da disciplina.
                 </SidebarLink>
                 <SidebarLink
                     icon="fa-comments-o"
                     title="Forum"
-                    onClick={() => this.__redirectTo(`/profile/${makeURL(discipline.title)}/detail`, location.state)}>
+                    onClick={() => this.__developing()}>
                     Fórum de dúvidas da disciplina.
                 </SidebarLink>
             </Container>
