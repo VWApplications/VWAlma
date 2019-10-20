@@ -8,7 +8,7 @@ import { Main, Info, Search, Form, SubmitButton, Fieldset, Pagination } from 'co
 import { validateCreateGroup } from '../validate';
 import {
     listGroupsSagas, createGroupsSagas, updateFormAction,
-    updateGroupsSagas, deleteGroupsSagas
+    updateGroupsSagas, deleteGroupsSagas, provideGroupsSagas
 } from '../actions';
 import {
     StudentContainer, StudentBox, StudentHeader, StudentBody,
@@ -37,8 +37,10 @@ class GroupList extends Component {
         console.log(data);
     }
 
-    __provideGroup(data) {
-        console.log(data);
+    __provideGroup(groupID) {
+        console.log(groupID);
+        const { dispatch } = this.props;
+        dispatch(provideGroupsSagas(groupID));
     }
 
     __editGroup(group) {
@@ -141,8 +143,8 @@ class GroupList extends Component {
                             <GroupPanelHeader
                                 qtdStudent={group.students.length}
                                 totalStudent={group.students_limit}
-                                statusTitle="Grupo Liberado"
-                                statusType="success"
+                                statusTitle={group.is_provided ? "Grupo liberado" : "Grupo não liberado."}
+                                statusType={group.is_provided ? "success" : "danger"}
                                 id={group.id}>
                                 {group.title}
                             </GroupPanelHeader>

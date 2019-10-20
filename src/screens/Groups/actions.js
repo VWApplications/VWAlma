@@ -36,6 +36,6 @@ export function removeStudentGroupsSagas(discipline, data) {
     return {type: REMOVE_STUDENT_GROUP_SAGAS, payload: {discipline, data}};
 }
 
-export function provideGroupsSagas(discipline) {
-    return {type: PROVIDE_GROUP_SAGAS, payload: {discipline}};
+export function provideGroupsSagas(groupID) {
+    return {type: PROVIDE_GROUP_SAGAS, payload: groupID};
 }
