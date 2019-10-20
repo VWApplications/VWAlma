@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { reset } from 'redux-form';
 import { stringify } from 'query-string';
-import { makeURL, formatWithLeftZero } from 'common/utils';
+import { makeURL, formatWithLeftZero, rowMap } from 'common/utils';
 import { Main, Info, ActionsButton, Search, Pagination } from 'common';
 import { listStudentsSagas, removeStudentSagas, addStudentSagas, changeStudentStatusSagas } from '../actions';
 import { StudentContainer, StudentBox, StudentHeader, StudentBody } from '../styles/studentList';
@@ -117,8 +117,8 @@ class StudentList extends Component {
 
                 <StudentContainer>
                     {students.length === 0 ? <Info>Não há estudantes nessa disciplina.</Info> : null}
-                    {students.map((student, index) => (
-                        <StudentBox key={index}>
+                    {rowMap(students, 3, (student, index, col) => (
+                        <StudentBox key={index} col={col}>
                             <StudentHeader src={student.photo} onClick={() => this.__changeStudentStatus({"id": student.id})}>
                                 {this.__isMonitor(student.id) ? "Monitor" : "Estudante"}
                             </StudentHeader>
