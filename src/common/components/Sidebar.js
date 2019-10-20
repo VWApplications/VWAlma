@@ -93,7 +93,7 @@ class Sidebar extends Component {
                 <SidebarLink
                     icon="fa-group"
                     title="Grupos"
-                    onClick={() => this.__redirectTo(`/profile/${makeURL(discipline.title)}/detail`, location.state)}>
+                    onClick={() => this.__redirectTo(`/profile/${makeURL(discipline.title)}/groups`, location.state)}>
                     Formação de grupos para respectivas atividades.
                 </SidebarLink>
                 <SidebarLink
