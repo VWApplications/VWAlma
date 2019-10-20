@@ -28,12 +28,12 @@ export function deleteGroupsSagas(groupID) {
     return {type: DELETE_GROUP_SAGAS, payload: groupID};
 }
 
-export function addStudentGroupsSagas(data) {
-    return {type: ADD_STUDENT_GROUP_SAGAS, payload: data};
+export function addStudentGroupsSagas(groupID, data) {
+    return {type: ADD_STUDENT_GROUP_SAGAS, payload: {groupID, data}};
 }
 
-export function removeStudentGroupsSagas(data) {
-    return {type: REMOVE_STUDENT_GROUP_SAGAS, payload: data};
+export function removeStudentGroupsSagas(groupID, data) {
+    return {type: REMOVE_STUDENT_GROUP_SAGAS, payload: {groupID, data}};
 }
 
 export function provideGroupsSagas(groupID) {

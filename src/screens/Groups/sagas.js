@@ -4,6 +4,8 @@ import createGroup from './sagas/createGroup';
 import updateGroup from './sagas/updateGroup';
 import deleteGroup from './sagas/deleteGroup';
 import provideGroup from './sagas/provideGroup';
+import addStudentGroup from './sagas/addStudent';
+import removeStudentGroup from './sagas/removeStudent';
 
 export default function* rootSaga() {
     yield all([
@@ -11,6 +13,8 @@ export default function* rootSaga() {
         createGroup(),
         updateGroup(),
         deleteGroup(),
-        provideGroup()
+        provideGroup(),
+        addStudentGroup(),
+        removeStudentGroup()
     ]);
 }

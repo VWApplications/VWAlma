@@ -15,7 +15,7 @@ function* provideGroup(action) {
 
         const pagination = yield select(state => state.group.pagination);
         const discipline = yield select(state => state.router.location.state.discipline);
-        yield put(listGroupsSagas(discipline, pagination.activePage, "page=" + pagination.activePage));
+        yield put(listGroupsSagas(pagination.activePage));
         yield take([LIST_GROUPS]);
 
         const disciplineResponse = yield call(fetchDisciplineAPI, discipline.id);

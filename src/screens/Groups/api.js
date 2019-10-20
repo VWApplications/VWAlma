@@ -26,12 +26,12 @@ export function provideGroupAPI(groupID) {
     return axios.get(endpoint);
 }
 
-export function insertStudentGroupAPI(data, groupID) {
+export function addStudentGroupAPI(groupID, data) {
     let endpoint = `/groups/${groupID}/add_student/`;
     return axios.post(endpoint, data);
 }
 
-export function removeStudentGroupAPI(data, groupID) {
+export function removeStudentGroupAPI(groupID, data) {
     let endpoint = `/groups/${groupID}/remove_student/`;
     return axios.post(endpoint, data);
 }

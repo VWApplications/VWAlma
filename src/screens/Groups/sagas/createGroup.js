@@ -18,7 +18,7 @@ function* createGroup(action) {
         successAlert("Grupo criado!", "Grupo criado com sucesso!");
 
         const pagination = yield select(state => state.group.pagination);
-        yield put(listGroupsSagas(discipline, pagination.activePage, "page=" + pagination.activePage));
+        yield put(listGroupsSagas(pagination.activePage));
         yield take([LIST_GROUPS]);
 
         const disciplineResponse = yield call(fetchDisciplineAPI, discipline.id);

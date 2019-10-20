@@ -8,7 +8,8 @@ import { Main, Info, Search, Form, SubmitButton, Fieldset, Pagination } from 'co
 import { validateCreateGroup } from '../validate';
 import {
     listGroupsSagas, createGroupsSagas, updateFormAction,
-    updateGroupsSagas, deleteGroupsSagas, provideGroupsSagas
+    updateGroupsSagas, deleteGroupsSagas, provideGroupsSagas,
+    addStudentGroupsSagas, removeStudentGroupsSagas
 } from '../actions';
 import {
     StudentContainer, StudentBox, StudentHeader, StudentBody,
@@ -27,14 +28,23 @@ class GroupList extends Component {
         dispatch(listGroupsSagas(pagination.activePage));
     }
 
-    __addStudent(data) {
+    __addStudent(groupID, data) {
         const { dispatch } = this.props;
-        console.log(data);
+        dispatch(addStudentGroupsSagas(groupID, data));
         dispatch(reset("SearchForm"));
     }
 
-    __removeStudent(data) {
-        console.log(data);
+    async __removeStudent(groupID, data) {
+        const { dispatch } = this.props;
+
+        const success = await choiceAlert(
+            "Removendo estudante do grupo",
+            "Tem certeza que deseja remover o estudante do grupo?",
+            "Sim", "Não", "Estudante removido com sucesso!",
+            "", "Operação Cancelada!", ""
+        )
+        if (success)
+            dispatch(removeStudentGroupsSagas(groupID, data));
     }
 
     __provideGroup(groupID) {
@@ -151,7 +161,7 @@ class GroupList extends Component {
                             <GroupPanelBody id={group.id}>
                                 <GroupPanelContent>
                                     <Search
-                                        onSubmit={data => this.__addStudent(data)}
+                                        onSubmit={data => this.__addStudent(group.id, data)}
                                         name="email"
                                         placeholder="Insira o email do estudante para adicioná-lo ao grupo."
                                         icon="fa-plus"
@@ -165,7 +175,7 @@ class GroupList extends Component {
                                                 <StudentBody
                                                     email={student.email}
                                                     id={student.identifier}
-                                                    onClose={() => this.__removeStudent({"id": student.id})}>
+                                                    onClose={() => this.__removeStudent(group.id, {"id": student.id})}>
                                                     {student.short_name}
                                                 </StudentBody>
                                             </StudentBox>
@@ -182,11 +192,7 @@ class GroupList extends Component {
                         </GroupPanel>
                     ))}
                 </GroupContainer>
-                <Pagination
-                    pagination={pagination}
-                    listObjectAction={listGroupsSagas}
-                    object={discipline}
-                />
+                <Pagination pagination={pagination} listObjectAction={listGroupsSagas} />
             </Main>
         )
     }
