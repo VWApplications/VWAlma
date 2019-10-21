@@ -10,6 +10,7 @@ import {
 import { DisciplineForm, DisciplineSearch, DisciplineDetail } from 'screens/Disciplines';
 import { StudentList } from 'screens/Students';
 import { GroupList } from 'screens/Groups';
+import { SectionList } from 'screens/Sections';
 import "asserts/css/html.css";
 
 class App extends Component {
@@ -31,6 +32,7 @@ class App extends Component {
 				<PrivateRouter exact path="/profile/:discipline/detail" component={DisciplineDetail} />
 				<PrivateRouter exact path="/profile/:discipline/students" component={StudentList} />
 				<PrivateRouter exact path="/profile/:discipline/groups" component={GroupList} />
+				<PrivateRouter exact path="/profile/:discipline/sections" component={SectionList} />
 			</Switch>
 		)
   	}

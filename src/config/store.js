@@ -12,6 +12,7 @@ import accountReducer from 'screens/Accounts/reducers';
 import disciplineReducer from 'screens/Disciplines/reducers';
 import studentReducer from 'screens/Students/reducers';
 import groupReducer from 'screens/Groups/reducers';
+import sectionReducer from 'screens/Sections/reducers';
 
 export const history = createBrowserHistory()
 
@@ -22,7 +23,8 @@ const reducers = combineReducers({
     account: accountReducer,
     discipline: disciplineReducer,
     student: studentReducer,
-    group: groupReducer
+    group: groupReducer,
+    section: sectionReducer
 });
 
 const sagaMiddleware = createSagaMiddleware();

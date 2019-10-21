@@ -98,9 +98,9 @@ class Sidebar extends Component {
                 </SidebarLink>
                 <SidebarLink
                     icon="fa-puzzle-piece"
-                    title="Sessões"
-                    onClick={() => this.__redirectTo(`/profile/${makeURL(discipline.title)}/detail`, location.state)}>
-                    Sessões da disciplina.
+                    title="Seções"
+                    onClick={() => this.__redirectTo(`/profile/${makeURL(discipline.title)}/sections`, location.state)}>
+                    Seções da disciplina.
                 </SidebarLink>
                 <SidebarLink
                     icon="fa-folder-open-o"
