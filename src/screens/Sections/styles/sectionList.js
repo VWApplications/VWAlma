@@ -50,11 +50,16 @@ export const SectionPanelContent = ({ children }) => (
     <div className="panel-body">{children}</div>
 )
 
-export const SectionPanelFooter = ({ isProvided, sendClick, editClick, deleteClick }) => (
+export const SectionPanelFooter = ({ isProvided, enterClick, sendClick, editClick, deleteClick }) => (
     <div className="panel-footer">
         <div className="row">
             <div className="col-md-8">
                 <div className="btn-group btn-group-justified">
+                    <div className="btn-group">
+                        <button className="btn btn-primary" type="button" onClick={enterClick}>
+                            <i className="fa fa-external-link"></i> Entrar
+                        </button>
+                    </div>
                     <div className="btn-group">
                         <button className="btn btn-primary" type="button" onClick={sendClick}>
                             {isProvided ?

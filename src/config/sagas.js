@@ -5,6 +5,7 @@ import disciplineSagas from 'screens/Disciplines/sagas';
 import studentSagas from 'screens/Students/sagas';
 import groupSagas from 'screens/Groups/sagas';
 import sectionSagas from 'screens/Sections/sagas';
+import traditionalSagas from 'screens/Traditional/sagas';
 
 export default function* rootSaga() {
     yield all([
@@ -13,6 +14,7 @@ export default function* rootSaga() {
         disciplineSagas(),
         studentSagas(),
         groupSagas(),
-        sectionSagas()
+        sectionSagas(),
+        traditionalSagas()
     ]);
 }

@@ -87,7 +87,7 @@ class Sidebar extends Component {
                 <SidebarLink
                     icon="fa-graduation-cap"
                     title="Notas Finais"
-                    onClick={() => this.__redirectTo(`/profile/${makeURL(discipline.title)}/detail`, location.state)}>
+                    onClick={() => this.__developing()}>
                     Notas finais da disciplina.
                 </SidebarLink>
                 <SidebarLink
@@ -118,6 +118,47 @@ class Sidebar extends Component {
         )
     }
 
+    __TraditionalMenu() {
+        const { location } = this.props;
+        const discipline = location.state.discipline;
+        const section = location.state.section;
+
+        return (
+            <Container>
+                <SidebarLink
+                    icon="fa-puzzle-piece"
+                    title="Seção"
+                    onClick={() => this.__redirectTo(`/profile/${makeURL(discipline.title)}/sections/${makeURL(section.title)}/detail`, location.state)}>
+                    Descrição da seção.
+                </SidebarLink>
+                <SidebarLink
+                    icon="fa-leanpub"
+                    title="Exercícios"
+                    onClick={() => this.__developing()}>
+                    Exercícios.
+                </SidebarLink>
+                <SidebarLink
+                    icon="fa-graduation-cap"
+                    title="Notas da seção"
+                    onClick={() => this.__developing()}>
+                    Notas da seção.
+                </SidebarLink>
+                <SidebarLink
+                    icon="fa-bar-chart"
+                    title="Relatório"
+                    onClick={() => this.__developing()}>
+                    Relatório das avaliações.
+                </SidebarLink>
+                <SidebarLink
+                    icon="fa-street-view"
+                    title="Avaliação"
+                    onClick={() => this.__developing()}>
+                    Avaliação.
+                </SidebarLink>
+            </Container>
+        )
+    }
+
     __TBLMenu() {
         return (
             <h1>Menu TBL</h1>
@@ -133,6 +174,9 @@ class Sidebar extends Component {
 
             case "tbl":
                 return this.__TBLMenu();
+
+            case "traditional":
+                return this.__TraditionalMenu();
         
             default:
                 return this.__profileMenu();

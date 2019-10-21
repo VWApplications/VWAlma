@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { push } from 'connected-react-router';
 import { reduxForm, Field, reset } from 'redux-form';
 import { choiceAlert } from 'common/alerts';
 import { makeURL } from 'common/utils';
@@ -24,6 +25,13 @@ class SectionList extends Component {
     componentDidMount() {
         const { dispatch, pagination } = this.props;
         dispatch(listSectionsSagas(pagination.activePage));
+    }
+
+    __redirectToSectionDetail(section) {
+        const { dispatch, state } = this.props;
+        const discipline = state.discipline;
+        const newState = { discipline, section };
+        dispatch(push(`/profile/${makeURL(discipline.title)}/sections/${makeURL(section.title)}/detail`, newState));
     }
 
     __provideSection(sectionID) {
@@ -113,8 +121,8 @@ class SectionList extends Component {
                     {sections.map((section, index) => (
                         <SectionPanel key={index}>
                             <SectionPanelHeader
-                                statusTitle={section.is_closed ? "Seção liberada" : "Seção não liberada"}
-                                statusType={section.is_closed ? "success" : "danger"}
+                                statusTitle={section.is_closed ? "Seção não liberada" : "Seção liberada"}
+                                statusType={section.is_closed ? "danger" : "success"}
                                 id={section.id}>
                                 {section.title}
                             </SectionPanelHeader>
@@ -126,6 +134,7 @@ class SectionList extends Component {
 
                                 <SectionPanelFooter
                                     isProvided={section.is_closed}
+                                    enterClick={() => this.__redirectToSectionDetail(section)}
                                     sendClick={() => this.__provideSection(section.id)}
                                     editClick={() => this.__editSection(section)}
                                     deleteClick={() => this.__deleteSection(section.id)}
