@@ -113,8 +113,8 @@ class SectionList extends Component {
                     {sections.map((section, index) => (
                         <SectionPanel key={index}>
                             <SectionPanelHeader
-                                statusTitle={section.is_provided ? "Seção liberada" : "Seção não liberada"}
-                                statusType={section.is_provided ? "success" : "danger"}
+                                statusTitle={section.is_closed ? "Seção liberada" : "Seção não liberada"}
+                                statusType={section.is_closed ? "success" : "danger"}
                                 id={section.id}>
                                 {section.title}
                             </SectionPanelHeader>
@@ -125,7 +125,7 @@ class SectionList extends Component {
                                 </SectionPanelContent>
 
                                 <SectionPanelFooter
-                                    isProvided={section.is_provided}
+                                    isProvided={section.is_closed}
                                     sendClick={() => this.__provideSection(section.id)}
                                     editClick={() => this.__editSection(section)}
                                     deleteClick={() => this.__deleteSection(section.id)}
