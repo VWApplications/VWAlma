@@ -52,14 +52,18 @@ export const GroupPanelContent = ({ children }) => (
     <div className="panel-body">{children}</div>
 )
 
-export const GroupPanelFooter = ({ sendClick, editClick, deleteClick }) => (
+export const GroupPanelFooter = ({ isProvided, sendClick, editClick, deleteClick }) => (
     <div className="panel-footer">
         <div className="row">
             <div className="col-md-8">
                 <div className="btn-group btn-group-justified">
                     <div className="btn-group">
                         <button className="btn btn-primary" type="button" onClick={sendClick}>
-                            <i className="fa fa-send"></i> Liberar Grupo
+                            {isProvided ?
+                                <span><i className="fa fa-eye-slash"></i> Esconder Grupo</span>
+                            :
+                                <span><i className="fa fa-eye"></i> Mostrar Grupo</span>
+                            }
                         </button>
                     </div>
                     <div className="btn-group">

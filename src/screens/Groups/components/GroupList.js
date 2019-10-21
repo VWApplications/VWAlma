@@ -138,7 +138,7 @@ class GroupList extends Component {
                             <GroupPanelHeader
                                 qtdStudent={group.students.length}
                                 totalStudent={group.students_limit}
-                                statusTitle={group.is_provided ? "Grupo liberado" : "Grupo não liberado."}
+                                statusTitle={group.is_provided ? "Grupo liberado" : "Grupo não liberado"}
                                 statusType={group.is_provided ? "success" : "danger"}
                                 id={group.id}>
                                 {group.title}
@@ -170,6 +170,7 @@ class GroupList extends Component {
                                 </GroupPanelContent>
 
                                 <GroupPanelFooter
+                                    isProvided={group.is_provided}
                                     sendClick={() => this.__provideGroup(group.id)}
                                     editClick={() => this.__editGroup(group)}
                                     deleteClick={() => this.__deleteGroup(group.id)}
