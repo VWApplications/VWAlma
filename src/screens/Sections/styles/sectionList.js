@@ -33,7 +33,7 @@ export const SectionPanelHeader = ({ children, id, statusTitle, statusType }) =>
     <div className="panel-heading">
         <PanelTitle className="panel-title">
             <a data-toggle="collapse" data-parent="#accordion" href={`#collapse${id}`}>
-                <span><i className="fa fa-puzzle-piece"></i> {children}</span>
+                <span><i className="fa fa-chevron-right"></i> {children}</span>
                 <Status className={`label label-${statusType} pull-right`}>{statusTitle}</Status>
             </a>
         </PanelTitle>

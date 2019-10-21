@@ -105,7 +105,7 @@ class GroupList extends Component {
         const AddButton = <AddGroupButton opened={this.state.opened} onClick={() => this.__toogleForm()} />
 
         return (
-            <Main navigation={navigator} menu="discipline" title="Lista de Grupos" rightComponent={AddButton}>
+            <Main navigation={navigator} menu="discipline" title="Lista de Grupos" icon="fa-group" rightComponent={AddButton}>
                 {this.state.opened ? 
                     <Form onSubmit={handleSubmit((data) => this.__submit(data))}>
                         <Fieldset title={this.state.formTitle}>

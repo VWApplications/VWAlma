@@ -23,7 +23,7 @@ class UpdateProfile extends Component {
         ]
 
       	return (
-            <Main navigation={navigator} menu="profile" title="Atualizar Informações Pessoais">
+            <Main navigation={navigator} menu="profile" title="Atualizar Informações Pessoais" icon="fa-edit">
                 <Form onSubmit={handleSubmit((data) => this.__submit(data))}>
                     <Field
                         component={FileField}

@@ -34,7 +34,7 @@ class DisciplineForm extends Component {
         ]
 
       	return (
-            <Main navigation={navigator} menu="profile" title={title}>
+            <Main navigation={navigator} menu="profile" title={title} icon="fa-book">
                 <Form onSubmit={handleSubmit((data) => this.__submit(data))}>
                     <Field
                         component={InputField}

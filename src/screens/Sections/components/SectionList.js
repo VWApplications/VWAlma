@@ -92,7 +92,7 @@ class SectionList extends Component {
         const AddButton = <AddSectionButton opened={this.state.opened} onClick={() => this.__toogleForm()} />
 
         return (
-            <Main navigation={navigator} menu="discipline" title="Lista de Seções" rightComponent={AddButton}>
+            <Main navigation={navigator} menu="discipline" title="Lista de Seções" icon="fa-puzzle-piece" rightComponent={AddButton}>
                 {this.state.opened ? 
                     <Form onSubmit={handleSubmit((data) => this.__submit(data))}>
                         <Fieldset title={this.state.formTitle}>

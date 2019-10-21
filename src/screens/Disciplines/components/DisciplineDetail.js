@@ -33,6 +33,7 @@ class DisciplineDetail extends Component {
 
         return (
             <Main
+                icon="fa-book"
                 navigation={navigator}
                 menu="discipline"
                 title="Detalhes da disciplina"

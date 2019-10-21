@@ -34,7 +34,7 @@ export const GroupPanelHeader = ({ children, qtdStudent, totalStudent, id, statu
     <div className="panel-heading">
         <PanelTitle className="panel-title">
             <a data-toggle="collapse" data-parent="#accordion" href={`#collapse${id}`}>
-                <span><i className="fa fa-slideshare"></i> {children}</span>
+                <span><i className="fa fa-chevron-right"></i> {children}</span>
                 <span className="label label-primary pull-right">{qtdStudent}/{totalStudent}</span>
                 <Status className={`label label-${statusType} pull-right`}>{statusTitle}</Status>
             </a>

@@ -23,7 +23,7 @@ class UpdatePassword extends Component {
         ]
 
       	return (
-            <Main navigation={navigator} menu="profile" title="Atualizar Senha">
+            <Main navigation={navigator} menu="profile" title="Atualizar Senha" icon="fa-expeditedssl">
                 <Form onSubmit={handleSubmit((data) => this.__submit(data))}>
                     <Fieldset title="Antiga Senha">
                         <Field

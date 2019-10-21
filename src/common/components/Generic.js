@@ -33,7 +33,7 @@ const PanelBody = styled.div`
     border-top-right-radius: 0;
 `;
 
-const Main = ({ children, navigation, menu, title, rightComponent=null }) => (
+const Main = ({ children, navigation, menu, title, icon, rightComponent=null }) => (
     <main>
         <Navbar />
         <Breadcrumb navigation={navigation} />
@@ -48,7 +48,7 @@ const Main = ({ children, navigation, menu, title, rightComponent=null }) => (
                 <PanelHeading className="panel-heading">
                     <div className="row">
                         <div className="col-12 col-md-6">
-                            <H2>{title}</H2>
+                            <H2><i className={`fa ${icon}`}></i> {title}</H2>
                         </div>
                         <div className="col-12 col-md-6 pull-right">
                             {rightComponent}

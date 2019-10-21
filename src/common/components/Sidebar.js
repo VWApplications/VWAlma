@@ -97,6 +97,12 @@ class Sidebar extends Component {
                     Formação de grupos para respectivas atividades.
                 </SidebarLink>
                 <SidebarLink
+                    icon="fa-trophy"
+                    title="Rank de grupos"
+                    onClick={() => this.__developing()}>
+                    Rank de grupos da disciplina.
+                </SidebarLink>
+                <SidebarLink
                     icon="fa-puzzle-piece"
                     title="Seções"
                     onClick={() => this.__redirectTo(`/profile/${makeURL(discipline.title)}/sections`, location.state)}>
@@ -133,6 +139,12 @@ class Sidebar extends Component {
                 </SidebarLink>
                 <SidebarLink
                     icon="fa-leanpub"
+                    title="Conteúdo"
+                    onClick={() => this.__developing()}>
+                    Conteúdo em formato de livro.
+                </SidebarLink>
+                <SidebarLink
+                    icon="fa-gamepad"
                     title="Exercícios"
                     onClick={() => this.__developing()}>
                     Exercícios.
@@ -150,6 +162,12 @@ class Sidebar extends Component {
                     Relatório das avaliações.
                 </SidebarLink>
                 <SidebarLink
+                    icon="fa-bar-chart"
+                    title="Dashboard"
+                    onClick={() => this.__developing()}>
+                    Dashboard do aluno para gamificação.
+                </SidebarLink>
+                <SidebarLink
                     icon="fa-street-view"
                     title="Avaliação"
                     onClick={() => this.__developing()}>
@@ -160,8 +178,79 @@ class Sidebar extends Component {
     }
 
     __TBLMenu() {
+        const { location } = this.props;
+        const discipline = location.state.discipline;
+        const section = location.state.section;
+
         return (
-            <h1>Menu TBL</h1>
+            <Container>
+                <SidebarLink
+                    icon="fa-puzzle-piece"
+                    title="Seção"
+                    onClick={() => this.__redirectTo(`/profile/${makeURL(discipline.title)}/sections/${makeURL(section.title)}/detail`, location.state)}>
+                    Descrição da seção.
+                </SidebarLink>
+                <SidebarLink
+                    icon="fa-leanpub"
+                    title="Conteúdo"
+                    onClick={() => this.__developing()}>
+                    Conteúdo em formato de livro.
+                </SidebarLink>
+                <SidebarLink
+                    icon="fa-gamepad"
+                    title="Exercícios"
+                    onClick={() => this.__developing()}>
+                    Exercícios.
+                </SidebarLink>
+                <SidebarLink
+                    icon="fa-graduation-cap"
+                    title="Notas da seção"
+                    onClick={() => this.__developing()}>
+                    Notas da seção.
+                </SidebarLink>
+                <SidebarLink
+                    icon="fa-bar-chart"
+                    title="Relatório"
+                    onClick={() => this.__developing()}>
+                    Relatório das avaliações.
+                </SidebarLink>
+                <SidebarLink
+                    icon="fa-bar-chart"
+                    title="Dashboard"
+                    onClick={() => this.__developing()}>
+                    Dashboard do aluno para gamificação.
+                </SidebarLink>
+                <SidebarLink
+                    icon="fa-street-view"
+                    title="Avaliação iRAT"
+                    onClick={() => this.__developing()}>
+                    Avaliação iRAT.
+                </SidebarLink>
+                <SidebarLink
+                    icon="fa-group"
+                    title="Avaliação gRAT"
+                    onClick={() => this.__developing()}>
+                    Avaliação gRAT.
+                </SidebarLink>
+                <SidebarLink
+                    icon="fa-crosshairs"
+                    title="Avaliação Prática"
+                    onClick={() => this.__developing()}>
+                    Avaliação prática.
+                </SidebarLink>
+                <SidebarLink
+                    icon="fa-vcard-o"
+                    title="Avaliação em Pares"
+                    onClick={() => this.__developing()}>
+                    Avaliação em pares.
+                </SidebarLink>
+                <SidebarLink
+                    icon="fa-gavel"
+                    title="Apelação"
+                    onClick={() => this.__developing()}>
+                    Apelação.
+                </SidebarLink>
+            </Container>
         )
     }
 

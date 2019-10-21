@@ -107,7 +107,7 @@ class StudentList extends Component {
         const FilterComponent = <ActionsButton actions={filters}>Filtros</ActionsButton>
 
         return (
-            <Main navigation={navigator} menu="discipline" title="Lista de Estudantes" rightComponent={FilterComponent}>
+            <Main navigation={navigator} menu="discipline" title="Lista de Estudantes" icon="fa-slideshare" rightComponent={FilterComponent}>
                 <Search
                     onSubmit={data => this.__addStudent(data)}
                     name="email"

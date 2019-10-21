@@ -74,7 +74,7 @@ class DisciplineSearch extends Component {
         ]
 
         return (
-            <Main navigation={navigator} menu="profile" title="Procurar Disciplinas">
+            <Main navigation={navigator} menu="profile" title="Procurar Disciplinas" icon="fa-search">
                 <Search
                     onSubmit={data => this.__search(data)}
                     filterList={filter}

@@ -38,6 +38,7 @@ class SectionDetail extends Component {
 
         return (
             <Main
+                icon="fa-puzzle-piece"
                 navigation={navigator}
                 menu="traditional"
                 title="Detalhes da seção"
