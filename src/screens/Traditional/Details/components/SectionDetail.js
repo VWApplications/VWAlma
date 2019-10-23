@@ -5,6 +5,7 @@ import { Main, StringToHtml, Label } from 'common';
 import { FinishSectionButton } from '../styles/sectionDetail';
 import { finishSectionSagas } from '../actions';
 import { choiceAlert } from 'common/alerts';
+import { TEACHER, ADMIN } from 'common/constants';
 
 class SectionDetail extends Component {
     async __finishSection() {
@@ -24,7 +25,7 @@ class SectionDetail extends Component {
     }
 
     render() {
-        const { state } = this.props;
+        const { state, user } = this.props;
         const discipline = state.discipline;
         const section = state.section;
 
@@ -36,19 +37,18 @@ class SectionDetail extends Component {
             {title: section.title, url: `/profile/${makeURL(discipline.title)}/sections/${makeURL(section.title)}/detail`, state }
         ]
 
+        let finishButton = null;
+        if (user.permission === TEACHER || user.permission === ADMIN)
+            finishButton = (
+                <FinishSectionButton
+                    title={section.is_finished ? "Começar seção" : "Finalizar seção"}
+                    type={section.is_finished ? "success" : "danger"}
+                    onClick={() => this.__finishSection()}
+                />
+            )
+
         return (
-            <Main
-                icon="fa-puzzle-piece"
-                navigation={navigator}
-                menu="traditional"
-                title="Detalhes da seção"
-                rightComponent={
-                    <FinishSectionButton
-                        title={section.is_finished ? "Começar seção" : "Finalizar seção"}
-                        type={section.is_finished ? "success" : "danger"}
-                        onClick={() => this.__finishSection()}
-                    />
-                }>
+            <Main icon="fa-puzzle-piece" navigation={navigator} menu="traditional" title="Detalhes da seção" rightComponent={finishButton}>
                 {section.is_closed ? <Label type="danger">Seção Fechada</Label> : <Label type="success">Seção Aberta</Label>}
                 <StringToHtml>{section.description}</StringToHtml>
             </Main>
@@ -58,8 +58,9 @@ class SectionDetail extends Component {
 
 const mapStateToProps = state => {
     const { location } = state.router;
+    const { user } = state.account;
 
-    return { state: location.state }
+    return { state: location.state, user }
 }
 
 export default connect(mapStateToProps)(SectionDetail);

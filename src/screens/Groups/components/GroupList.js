@@ -16,6 +16,7 @@ import {
     GroupContainer, GroupPanel, GroupPanelHeader, GroupPanelBody,
     GroupPanelContent, GroupPanelFooter, AddGroupButton
 } from '../styles/groupList';
+import { TEACHER, ADMIN } from 'common/constants';
 
 class GroupList extends Component {
     constructor(props) {
@@ -92,7 +93,7 @@ class GroupList extends Component {
     }
 
     render() {
-        const { state, handleSubmit, submitting, invalid, pagination, groups } = this.props;
+        const { state, handleSubmit, submitting, invalid, pagination, groups, user } = this.props;
         const discipline = state.discipline;
 
         const navigator = [
@@ -102,7 +103,9 @@ class GroupList extends Component {
             {title: "Grupos", url: `/profile/${makeURL(discipline.title)}/groups`, state }
         ]
 
-        const AddButton = <AddGroupButton opened={this.state.opened} onClick={() => this.__toogleForm()} />
+        let AddButton = null;
+        if (user.permission === TEACHER || user.permission === ADMIN)
+            AddButton = <AddGroupButton opened={this.state.opened} onClick={() => this.__toogleForm()} />
 
         return (
             <Main navigation={navigator} menu="discipline" title="Lista de Grupos" icon="fa-group" rightComponent={AddButton}>
@@ -132,7 +135,7 @@ class GroupList extends Component {
                 : null}
 
                 <GroupContainer>
-                    {groups.length === 0 ? <Info>Não há grupos nessa disciplina.</Info> : null}
+                    {groups.length === 0 ? <Info>Não há grupos disponíveis nessa disciplina.</Info> : null}
                     {groups.map((group, index) => (
                         <GroupPanel key={index}>
                             <GroupPanelHeader
@@ -146,12 +149,15 @@ class GroupList extends Component {
 
                             <GroupPanelBody id={group.id}>
                                 <GroupPanelContent>
-                                    <Search
-                                        onSubmit={data => this.__addStudent(group.id, data)}
-                                        name="email"
-                                        placeholder="Insira o email do estudante para adicioná-lo ao grupo."
-                                        icon="fa-plus"
-                                    />
+                                    {user.permission === TEACHER || user.permission === ADMIN ?
+                                        <Search
+                                            onSubmit={data => this.__addStudent(group.id, data)}
+                                            name="email"
+                                            placeholder="Insira o email do estudante para adicioná-lo ao grupo."
+                                            icon="fa-plus"
+                                        />
+                                    : null}
+
                                     <StudentContainer>
                                         {group.students.length === 0 ? <Info>Não há estudantes nesse grupo.</Info> : null}
                                         {rowMap(group.students, 3, (student, index, col) => (
@@ -159,6 +165,7 @@ class GroupList extends Component {
                                                 <StudentHeader src={student.photo} />
 
                                                 <StudentBody
+                                                    user={user}
                                                     email={student.email}
                                                     id={student.identifier}
                                                     onClose={() => this.__removeStudent(group.id, {"id": student.id})}>
@@ -169,12 +176,14 @@ class GroupList extends Component {
                                     </StudentContainer>
                                 </GroupPanelContent>
 
-                                <GroupPanelFooter
-                                    isProvided={group.is_provided}
-                                    sendClick={() => this.__provideGroup(group.id)}
-                                    editClick={() => this.__editGroup(group)}
-                                    deleteClick={() => this.__deleteGroup(group.id)}
-                                />
+                                {user.permission === TEACHER || user.permission === ADMIN ?
+                                    <GroupPanelFooter
+                                        isProvided={group.is_provided}
+                                        sendClick={() => this.__provideGroup(group.id)}
+                                        editClick={() => this.__editGroup(group)}
+                                        deleteClick={() => this.__deleteGroup(group.id)}
+                                    />
+                                : null}
                             </GroupPanelBody>
                         </GroupPanel>
                     ))}
@@ -194,6 +203,7 @@ const form = reduxForm({
 const mapStateToProps = state => {
     const { location } = state.router;
     const { list, pagination, form } = state.group;
+    const { user } = state.account;
 
     let initialValues = {};
     if (form) {
@@ -203,7 +213,7 @@ const mapStateToProps = state => {
         }
     }
 
-    return {state: location.state, groups: list, pagination, initialValues, groupForm: form}
+    return {state: location.state, groups: list, pagination, initialValues, groupForm: form, user}
 }
 
 export default connect(mapStateToProps)(form);

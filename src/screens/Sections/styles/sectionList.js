@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import { TEACHER, ADMIN } from 'common/constants';
 
 export const SectionContainer = ({ children }) => (
     <div className="panel-group fix-row" id="accordion">{children}</div>
@@ -50,41 +51,47 @@ export const SectionPanelContent = ({ children }) => (
     <div className="panel-body">{children}</div>
 )
 
-export const SectionPanelFooter = ({ isProvided, enterClick, sendClick, editClick, deleteClick }) => (
+export const SectionPanelFooter = ({ user, isClosed, enterClick, sendClick, editClick, deleteClick }) => (
     <div className="panel-footer">
         <div className="row">
-            <div className="col-md-8">
+            <div className={`col-md-${user.permission === TEACHER || user.permission === ADMIN ? "8" : "12"}`}>
                 <div className="btn-group btn-group-justified">
                     <div className="btn-group">
                         <button className="btn btn-primary" type="button" onClick={enterClick}>
                             <i className="fa fa-external-link"></i> Entrar
                         </button>
                     </div>
-                    <div className="btn-group">
-                        <button className="btn btn-primary" type="button" onClick={sendClick}>
-                            {isProvided ?
-                                <span><i className="fa fa-eye-slash"></i> Fechar Seção</span>
-                            :
-                                <span><i className="fa fa-eye"></i> Abrir Seção</span>
-                            }
-                        </button>
-                    </div>
-                    <div className="btn-group">
-                        <button className="btn btn-primary" type="button" onClick={editClick}>
-                            <i className="fa fa-edit"></i> Editar Seção
-                        </button>
-                    </div>
+                    {user.permission === TEACHER || user.permission === ADMIN ?
+                        <div className="btn-group">
+                            <button className="btn btn-primary" type="button" onClick={sendClick}>
+                                {isClosed ?
+                                    <span><i className="fa fa-eye"></i> Abrir Seção</span>
+                                :
+                                    <span><i className="fa fa-eye-slash"></i> Fechar Seção</span>
+                                }
+                            </button>
+                        </div>
+                    : null}
+                    {user.permission === TEACHER || user.permission === ADMIN ?
+                        <div className="btn-group">
+                            <button className="btn btn-primary" type="button" onClick={editClick}>
+                                <i className="fa fa-edit"></i> Editar Seção
+                            </button>
+                        </div>
+                    : null}
                 </div>
             </div>
-            <div className="col-md-4">
-                <div className="btn-group btn-group-justified">
-                    <div className="btn-group">
-                        <button className="btn btn-danger" type="button" onClick={deleteClick}>
-                            <i className="fa fa-trash"></i> Deletar Seção
-                        </button>
+            {user.permission === TEACHER || user.permission === ADMIN ?
+                <div className="col-md-4">
+                    <div className="btn-group btn-group-justified">
+                        <div className="btn-group">
+                            <button className="btn btn-danger" type="button" onClick={deleteClick}>
+                                <i className="fa fa-trash"></i> Deletar Seção
+                            </button>
+                        </div>
                     </div>
                 </div>
-            </div>
+            : null}
         </div>
     </div>
 )

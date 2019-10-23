@@ -6,6 +6,7 @@ import { choiceAlert } from 'common/alerts';
 import { makeURL } from 'common/utils';
 import { InputField, EditorField } from 'common/fields';
 import { Main, Info, Form, SubmitButton, Fieldset, Pagination, StringToHtml } from 'common';
+import { TEACHER, ADMIN } from 'common/constants';
 import { validateCreateSection } from '../validate';
 import {
     listSectionsSagas, createSectionsSagas, updateFormAction,
@@ -79,7 +80,7 @@ class SectionList extends Component {
     }
 
     render() {
-        const { state, handleSubmit, submitting, invalid, pagination, sections } = this.props;
+        const { state, handleSubmit, submitting, invalid, pagination, sections, user } = this.props;
         const discipline = state.discipline;
 
         const navigator = [
@@ -89,7 +90,9 @@ class SectionList extends Component {
             {title: "Seções", url: `/profile/${makeURL(discipline.title)}/sections`, state }
         ]
 
-        const AddButton = <AddSectionButton opened={this.state.opened} onClick={() => this.__toogleForm()} />
+        let AddButton = null;
+        if (user.permission === TEACHER || user.permission === ADMIN)
+            AddButton = <AddSectionButton opened={this.state.opened} onClick={() => this.__toogleForm()} />
 
         return (
             <Main navigation={navigator} menu="discipline" title="Lista de Seções" icon="fa-puzzle-piece" rightComponent={AddButton}>
@@ -117,7 +120,7 @@ class SectionList extends Component {
                 : null}
 
                 <SectionContainer>
-                    {sections.length === 0 ? <Info>Não há seções nessa disciplina.</Info> : null}
+                    {sections.length === 0 ? <Info>Não há seções disponíveis nessa disciplina.</Info> : null}
                     {sections.map((section, index) => (
                         <SectionPanel key={index}>
                             <SectionPanelHeader
@@ -133,7 +136,8 @@ class SectionList extends Component {
                                 </SectionPanelContent>
 
                                 <SectionPanelFooter
-                                    isProvided={section.is_closed}
+                                    user={user}
+                                    isClosed={section.is_closed}
                                     enterClick={() => this.__redirectToSectionDetail(section)}
                                     sendClick={() => this.__provideSection(section.id)}
                                     editClick={() => this.__editSection(section)}
@@ -158,6 +162,7 @@ const form = reduxForm({
 const mapStateToProps = state => {
     const { location } = state.router;
     const { list, pagination, form } = state.section;
+    const { user } = state.account;
 
     let initialValues = {};
     if (form) {
@@ -167,7 +172,7 @@ const mapStateToProps = state => {
         }
     }
 
-    return {state: location.state, sections: list, pagination, initialValues, sectionForm: form}
+    return {state: location.state, sections: list, pagination, initialValues, sectionForm: form, user}
 }
 
 export default connect(mapStateToProps)(form);

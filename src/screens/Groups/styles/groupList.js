@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import user from 'asserts/img/user.png';
+import { TEACHER, ADMIN } from 'common/constants';
 
 export const GroupContainer = ({ children }) => (
     <div className="panel-group fix-row" id="accordion">{children}</div>
@@ -121,16 +122,18 @@ const ID = styled.p`
     margin: 0;
 `;
 
-export const StudentBody = ({ children, email, onClose, id }) => (
+export const StudentBody = ({ children, email, onClose, id, user }) => (
     <div className="media-body">
         <h4 className="media-heading">
             {children}
 
-            <span className="pull-right">
-                <RemoveStudentButton type="button" className="close" onClick={onClose}>
-                    <i className="fa fa-close"></i>
-                </RemoveStudentButton>
-            </span>
+            {user.permission === TEACHER || user.permission === ADMIN ?
+                <span className="pull-right">
+                    <RemoveStudentButton type="button" className="close" onClick={onClose}>
+                        <i className="fa fa-close"></i>
+                    </RemoveStudentButton>
+                </span>
+            : null}
         </h4>
 
         <ID>{id}</ID>

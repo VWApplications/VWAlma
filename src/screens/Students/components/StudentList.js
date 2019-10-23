@@ -7,6 +7,7 @@ import { Main, Info, ActionsButton, Search, Pagination } from 'common';
 import { listStudentsSagas, removeStudentSagas, addStudentSagas, changeStudentStatusSagas } from '../actions';
 import { StudentContainer, StudentBox, StudentHeader, StudentBody } from '../styles/studentList';
 import { choiceAlert } from 'common/alerts';
+import { TEACHER, ADMIN } from 'common/constants';
 
 class StudentList extends Component {
     constructor(props) {
@@ -88,7 +89,7 @@ class StudentList extends Component {
     }
 
     render() {
-        const { state, students, pagination } = this.props;
+        const { state, students, pagination, user } = this.props;
         const discipline = state.discipline;
 
         const navigator = [
@@ -108,22 +109,30 @@ class StudentList extends Component {
 
         return (
             <Main navigation={navigator} menu="discipline" title="Lista de Estudantes" icon="fa-slideshare" rightComponent={FilterComponent}>
-                <Search
-                    onSubmit={data => this.__addStudent(data)}
-                    name="email"
-                    placeholder="Insira o email do estudante para adicioná-lo a turma."
-                    icon="fa-plus"
-                />
+                {user.permission === TEACHER || user.permission === ADMIN ?
+                    <Search
+                        onSubmit={data => this.__addStudent(data)}
+                        name="email"
+                        placeholder="Insira o email do estudante para adicioná-lo a turma."
+                        icon="fa-plus"
+                    />
+                : null}
 
                 <StudentContainer>
                     {students.length === 0 ? <Info>Não há estudantes nessa disciplina.</Info> : null}
                     {rowMap(students, 3, (student, index, col) => (
                         <StudentBox key={index} col={col}>
-                            <StudentHeader src={student.photo} onClick={() => this.__changeStudentStatus({"id": student.id})}>
+                            <StudentHeader
+                                src={student.photo}
+                                onClick={() => this.__changeStudentStatus({"id": student.id})}>
                                 {this.__isMonitor(student.id) ? "Monitor" : "Estudante"}
                             </StudentHeader>
 
-                            <StudentBody email={student.email} id={student.identifier} onClose={() => this.__removeStudentFromClass({"id": student.id})}>
+                            <StudentBody
+                                user={user}
+                                email={student.email}
+                                id={student.identifier}
+                                onClose={() => this.__removeStudentFromClass({"id": student.id})}>
                                 {student.short_name}
                             </StudentBody>
                         </StudentBox>
@@ -142,8 +151,9 @@ class StudentList extends Component {
 const mapStateToProps = state => {
     const { location } = state.router;
     const { list, pagination } = state.student;
+    const { user } = state.account;
 
-    return { state: location.state, students: list, pagination };
+    return { state: location.state, students: list, pagination, user };
 }
 
 export default connect(mapStateToProps)(StudentList);
