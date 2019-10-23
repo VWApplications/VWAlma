@@ -85,7 +85,7 @@ class ProfileDisciplines extends Component {
 
                             <PanelBody id={index}>
                                 <CollapseBody qtdStudents={discipline.students.length} totalStudents={discipline.students_limit}>
-                                    <StringToHtml>{discipline.description}</StringToHtml>
+                                    <StringToHtml resume={true}>{discipline.description}</StringToHtml>
                                 </CollapseBody>
 
                                 <CollapseFooter>

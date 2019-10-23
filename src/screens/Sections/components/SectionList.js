@@ -132,7 +132,7 @@ class SectionList extends Component {
 
                             <SectionPanelBody id={section.id}>
                                 <SectionPanelContent>
-                                    <StringToHtml>{section.description}</StringToHtml>
+                                    <StringToHtml resume={true}>{section.description}</StringToHtml>
                                 </SectionPanelContent>
 
                                 <SectionPanelFooter

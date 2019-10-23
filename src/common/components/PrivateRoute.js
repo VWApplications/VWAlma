@@ -5,7 +5,7 @@ import { errorAlert } from 'common/alerts';
 import { hasPermission, isAuthenticated } from 'common/utils';
 
 const PrivateRoute = ({ component: Component, ...rest }) => {
-    const { requiredPermission, user } = rest;
+    const { requiredPermission, user, location } = rest;
 
     if (!isAuthenticated()) {
         errorAlert("Permissão negada!", "Você precisa tá logado para realizar essa ação.");
@@ -17,7 +17,11 @@ const PrivateRoute = ({ component: Component, ...rest }) => {
         return <Redirect to="/profile" />;
     }
 
-    return <Route {...rest} render={props => <Component {...props} />} />;
+    if (location.key)
+        return <Route {...rest} render={props => <Component {...props} />} />;
+
+    errorAlert("Permissão negada!", "Por favor, não utilize a url como navegação.");
+    return <Redirect to="/profile" />;
 }
 
 const mapStateToProps = state => {

@@ -111,9 +111,15 @@ const Info = ({ children }) => (
     <div className="alert alert-info" style={{"marginTop": "10px"}}>{children}</div>
 )
 
-const StringToHtml = ({ children }) => (
-    <div dangerouslySetInnerHTML={{__html: children}}></div>
-)
+const StringToHtml = ({ children, resume=false }) => {
+    if (resume) {
+        let content = children.match(/<h\d>.+<\/h\d>|<p>.+<\/p>/gm).slice(0, 2).join("\n");
+        content = content.replace("</p>", "...</p>")
+        return <div dangerouslySetInnerHTML={{__html: content}}></div>
+    }
+
+    return <div dangerouslySetInnerHTML={{__html: children}}></div>
+}
 
 const ButtonLink = styled.button`
     color: black;

@@ -35,6 +35,7 @@ class App extends Component {
 				<PrivateRouter exact path="/profile/:discipline/groups" component={GroupList} />
 				<PrivateRouter exact path="/profile/:discipline/sections" component={SectionList} />
 				<PrivateRouter exact path="/profile/:discipline/sections/:section/detail" component={SectionDetails} />
+				<Route exact path='*' component={Home} />
 			</Switch>
 		)
   	}
