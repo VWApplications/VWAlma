@@ -125,7 +125,7 @@ class Sidebar extends Component {
     }
 
     __TraditionalMenu() {
-        const { location } = this.props;
+        const { location, user } = this.props;
         const discipline = location.state.discipline;
         const section = location.state.section;
 
@@ -143,6 +143,14 @@ class Sidebar extends Component {
                     onClick={() => this.__developing()}>
                     Conteúdo em formato de livro.
                 </SidebarLink>
+                {user.permission === TEACHER || user.permission === ADMIN ?
+                    <SidebarLink
+                        icon="fa-clipboard"
+                        title="Questões"
+                        onClick={() => this.__redirectTo(`/profile/${makeURL(discipline.title)}/sections/${makeURL(section.title)}/questions`, location.state)}>
+                        Formulário de Questões.
+                    </SidebarLink>
+                : null}
                 <SidebarLink
                     icon="fa-gamepad"
                     title="Exercícios"
@@ -155,18 +163,21 @@ class Sidebar extends Component {
                     onClick={() => this.__developing()}>
                     Notas da seção.
                 </SidebarLink>
-                <SidebarLink
-                    icon="fa-bar-chart"
-                    title="Relatório"
-                    onClick={() => this.__developing()}>
-                    Relatório das avaliações.
-                </SidebarLink>
-                <SidebarLink
-                    icon="fa-bar-chart"
-                    title="Dashboard"
-                    onClick={() => this.__developing()}>
-                    Dashboard do aluno para gamificação.
-                </SidebarLink>
+                {user.permission === TEACHER || user.permission === ADMIN ?
+                    <SidebarLink
+                        icon="fa-bar-chart"
+                        title="Relatório"
+                        onClick={() => this.__developing()}>
+                        Relatório das avaliações.
+                    </SidebarLink>
+                :
+                    <SidebarLink
+                        icon="fa-bar-chart"
+                        title="Dashboard"
+                        onClick={() => this.__developing()}>
+                        Dashboard do aluno para gamificação.
+                    </SidebarLink>
+                }
                 <SidebarLink
                     icon="fa-street-view"
                     title="Avaliação"

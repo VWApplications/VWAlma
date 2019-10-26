@@ -1,23 +1,19 @@
 import React from 'react';
-import styled from 'styled-components';
 import { Field } from 'redux-form';
 
-const Group = styled.div`
-    margin-top: 5px;
-`;
-
-const SelectGroup = ({ children, label }) => (
-    <Group>
-        <div className="form-group">
-            <label htmlFor="selectID" className="white">{label}</label>
+const SelectGroup = ({ children, label, color="white" }) => (
+    <div className="row">
+        <div className="col-sm-12 form-group">
+            <label htmlFor="selectID" className={color}>{label}:</label>
             {children}
         </div>
-    </Group>
+    </div>
 )
 
 export const SelectField = field => (
-    <SelectGroup label={field.label}>
-        <Field id="selectID" autoFocus name={field.name} component="select" className={"form-control " + field.className}>
+    <SelectGroup label={field.label} color={field.color}>
+        <Field id="selectID" autoFocus name={field.name} component="select" className={"form-control " + field.className} onChange={field.onChange}>
+            {field.empty ? <option value={null}></option> : null}
             {field.options.map((option, index) => {
                 return <option key={index} value={option.value}>{option.title}</option>
             })}

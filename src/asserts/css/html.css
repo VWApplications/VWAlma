@@ -18,6 +18,10 @@ button:focus {
     color: white;
 }
 
+.black {
+    color: #393333;
+}
+
 .lighten-blue-grey {
     color: #ECEFF1;
   }
@@ -110,6 +114,10 @@ button:focus {
 
 .form-control-feedback {
     right: 15px;
+}
+
+.label-size {
+    font-size: 24px;
 }
 
 /* INTRO JS */
