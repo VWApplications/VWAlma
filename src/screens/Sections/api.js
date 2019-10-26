@@ -6,6 +6,11 @@ export function getSectionsAPI(data, queryString=null) {
     return axios.post(endpoint, data);
 }
 
+export function fetchSectionAPI(sectionID) {
+    let endpoint = `/sections/${sectionID}/`;
+    return axios.get(endpoint);
+}
+
 export function createSectionAPI(data) {
     let endpoint = "/sections/";
     return axios.post(endpoint, data);

@@ -12,10 +12,10 @@ export const validateQuestionForm = values => {
     if (!values.is_exercise)
         errors.is_exercise = "Selecione se essa questão é de exercício ou prova.";
 
-    if (!values.type)
-        errors.type = "Selecione o tipo de questão.";
+    if (!values.question_type)
+        errors.question_type = "Selecione o tipo de questão.";
 
-    if (values.type === "MULTIPLE_CHOICES") {
+    if (values.question_type === "MULTIPLE_CHOICES") {
         if (!values.alternative_A)
             errors.alternative_A = "A alternativa A deve ser preenchida."
         if (!values.alternative_B)
@@ -27,7 +27,7 @@ export const validateQuestionForm = values => {
     }
 
     if (values.correct_answer) {
-        if (values.type === "MULTIPLE_CHOICES") {
+        if (values.question_type === "MULTIPLE_CHOICES") {
             if (values.correct_answer !== "A" &&
                 values.correct_answer !== "B" &&
                 values.correct_answer !== "C" &&

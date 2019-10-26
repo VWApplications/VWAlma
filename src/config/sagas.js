@@ -6,6 +6,7 @@ import studentSagas from 'screens/Students/sagas';
 import groupSagas from 'screens/Groups/sagas';
 import sectionSagas from 'screens/Sections/sagas';
 import traditionalSagas from 'screens/Traditional/sagas';
+import exerciseSagas from 'screens/Exercises/sagas';
 
 export default function* rootSaga() {
     yield all([
@@ -15,6 +16,7 @@ export default function* rootSaga() {
         studentSagas(),
         groupSagas(),
         sectionSagas(),
-        traditionalSagas()
+        traditionalSagas(),
+        exerciseSagas()
     ]);
 }

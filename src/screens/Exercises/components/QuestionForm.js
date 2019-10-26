@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { reduxForm, Field } from 'redux-form';
+import { reduxForm, Field, reset } from 'redux-form';
 import { InputField, EditorField, RadioFields, SelectField } from 'common/fields';
 import { makeURL } from 'common/utils';
 import { Main, Form, Fieldset, SubmitButton } from 'common';
 import { FormGroup, FormItem } from '../styles/questionForm';
 import { validateQuestionForm } from '../validate';
+import { createQuestionSagas } from '../actions';
 
 class QuestionForm extends Component {
     constructor(props) {
@@ -20,7 +21,15 @@ class QuestionForm extends Component {
     }
 
     __submit(data) {
-        console.log(data);
+        const { dispatch, obj } = this.props;
+
+        if (obj)
+            console.log("Atualizando!");
+        else
+            dispatch(createQuestionSagas(data));
+
+        dispatch(reset("QuestionForm"));
+        window.location.reload();
     }
 
     __changeType(type) {
@@ -32,12 +41,12 @@ class QuestionForm extends Component {
     }
 
     render() {
-        const { handleSubmit, submitting, invalid, state } = this.props;
+        const { handleSubmit, submitting, invalid, state, obj } = this.props;
         const discipline = state.discipline;
         const section = state.section;
 
         let title = "Criar questão";
-        if (false)
+        if (obj)
             title = "Editar questão";
 
         const navigator = [
@@ -98,7 +107,7 @@ class QuestionForm extends Component {
                                 <SelectField
                                     label="Tipo de questão"
                                     color="black"
-                                    name="type"
+                                    name="question_type"
                                     onChange={(data) => this.__changeType(data.currentTarget.value)}
                                     options={[
                                         {title: "Multipla Escolha", value: "MULTIPLE_CHOICES"},
@@ -186,11 +195,30 @@ const form = reduxForm({
 
 const mapStateToProps = state => {
     const { location } = state.router;
+    const { obj } = state.exercise;
 
-    let initialValues = {type: "MULTIPLE_CHOICES", correct_answer: null};
-    if (false)
+    let initialValues = {
+        title: "",
+        description: "",
+        is_exercise: "true",
+        type: "MULTIPLE_CHOICES",
+        correct_answer: null,
+        alternative_A: "",
+        alternative_B: "",
+        alternative_C: "",
+        alternative_D: "",
+    };
+    if (obj)
         initialValues = {
-            // title: obj.title || "",
+            title: obj.title || "",
+            description: obj.description || "",
+            is_exercise: obj.is_exercise || "",
+            type: obj.type || "MULTIPLE_CHOICES",
+            correct_answer: obj.correct_answer || null,
+            alternative_A: obj.alternative_A || "",
+            alternative_B: obj.alternative_B || "",
+            alternative_C: obj.alternative_C || "",
+            alternative_D: obj.alternative_D || "",
         }
 
     return {

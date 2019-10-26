@@ -31,7 +31,6 @@ export const InputField = field => {
 					name={field.name}
 					type={field.type}
 					placeholder={field.placeholder}
-					value={field.value}
 					className={field.className}
 					id={field.id}
 				/>
