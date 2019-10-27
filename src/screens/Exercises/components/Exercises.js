@@ -80,6 +80,7 @@ class Exercises extends Component {
                     <Field
                         component={CheckboxField}
                         name="correct_answer"
+                        id={question.id}
                         question={true}
                         label={<StringToHtml>{question.description}</StringToHtml>}
                     />
