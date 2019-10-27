@@ -1,7 +1,7 @@
 import React from 'react';
 import { FormGroup } from '../styles/fields';
 
-export const InputField = field => {
+export const ShotField = field => {
 	let formGroupClass = "";
 	let iconClass = "";
 
@@ -15,32 +15,25 @@ export const InputField = field => {
 		}
 	}
 
-	let labelCol = 2
-	if (field.labelCol) labelCol = field.labelCol
-	let fieldCol = 10
-	if (field.fieldCol) fieldCol = field.fieldCol
-
 	return (
 		<FormGroup className={"row form-group " + formGroupClass + " has-feedback"}>
-			{field.label ?
-				<label className={`col-sm-${labelCol} control-label`} htmlFor={field.id}>
-					<span className={field.labelClass}>{field.label}:</span>
-				</label>
-			: null}
-			<div className={`col-sm-${fieldCol}`}>
+			<div className={`col-sm-12 col-md-2`}>
 				<input
 					{...field.input}
 					name={field.name}
 					type={field.type}
 					placeholder={field.placeholder}
-					className={field.className}
-					id={field.id}
+                    className={field.className}
+                    id={field.id}
 				/>
 				<span className={"form-control-feedback " + iconClass}></span>
-				<p className="text-danger">
-					{field.meta.touched && (field.meta.error && <span>{field.meta.error}</span>)}
-				</p>
 			</div>
+            <div className="col-sm-12 col-md-10">
+                <p>{field.description}</p>
+            </div>
+            <p className="text-danger">
+                {field.meta.touched && (field.meta.error && <span>{field.meta.error}</span>)}
+            </p>
 		</FormGroup>
 	)
 }

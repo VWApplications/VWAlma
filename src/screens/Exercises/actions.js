@@ -7,8 +7,8 @@ export function listQuestionsAction(questions, activePage, count) {
     return {type: LIST_QUESTIONS, payload: {questions, activePage, count}};
 }
 
-export function listQuestionsSagas(activePage, queryString=null) {
-    return {type: LIST_QUESTIONS_SAGAS, payload: {activePage, queryString}};
+export function listQuestionsSagas(activePage, queryString=null, test=false) {
+    return {type: LIST_QUESTIONS_SAGAS, payload: {activePage, queryString, test}};
 }
 
 export function createQuestionSagas(data) {

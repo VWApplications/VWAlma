@@ -5,7 +5,7 @@ const initialState = {
 	obj: null,
     pagination: {
         totalItemsCount: 0,
-        itemsCountPerPage: 5,
+        itemsCountPerPage: 1,
         pageRangeDisplayed: 10,
         activePage: 1
     }

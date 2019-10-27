@@ -154,7 +154,7 @@ class Sidebar extends Component {
                 <SidebarLink
                     icon="fa-gamepad"
                     title="Exercícios"
-                    onClick={() => this.__developing()}>
+                    onClick={() => this.__redirectTo(`/profile/${makeURL(discipline.title)}/sections/${makeURL(section.title)}/exercises`, location.state)}>
                     Exercícios.
                 </SidebarLink>
                 <SidebarLink

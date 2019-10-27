@@ -88,9 +88,17 @@ const CustomFieldset = styled.fieldset`
     }
 `;
 
-const Fieldset = ({ children, title }) => (
+const ButtonField = styled.button`
+    :hover {
+        text-decoration: none;
+    }
+`;
+
+const Fieldset = ({ children, title, array=null }) => (
     <CustomFieldset>
-        <legend style={{"paddingLeft": "5px"}}>{title}</legend><br />
+        <legend style={{"paddingLeft": "5px"}}>
+            {title} {array ? <ButtonField className="btn btn-link pull-right" type="button" onClick={() => array.push({})}>Adicionar</ButtonField> : null}
+        </legend><br />
         {children}
     </CustomFieldset>
 )

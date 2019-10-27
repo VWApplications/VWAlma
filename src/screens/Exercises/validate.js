@@ -1,13 +1,8 @@
-import { validateTextEditor } from 'common/validations';
-
 export const validateQuestionForm = values => {
     const errors = {};
 
     if (!values.title)
         errors.title = "Título da questão é obrigatório.";
-
-    if (!validateTextEditor(values.description))
-        errors.description = "Descrição da questão é obrigatório.";
 
     if (!values.is_exercise)
         errors.is_exercise = "Selecione se essa questão é de exercício ou prova.";

@@ -11,7 +11,7 @@ import { DisciplineForm, DisciplineSearch, DisciplineDetail } from 'screens/Disc
 import { StudentList } from 'screens/Students';
 import { GroupList } from 'screens/Groups';
 import { SectionList } from 'screens/Sections';
-import { QuestionForm } from 'screens/Exercises';
+import { QuestionForm, Exercises } from 'screens/Exercises';
 import { SectionDetails } from 'screens/Traditional';
 import "asserts/css/html.css";
 
@@ -37,6 +37,7 @@ class App extends Component {
 				<PrivateRouter exact path="/profile/:discipline/sections" component={SectionList} />
 				<PrivateRouter exact path="/profile/:discipline/sections/:section/detail" component={SectionDetails} />
 				<PrivateRouter exact path="/profile/:discipline/sections/:section/questions" component={QuestionForm} />
+				<PrivateRouter exact path="/profile/:discipline/sections/:section/exercises" component={Exercises} />
 				<Route exact path='*' component={Home} />
 			</Switch>
 		)

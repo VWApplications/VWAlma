@@ -1,0 +1,6 @@
+const V_OR_F = "V_OR_F";
+const MULTIPLE_CHOICES = "MULTIPLE_CHOICES";
+const SHOT = "SHOT";  // Aposta
+const SCRATCH_CARD = "SCRATCH_CARD";
+
+export {V_OR_F, MULTIPLE_CHOICES, SHOT, SCRATCH_CARD};
