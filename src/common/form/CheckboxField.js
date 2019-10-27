@@ -1,9 +1,11 @@
 import React from 'react';
 import styled from 'styled-components';
+import { P } from '../styles/fields';
 
 const Slide = styled.div`
 	width: 100%;
 	height: 26px;
+	margin-bottom: 10px;
 	background: #333;
 	position: relative;
 	border-radius: 50px;
@@ -81,7 +83,7 @@ export const CheckboxField = field => {
 				</Slide>
 			</div>
 			<div className="col-sm-11">
-				{field.label}
+				<P style={{"paddingTop": "2px"}}>{field.label}</P>
 			</div>
 		</div>
 	)

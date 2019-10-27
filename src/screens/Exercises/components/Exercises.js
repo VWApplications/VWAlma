@@ -5,7 +5,7 @@ import { ShotField, CheckboxField, RadioFields } from 'common/fields';
 import { makeURL } from 'common/utils';
 import { Main, Form, Info, SubmitButton, Pagination, StringToHtml, Line } from 'common';
 import { listQuestionsSagas } from '../actions';
-import { MULTIPLE_CHOICES, SHOT, SCRATCH_CARD, V_OR_F } from '../constants';
+import { MULTIPLE_CHOICES, SHOT, SCRATCH_CARD } from '../constants';
 
 class Exercises extends Component {
 
@@ -25,12 +25,9 @@ class Exercises extends Component {
                     <RadioFields
                         name="answer"
                         question={true}
-                        inputs={[
-                            {title: question.alternative_A, value: "A"},
-                            {title: question.alternative_B, value: "B"},
-                            {title: question.alternative_C, value: "C"},
-                            {title: question.alternative_D, value: "D"},
-                        ]}
+                        inputs={question.alternatives.map(alternative => (
+                            {title: alternative.title, value: alternative.is_correct.toString()}
+                        ))}
                     />
                 );
 
@@ -77,13 +74,16 @@ class Exercises extends Component {
 
             default:
                 return (
-                    <Field
-                        component={CheckboxField}
-                        name="correct_answer"
-                        id={question.id}
-                        question={true}
-                        label={<StringToHtml>{question.description}</StringToHtml>}
-                    />
+                    question.alternatives.map(alternative => (
+                        <Field
+                            key={alternative.id}
+                            component={CheckboxField}
+                            name={`correct_answer_${alternative.id}`}
+                            id={alternative.id}
+                            question={true}
+                            label={alternative.title}
+                        />
+                    ))
                 )
         }
     }
@@ -110,8 +110,8 @@ class Exercises extends Component {
                     <div
                         className="progress-bar progress-bar-striped active"
                         role="progressbar" aria-valuenow={progress.toString()} aria-valuemin="0"
-                        aria-valuemax="100" style={{"width": `${progress.toString()}%`}}>
-                        {progress.toString()}%
+                        aria-valuemax="100" style={{"width": `${parseInt(progress).toString()}%`}}>
+                        {parseInt(progress).toString()}%
                     </div>
                 </div>
 
@@ -120,7 +120,7 @@ class Exercises extends Component {
                     <div className="panel panel-default" key={index}>
                         <div className="panel-body">
                             <h2>{pagination.activePage}) {question.title}</h2>
-                            {question.question_type !== V_OR_F ? <StringToHtml>{question.description}</StringToHtml> : null}
+                            {question.description ? <StringToHtml>{question.description}</StringToHtml> : null}
                             <Line />
                             <Form onSubmit={handleSubmit((data) => this.__submit(data))}>
                                 {this.__getQuestionType(question)}

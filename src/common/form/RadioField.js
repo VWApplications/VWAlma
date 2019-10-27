@@ -1,49 +1,11 @@
 import React from 'react';
 import { Field } from 'redux-form';
 import styled from 'styled-components';
+import { P } from '../styles/fields';
 
 const CustomRadio = styled.div`
     input[type="radio"] {
         display: none;
-
-        + label {
-            position: relative;
-            display: inline-block;
-            padding-left: 1.5em;
-            margin-right: 2em;
-            cursor: pointer;
-            line-height: 1em;
-            -webkit-transition: all 0.3s ease-in-out;
-            transition: all 0.3s ease-in-out;
-
-            :before, :after {
-                content: '';
-                position: absolute;
-                top: 0;
-                left: 0;
-                width: 1em;
-                height: 1em;
-                text-align: center;
-                color: black;
-                font-family: Times;
-                border-radius: 50%;
-                -webkit-transition: all .3s ease;
-                transition: all .3s ease;
-            }
-
-            :before {
-                -webkit-transition: all .3s ease;
-                transition: all .3s ease;
-                box-shadow: inset 0 0 0 0.2em white, inset 0 0 0 1em white;
-                border: 1px solid gray;
-            }
-
-            :hover:before {
-                -webkit-transition: all .3s ease;
-                transition: all .3s ease;
-                box-shadow: inset 0 0 0 0.3em white, inset 0 0 0 1em #c6c6c6;
-            }
-        }
 
         :checked + label:before {
             -webkit-transition: all .3s ease;
@@ -51,18 +13,56 @@ const CustomRadio = styled.div`
             box-shadow: inset 0 0 0 0.2em white, inset 0 0 0 1em green;
         }
     }
-
 `;
 
+const Label = styled.label`
+    position: relative;
+    display: inline-block;
+    padding-left: 30px;
+    margin-right: 1em;
+    padding-top: 2px;
+    cursor: pointer;
+    line-height: 1em;
+    -webkit-transition: all 0.3s ease-in-out;
+    transition: all 0.3s ease-in-out;
+
+    :before, :after {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 20px;
+        height: 20px;
+        text-align: center;
+        color: black;
+        font-family: Times;
+        border-radius: 50%;
+        -webkit-transition: all .3s ease;
+        transition: all .3s ease;
+    }
+
+    :before {
+        -webkit-transition: all .3s ease;
+        transition: all .3s ease;
+        box-shadow: inset 0 0 0 0.2em white, inset 0 0 0 1em white;
+        border: 1px solid gray;
+    }
+
+    :hover:before {
+        -webkit-transition: all .3s ease;
+        transition: all .3s ease;
+        box-shadow: inset 0 0 0 0.3em white, inset 0 0 0 1em #c6c6c6;
+    }
+`;
 
 export const RadioFields = ({ label, name, inline, question, inputs }) => {
     const alternatives = (
         <CustomRadio>
             {inputs.map((field, index) => {
                 return (
-                    <div key={index}>
-                        <Field name={name} component={"input"} type="radio" value={field.value} id={index} />
-                        <label htmlFor={index}>{field.title}</label>
+                    <div key={index} style={{"marginBottom": "15px"}}>
+                        <Field name={name} component={"input"} type="radio" value={field.value} id={"input_" + index} />
+                        <Label htmlFor={"input_" + index}><P>{field.title}</P></Label>
                     </div>
                 )
             })}
