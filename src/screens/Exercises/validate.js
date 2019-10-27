@@ -1,3 +1,5 @@
+import { V_OR_F } from './constants';
+
 export const validateQuestionForm = values => {
     const errors = {};
 
@@ -10,30 +12,38 @@ export const validateQuestionForm = values => {
     if (!values.question_type)
         errors.question_type = "Selecione o tipo de questão.";
 
-    if (values.question_type === "MULTIPLE_CHOICES") {
-        if (!values.alternative_A)
-            errors.alternative_A = "A alternativa A deve ser preenchida."
-        if (!values.alternative_B)
-            errors.alternative_B = "A alternativa B deve ser preenchida."
-        if (!values.alternative_C)
-            errors.alternative_C = "A alternativa C deve ser preenchida."
-        if (!values.alternative_D)
-            errors.alternative_D = "A alternativa D deve ser preenchida."
-    }
-
-    if (values.correct_answer) {
-        if (values.question_type === "MULTIPLE_CHOICES") {
-            if (values.correct_answer !== "A" &&
-                values.correct_answer !== "B" &&
-                values.correct_answer !== "C" &&
-                values.correct_answer !== "D")
-                    errors.correct_answer = "Selecione qual a resposta correta.";
+    if (values.question_type === V_OR_F) {
+        if (!values.alternatives || !values.alternatives.length) {
+            errors.alternatives = {_error: 'Tem que ter pelo menos 1 alternativa.'}
         } else {
-            if (values.correct_answer !== "TRUE" && values.correct_answer !== "FALSE")
-                errors.correct_answer = "Selecione qual a resposta correta.";
+            const alternativeArrayErrors = [];
+            values.alternatives.forEach((alternative, index) => {
+                const alternativeErrors = {};
+                if (!alternative || alternative.title === "" || !alternative.title) {
+                    alternativeErrors.title = "O título da alternativa é obrigatório";
+                    alternativeArrayErrors[index] = alternativeErrors;
+                }
+            });
+
+            if(alternativeArrayErrors.length)
+                errors.alternatives = alternativeArrayErrors;
         }
     } else {
-        errors.correct_answer = "Selecione qual a resposta correta.";
+        if (!values.alternatives || values.alternatives.length < 4) {
+            errors.alternatives = {_error: 'Tem que ter pelo menos 4 alternativas.'}
+        } else {
+            const alternativeArrayErrors = [];
+            values.alternatives.forEach((alternative, index) => {
+                const alternativeErrors = {};
+                if (!alternative || alternative.title === "" || !alternative.title) {
+                    alternativeErrors.title = "O título da alternativa é obrigatório";
+                    alternativeArrayErrors[index] = alternativeErrors;
+                }
+            });
+
+            if(alternativeArrayErrors.length)
+                errors.alternatives = alternativeArrayErrors;
+        }
     }
 
     return errors;

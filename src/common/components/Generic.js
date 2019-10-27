@@ -97,7 +97,14 @@ const ButtonField = styled.button`
 const Fieldset = ({ children, title, array=null }) => (
     <CustomFieldset>
         <legend style={{"paddingLeft": "5px"}}>
-            {title} {array ? <ButtonField className="btn btn-link pull-right" type="button" onClick={() => array.push({})}>Adicionar</ButtonField> : null}
+            {title} {array ?
+                <ButtonField
+                    className="btn btn-link pull-right"
+                    type="button"
+                    onClick={() => array.push({is_correct: false, title: ""})}>
+                        Adicionar
+                    </ButtonField>
+            : null}
         </legend><br />
         {children}
     </CustomFieldset>

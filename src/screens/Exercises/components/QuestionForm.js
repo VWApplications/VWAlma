@@ -19,6 +19,7 @@ class QuestionForm extends Component {
 
     __submit(data) {
         const { dispatch, obj } = this.props;
+        console.log(data);
 
         if (obj)
             console.log("Atualizando!");
@@ -26,7 +27,6 @@ class QuestionForm extends Component {
             dispatch(createQuestionSagas(data));
 
         dispatch(reset("QuestionForm"));
-        window.location.reload();
     }
 
     __removeField(fields, index) {
