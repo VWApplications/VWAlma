@@ -75,7 +75,7 @@ export const CheckboxField = field => {
 					<input
 						{...field.input}
 						id={field.id}
-						type="checkbox"
+						type={field.input.type}
 						className={field.className}
 						checked={field.input.value}
 					/>
@@ -83,7 +83,7 @@ export const CheckboxField = field => {
 				</Slide>
 			</div>
 			<div className="col-sm-11">
-				<P style={{"paddingTop": "2px"}}>{field.label}</P>
+				{field.form ? field.label : <P style={{"paddingTop": "2px"}}>{field.label}</P> }
 			</div>
 		</div>
 	)

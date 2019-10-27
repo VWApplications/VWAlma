@@ -1,5 +1,6 @@
 import React from 'react';
-import { Field } from 'redux-form';
+// import { Field } from 'redux-form';
+import { Field } from 'react-final-form';
 import styled from 'styled-components';
 import { P } from '../styles/fields';
 
@@ -55,48 +56,62 @@ const Label = styled.label`
     }
 `;
 
-export const RadioFields = ({ label, name, inline, question, inputs }) => {
+const RadioBlock = styled.div`
+    left: 20px;
+`;
+
+const RadioField = field => {
     const alternatives = (
         <CustomRadio>
-            {inputs.map((field, index) => {
-                return (
-                    <div key={index} style={{"marginBottom": "15px"}}>
-                        <Field name={name} component={"input"} type="radio" value={field.value} id={"input_" + index} />
-                        <Label htmlFor={"input_" + index}><P>{field.title}</P></Label>
-                    </div>
-                )
-            })}
+            <div style={{"marginBottom": "15px"}}>
+                <input {...field.input} id={field.id} />
+                <Label htmlFor={field.id}><P>{field.label}</P></Label>
+            </div>
         </CustomRadio>
     )
 
     const inlines = (
-        <div className="radio">
-            {inputs.map((field, index) => {
-                return (
-                    <label key={index} className="radio-inline">
-                        <Field name={name} component={"input"} type="radio" value={field.value} />
-                        {field.title}
-                    </label>
-                )
-            })}
-        </div>
+        <label className="radio-inline">
+            <input {...field.input} /> {field.label}
+        </label>
+    );
+
+    const block = (
+        <RadioBlock className="radio">
+            <input {...field.input} /> {field.label}
+        </RadioBlock>
     )
 
-    const block = inputs.map((field, index) => (
-        <div key={index} className="radio">
-            <label className="radio-inline">
-                <Field name={name} component={"input"} type="radio" value={field.value} />
-                {field.title}
-            </label>
-        </div>
-    ));
+    return field.question ? alternatives : field.inline ? inlines : block;
+}
+
+export const RadioFields = ({ label, name, options, inline=false, question=false }) => {
+    function constructor() {
+        return options.map((option, index) => (
+            <Field
+                key={index}
+                component={RadioField}
+                type="radio"
+                id={index}
+                value={option.value}
+                label={option.label}
+                inline={inline}
+                question={question}
+                name={name}
+            />
+        ))
+    }
 
     return (
-        <div className="row">
-            <div className="col-sm-12">
-                {label ? <label>{label}</label> : null}
-                {question ? alternatives : inline ? inlines : block}
+        <React.Fragment>
+            <div className="row">
+                <div className="col-sm-12">
+                    <label>{label}</label>
+                </div>
+                <div className="col-sm-12">
+                    {constructor()}
+                </div>
             </div>
-        </div>
+        </React.Fragment>
     )
 }

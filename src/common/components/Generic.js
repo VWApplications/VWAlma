@@ -1,4 +1,5 @@
 import React from 'react';
+import { Field } from 'react-final-form';
 import styled from 'styled-components';
 import Navbar from './Navbar';
 import Breadcrumb from './Breadcrumb';
@@ -116,6 +117,23 @@ const SubmitButton = ({ children, disabled }) => (
     </button>
 )
 
+const ResetButton = ({ children, reset }) => (
+    <button type="button" className="btn btn-danger center-block btn-block" onClick={reset}>
+        <i className="fa fa-eraser"></i> {children}
+    </button>
+)
+
+const FormSubmitButtons = ({ reset, disabled }) => (
+    <div className="row">
+        <div className="col-sm-6">
+            <SubmitButton disabled={disabled}>Enviar</SubmitButton>
+        </div>
+        <div className="col-sm-6">
+            <ResetButton reset={reset}>Resetar Formulário</ResetButton>
+        </div>
+    </div>
+)
+
 const Button = ({ children, onClick, icon }) => (
     <button type="button" className="btn btn-primary center-block btn-block" onClick={onClick}>
         <i className={"fa " + icon}></i> {children}
@@ -166,9 +184,11 @@ const Label = ({ children, type="primary gradient" }) => (<span className={"labe
 const BreakLine = () => (<br />)
 const Line = () => (<hr />)
 
+const Json = ({ values }) => <pre>{JSON.stringify(values, undefined, 2)}</pre>
+
 export {
     Container, Form, Fieldset,
     BreakLine, Line, SubmitButton, Button,
     Main, Info, StringToHtml, ActionsButton,
-    Label
+    Label, Json, ResetButton, FormSubmitButtons
 };
