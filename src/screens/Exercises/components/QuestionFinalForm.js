@@ -10,6 +10,7 @@ import { Main, FormStyled, Fieldset, FormSubmitButtons } from 'common';
 import { FormGroup, FormItem } from '../styles/questionForm';
 import { validateQuestionForm } from '../validate';
 import { createQuestionSagas } from '../actions';
+import { choiceAlert } from 'common/alerts';
 import { V_OR_F, MULTIPLE_CHOICES, SHOT, SCRATCH_CARD } from '../constants';
 
 class QuestionForm extends Component {
@@ -21,18 +22,24 @@ class QuestionForm extends Component {
 
     __submit(data, form) {
         const { dispatch, obj } = this.props;
-        console.log(data);
 
-        // if (obj)
-        //     console.log("Atualizando!");
-        // else
-        //     dispatch(createQuestionSagas(data));
+        if (obj)
+            console.log("Atualizando!");
+        else
+            dispatch(createQuestionSagas(data));
 
         setTimeout(form.reset);
     }
 
-    __removeField(fields, index) {
-        fields.remove(index);
+    async __removeField(fields, index) {
+        const success = await choiceAlert(
+            "Removendo alternativa",
+            "Tem certeza que deseja remover a alternativa?",
+            "Sim", "Não", "Alternativa removida com sucesso!",
+            "", "Operação Cancelada!", ""
+        )
+        if (success)
+            fields.remove(index);
     }
 
     render() {

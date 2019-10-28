@@ -1,4 +1,4 @@
-import { V_OR_F } from './constants';
+import { V_OR_F, MULTIPLE_CHOICES } from './constants';
 
 const alternativesValidation = (values, errors) => {
     let counter = 0;
@@ -17,9 +17,6 @@ const alternativesValidation = (values, errors) => {
         errors.question_type = "Só pode haver uma única alternativa correta.";
     else if (counter === 0)
         errors.question_type = "Deve ter pelo menos uma alternativa correta.";
-
-    if(alternativeArrayErrors.length > 0)
-        errors.alternatives = alternativeArrayErrors;
 
     if(alternativeArrayErrors.length > 0)
         errors.alternatives = alternativeArrayErrors;
@@ -42,9 +39,14 @@ export const validateQuestionForm = values => {
             errors.question_type = 'Tem que ter pelo menos 1 alternativa.';
         else
             alternativesValidation(values, errors);
-    } else {
+    } else if (values.question_type === MULTIPLE_CHOICES) {
         if (values.alternatives.length < 4)
             errors.question_type = 'Tem que ter pelo menos 4 alternativas.';
+        else
+            alternativesValidation(values, errors);
+    } else {
+        if (values.alternatives.length !== 4)
+            errors.question_type = 'Tem que ter exatamente 4 alternativas.';
         else
             alternativesValidation(values, errors);
     }
