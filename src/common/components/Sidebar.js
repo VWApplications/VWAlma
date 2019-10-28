@@ -12,6 +12,7 @@ class Sidebar extends Component {
     __redirectTo(url, state=null) {
         const { dispatch } = this.props;
         dispatch(push(url, state));
+        window.scrollTo(0, 0);
     }
 
     async __deleteAccount() {
