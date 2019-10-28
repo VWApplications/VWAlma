@@ -9,13 +9,29 @@ const RadioBlock = styled.div`
 const RadioField = field => {
     const inlines = (
         <label className="radio-inline">
-            <input {...field.input} /> {field.label}
+            <input
+                name={field.input.name}
+                type={field.input.type}
+                value={field.input.value}
+                onFocus={field.input.onFocus}
+                onBlur={field.input.onBlur}
+                onChange={field.input.onChange}
+            />
+            {field.label}
         </label>
     );
 
     const block = (
         <RadioBlock className="radio">
-            <input {...field.input} /> {field.label}
+            <input
+                name={field.input.name}
+                type={field.input.type}
+                value={field.input.value}
+                onFocus={field.input.onFocus}
+                onBlur={field.input.onBlur}
+                onChange={field.input.onChange}
+            />
+            {field.label}
         </RadioBlock>
     )
 

@@ -58,7 +58,15 @@ const Label = styled.label`
 export default field => {
     return (
         <CustomRadio>
-            <input {...field.input} id={field.id} />
+            <input
+                name={field.input.name}
+                type={field.input.type}
+                value={field.input.value}
+                onFocus={field.input.onFocus}
+                onBlur={field.input.onBlur}
+                onChange={field.input.onChange}
+                id={field.id}
+            />
             <Label htmlFor={field.id}><P>{field.label}</P></Label>
         </CustomRadio>
     )

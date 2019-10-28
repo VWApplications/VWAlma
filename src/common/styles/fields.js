@@ -26,6 +26,7 @@ const FormGroup = styled.div`
 const P = styled.p`
     text-align: justify;
     white-space: pre-line;
+    margin-left: 15px;
 `;
 
 export { Textarea, Icon, IconMD, Img, FormGroup, P };

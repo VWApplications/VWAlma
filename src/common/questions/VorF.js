@@ -65,7 +65,7 @@ export default field => {
 						id={field.id}
 						type={field.input.type}
 						className={field.className}
-						checked={field.input.value}
+						checked={field.input.checked}
 					/>
 					<label htmlFor={field.id}></label>
 				</Slide>

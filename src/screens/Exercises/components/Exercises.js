@@ -3,8 +3,9 @@ import { connect } from 'react-redux';
 import { Form, Field } from 'react-final-form';
 import { VorFQuestion, MultipleChoicesQuestion } from 'common/questions';
 import { makeURL } from 'common/utils';
-import { Main, FormStyled, Info, SubmitButton, Pagination, StringToHtml, Line } from 'common';
+import { Main, FormStyled, Info, SubmitButton, Pagination, StringToHtml, Line, Json } from 'common';
 import { listQuestionsSagas } from '../actions';
+import { choiceAlert } from 'common/alerts';
 import { MULTIPLE_CHOICES, SHOT, SCRATCH_CARD } from '../constants';
 
 class Exercises extends Component {
@@ -14,8 +15,17 @@ class Exercises extends Component {
         dispatch(listQuestionsSagas(pagination.activePage));
     }
 
-    __submit(data) {
-        console.log(data);
+    async __submit(data, form) {
+        const success = await choiceAlert(
+            "Enviando resposta.",
+            "Tem certeza que deseja finalizar a lista de exercício? Após finalizar a lista será resetada.",
+            "Sim", "Não", "Lista finalizada com sucesso!",
+            "", "Operação Cancelada!", ""
+        )
+        if (success) {
+            console.log(data);
+            setTimeout(form.reset);
+        }
     }
 
     __getQuestionType(question) {
@@ -23,23 +33,20 @@ class Exercises extends Component {
             case MULTIPLE_CHOICES:
                 return (
                     question.alternatives.map(alternative => (
-                        <div key={alternative.id}>
-                            <Field
-                                component={MultipleChoicesQuestion}
-                                type="radio"
-                                label={alternative.title}
-                                id={alternative.id}
-                                value={alternative.is_correct.toString()}
-                                name={`answer_${question.id}`}
-                            />
-                        </div>
+                        <Field
+                            key={alternative.id}
+                            component={MultipleChoicesQuestion}
+                            type="radio"
+                            label={alternative.title}
+                            id={alternative.id}
+                            value={alternative.is_correct.toString()}
+                            name={`multiple_choices.answer_question_${question.id}`}
+                        />
                     ))
                 );
 
             case SHOT:
-                return (
-                    <div>SHOT</div>
-                )
+                return (<div>SHOT</div>)
 
             case SCRATCH_CARD:
                 return (<div>SCRATCH_CARD</div>);
@@ -51,7 +58,7 @@ class Exercises extends Component {
                             key={alternative.id}
                             component={VorFQuestion}
                             type="checkbox"
-                            name={`correct_answer_${alternative.id}`}
+                            name={`VorF.answer_question_${question.id}_alternative_${alternative.id}`}
                             id={alternative.id}
                             label={alternative.title}
                         />
@@ -74,16 +81,16 @@ class Exercises extends Component {
             {title: "Exercícios", url: `/profile/${makeURL(discipline.title)}/sections/${makeURL(section.title)}/exercises`, state }
         ]
 
-        const progress = (pagination.activePage * 100)/pagination.totalItemsCount;
+        const progress = parseInt((pagination.activePage * 100)/pagination.totalItemsCount).toString();
 
       	return (
             <Main navigation={navigator} menu="traditional" title="Lista de exercícios" icon="fa-gamepad">
                 <div className="progress">
                     <div
                         className="progress-bar progress-bar-striped active"
-                        role="progressbar" aria-valuenow={progress.toString()} aria-valuemin="0"
-                        aria-valuemax="100" style={{"width": `${parseInt(progress).toString()}%`}}>
-                        {parseInt(progress).toString()}%
+                        role="progressbar" aria-valuenow={progress} aria-valuemin="0"
+                        aria-valuemax="100" style={{"width": `${progress}%`}}>
+                        {progress}%
                     </div>
                 </div>
 
@@ -97,12 +104,13 @@ class Exercises extends Component {
                             <Form
                                 onSubmit={(data, form) => this.__submit(data, form)}
                                 initialValues={initialValues}
-                                render={({handleSubmit, submitting, invalid}) => (
+                                render={({handleSubmit, submitting, values, invalid}) => (
                                     <FormStyled onSubmit={handleSubmit}>
                                         {this.__getQuestionType(question)}
 
                                         <Line />
-                                        <SubmitButton disabled={submitting || invalid}>Enviar</SubmitButton>
+                                        {progress === "100" ? <SubmitButton disabled={submitting || invalid}>Enviar</SubmitButton> : null}
+                                        <Json values={values} />
                                     </FormStyled>
                                 )}
                             />
