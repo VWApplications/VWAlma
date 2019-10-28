@@ -38,6 +38,7 @@ class UpdateProfile extends Component {
                             {user.photo ?
                                 <Field
                                     component={CheckboxField}
+                                    type="checkbox"
                                     name="clean"
                                     label="Remover foto"
                                 />

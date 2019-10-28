@@ -16,7 +16,7 @@ export const TeacherPhoto = ({ children, src=null }) => (
             <H4>{ children }</H4>
         </div>
         <div className="media-right">
-            <IMG src={src ? src : user} className="media-object img-circle" alt="Teacher" />
+            <IMG src={src ? src : user} className="media-object img-circle img-thumbnail" alt="Teacher" />
         </div>
     </div>
 );

@@ -7,7 +7,7 @@ class FileField extends Component {
     componentDidMount() {
         const { input } = this.props;
 
-        if (typeof input.value === "string") {
+        if (typeof input.value === "string" && input.value) {
             this.__handlePreview(input.value);
         }
     }
