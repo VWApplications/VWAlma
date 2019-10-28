@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { reduxForm, Field } from 'redux-form';
+import { Form, Field } from 'react-final-form';
 import { ShotField, CheckboxField, RadioFields } from 'common/fields';
 import { makeURL } from 'common/utils';
-import { Main, Form, Info, SubmitButton, Pagination, StringToHtml, Line } from 'common';
+import { Main, FormStyled, Info, SubmitButton, Pagination, StringToHtml, Line } from 'common';
 import { listQuestionsSagas } from '../actions';
 import { MULTIPLE_CHOICES, SHOT, SCRATCH_CARD } from '../constants';
 
@@ -25,9 +25,15 @@ class Exercises extends Component {
                     <RadioFields
                         name="answer"
                         question={true}
-                        inputs={question.alternatives.map(alternative => (
-                            {title: alternative.title, value: alternative.is_correct.toString()}
-                        ))}
+                        options={
+                            question.alternatives.map(alternative => (
+                                {
+                                    id: alternative.id,
+                                    label: alternative.title,
+                                    value: alternative.is_correct.toString()
+                                }
+                            ))
+                        }
                     />
                 );
 
@@ -78,9 +84,11 @@ class Exercises extends Component {
                         <Field
                             key={alternative.id}
                             component={CheckboxField}
+                            type="checkbox"
                             name={`correct_answer_${alternative.id}`}
                             id={alternative.id}
                             question={true}
+                            form={true}
                             label={alternative.title}
                         />
                     ))
@@ -89,7 +97,7 @@ class Exercises extends Component {
     }
 
     render() {
-        const { handleSubmit, submitting, invalid, state, questions, pagination } = this.props;
+        const { initialValues, state, questions, pagination } = this.props;
         const discipline = state.discipline;
         const section = state.section;
 
@@ -122,12 +130,18 @@ class Exercises extends Component {
                             <h2>{pagination.activePage}) {question.title}</h2>
                             {question.description ? <StringToHtml>{question.description}</StringToHtml> : null}
                             <Line />
-                            <Form onSubmit={handleSubmit((data) => this.__submit(data))}>
-                                {this.__getQuestionType(question)}
+                            <Form
+                                onSubmit={(data, form) => this.__submit(data, form)}
+                                initialValues={initialValues}
+                                render={({handleSubmit, submitting, invalid}) => (
+                                    <FormStyled onSubmit={handleSubmit}>
+                                        {this.__getQuestionType(question)}
 
-                                <Line />
-                                <SubmitButton disabled={submitting || invalid}>Enviar</SubmitButton>
-                            </Form>  
+                                        <Line />
+                                        <SubmitButton disabled={submitting || invalid}>Enviar</SubmitButton>
+                                    </FormStyled>
+                                )}
+                            />
                         </div>
                     </div>
                 ))}
@@ -136,12 +150,6 @@ class Exercises extends Component {
 		)
   	}
 }
-
-const form = reduxForm({
-    form: "ExerciseForm",
-    // validate: validateQuestionForm,
-    enableReinitialize: true
-})(Exercises);
 
 const mapStateToProps = state => {
     const { location } = state.router;
@@ -157,4 +165,4 @@ const mapStateToProps = state => {
     }
 }
 
-export default connect(mapStateToProps)(form);
+export default connect(mapStateToProps)(Exercises);

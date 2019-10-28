@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { push } from 'connected-react-router';
-import { reduxForm, Field } from 'redux-form';
+import { Form, Field } from 'react-final-form';
 import { SimpleInputField, CheckboxField } from 'common/fields';
 import { Navbar } from 'common';
 import { loginSagas } from '../actions';
-import { Container, Form, FormGroup, SubmitButton, ForgetPassword, Main } from '../styles/login';
+import { Container, FormStyled, FormGroup, SubmitButton, ForgetPassword, Main } from '../styles/login';
 import { validateLogin } from '../validate';
 
 class Login extends Component {
@@ -21,55 +21,56 @@ class Login extends Component {
     }
 
     render() {
-        const { handleSubmit, submitting, invalid } = this.props;
+        const { initialValues } = this.props;
 
       	return (
             <Main>
                 <Navbar />
                 <Container>
-                    <Form onSubmit={handleSubmit((data) => this.__submit(data))}>
-                        <FormGroup icon="fa-user">
-                            <Field
-                                component={SimpleInputField}
-                                type="text"
-                                name="email"
-                                className="input-login form-control"
-                                placeholder="Email de autenticação."
-                                autoFocus
-                            />
-                        </FormGroup>
+                    <Form
+                        onSubmit={(data) => this.__submit(data)}
+                        initialValues={initialValues}
+                        validate={validateLogin}
+                        render={({handleSubmit, submitting, invalid}) => (
+                            <FormStyled onSubmit={handleSubmit}>
+                                <FormGroup icon="fa-user">
+                                    <Field
+                                        component={SimpleInputField}
+                                        type="text"
+                                        name="email"
+                                        className="input-login form-control"
+                                        placeholder="Email de autenticação."
+                                        autoFocus
+                                    />
+                                </FormGroup>
 
-                        <FormGroup icon="fa-lock">
-                            <Field
-                                component={SimpleInputField}
-                                type="password"
-                                name="password"
-                                className="input-login form-control"
-                                placeholder="Senha de acesso."
-                            />
-                        </FormGroup>
+                                <FormGroup icon="fa-lock">
+                                    <Field
+                                        component={SimpleInputField}
+                                        type="password"
+                                        name="password"
+                                        className="input-login form-control"
+                                        placeholder="Senha de acesso."
+                                    />
+                                </FormGroup>
 
-                        <Field
-                            component={CheckboxField}
-                            name="rememberMe"
-                            login={true}
-                            label="Lembrar"
-                        />
+                                <Field
+                                    component={CheckboxField}
+                                    name="rememberMe"
+                                    login={true}
+                                    label="Lembrar"
+                                />
 
-                        <SubmitButton disabled={submitting || invalid}>Entrar</SubmitButton>
-                        <ForgetPassword onClick={() => this.__forgetPassword()}>Esqueceu a senha?</ForgetPassword>
-                    </Form>
+                                <SubmitButton disabled={submitting || invalid}>Entrar</SubmitButton>
+                                <ForgetPassword onClick={() => this.__forgetPassword()}>Esqueceu a senha?</ForgetPassword>
+                            </FormStyled>
+                        )}
+                    />
                 </Container>
             </Main>
 		)
   	}
 }
-
-const form = reduxForm({
-    form: "LoginForm",
-    validate: validateLogin,
-    enableReinitialize: true
-})(Login);
 
 const mapStateToProps = () => {
     const remembered = JSON.parse(localStorage.getItem("remembered"));
@@ -82,4 +83,4 @@ const mapStateToProps = () => {
 	}
 }
 
-export default connect(mapStateToProps)(form);
+export default connect(mapStateToProps)(Login);

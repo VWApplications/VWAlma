@@ -1,5 +1,4 @@
 import React from 'react';
-// import { Field } from 'redux-form';
 import { Field } from 'react-final-form';
 import styled from 'styled-components';
 import { P } from '../styles/fields';
@@ -87,19 +86,25 @@ const RadioField = field => {
 
 export const RadioFields = ({ label, name, options, inline=false, question=false }) => {
     function constructor() {
-        return options.map((option, index) => (
-            <Field
-                key={index}
-                component={RadioField}
-                type="radio"
-                id={index}
-                value={option.value}
-                label={option.label}
-                inline={inline}
-                question={question}
-                name={name}
-            />
-        ))
+        return options.map((option, index) => {
+            let fieldName = name;
+            if (question)
+                fieldName = name + "_" + option.id;
+
+            return (
+                <Field
+                    key={index}
+                    component={RadioField}
+                    type="radio"
+                    id={index}
+                    value={option.value}
+                    label={option.label}
+                    inline={inline}
+                    question={question}
+                    name={fieldName}
+                />
+            )
+        })
     }
 
     return (

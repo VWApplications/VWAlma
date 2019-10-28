@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { reset } from 'redux-form';
 import { stringify } from 'query-string';
 import { makeURL, formatWithLeftZero, rowMap } from 'common/utils';
 import { Main, Info, ActionsButton, Search, Pagination } from 'common';
@@ -60,11 +59,11 @@ class StudentList extends Component {
             dispatch(removeStudentSagas(data, queryString));
     }
 
-    __addStudent(data) {
+    __addStudent(data, form) {
         const { dispatch, pagination } = this.props;
         const queryString = stringify({page: pagination.activePage, filter: this.state.filter});
         dispatch(addStudentSagas(data, queryString));
-        dispatch(reset("SearchForm"));
+        setTimeout(form.reset);
     }
 
     __formatFilter(discipline, type) {
@@ -111,7 +110,7 @@ class StudentList extends Component {
             <Main navigation={navigator} menu="discipline" title="Lista de Estudantes" icon="fa-slideshare" rightComponent={FilterComponent}>
                 {user.permission === TEACHER || user.permission === ADMIN ?
                     <Search
-                        onSubmit={data => this.__addStudent(data)}
+                        onSubmit={(data, form) => this.__addStudent(data, form)}
                         name="email"
                         placeholder="Insira o email do estudante para adicioná-lo a turma."
                         icon="fa-plus"

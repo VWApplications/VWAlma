@@ -1,70 +1,69 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { reduxForm, Field } from 'redux-form';
+import { Form, Field } from 'react-final-form';
 import { SimpleInputField } from 'common/fields';
 import { Navbar } from 'common';
 import { createNewPasswordSagas } from '../actions';
-import { Container, Form, FormGroup, SubmitButton, Main } from '../styles/resetPassword';
+import { Container, FormStyled, FormGroup, SubmitButton, Main } from '../styles/resetPassword';
 import { validateNewPassword } from '../validate';
 
 class CreateNewPassword extends Component {
 
-    __submit(data) {
+    __submit(data, form) {
         const { dispatch } = this.props;
-        dispatch(createNewPasswordSagas(data))
+        dispatch(createNewPasswordSagas(data));
+        setTimeout(form.reset);
     }
 
     render() {
-        const { handleSubmit, submitting, invalid } = this.props;
-
       	return (
             <Main>
                 <Navbar />
                 <Container title="Criar nova senha">
-                    <Form onSubmit={handleSubmit((data) => this.__submit(data))}>
-                        <FormGroup icon="fa-key">
-                            <Field
-                                component={SimpleInputField}
-                                type="text"
-                                name="key"
-                                className="input-login form-control"
-                                placeholder="Chave de recuperação."
-                                autoFocus
-                            />
-                        </FormGroup>
+                    <Form
+                        onSubmit={(data, form) => this.__submit(data, form)}
+                        validate={validateNewPassword}
+                        render={({handleSubmit, submitting, invalid}) => (
+                            <FormStyled onSubmit={handleSubmit}>
+                                <FormGroup icon="fa-key">
+                                    <Field
+                                        component={SimpleInputField}
+                                        type="text"
+                                        name="key"
+                                        className="input-login form-control"
+                                        placeholder="Chave de recuperação."
+                                        autoFocus
+                                    />
+                                </FormGroup>
 
-                        <FormGroup icon="fa-lock">
-                            <Field
-                                component={SimpleInputField}
-                                type="password"
-                                name="new_password"
-                                className="input-login form-control"
-                                placeholder="Nova senha."
-                            />
-                        </FormGroup>
+                                <FormGroup icon="fa-lock">
+                                    <Field
+                                        component={SimpleInputField}
+                                        type="password"
+                                        name="new_password"
+                                        className="input-login form-control"
+                                        placeholder="Nova senha."
+                                    />
+                                </FormGroup>
 
-                        <FormGroup icon="fa-lock">
-                            <Field
-                                component={SimpleInputField}
-                                type="password"
-                                name="confirm_password"
-                                className="input-login form-control"
-                                placeholder="Confirmar nova senha."
-                            />
-                        </FormGroup>
+                                <FormGroup icon="fa-lock">
+                                    <Field
+                                        component={SimpleInputField}
+                                        type="password"
+                                        name="confirm_password"
+                                        className="input-login form-control"
+                                        placeholder="Confirmar nova senha."
+                                    />
+                                </FormGroup>
 
-                        <SubmitButton disabled={submitting || invalid}>Enviar</SubmitButton>
-                    </Form>
+                                <SubmitButton disabled={submitting || invalid}>Enviar</SubmitButton>
+                            </FormStyled>
+                        )}
+                    />
                 </Container>
             </Main>
 		)
   	}
 }
 
-const form = reduxForm({
-    form: "CreateNewPasswordForm",
-    validate: validateNewPassword,
-    enableReinitialize: true
-})(CreateNewPassword);
-
-export default connect()(form);
+export default connect()(CreateNewPassword);

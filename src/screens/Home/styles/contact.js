@@ -18,7 +18,7 @@ export const PageHeader = ({ children }) => (
     </div>
 )
 
-export const Form = ({ children, onSubmit }) => (
+export const FormStyled = ({ children, onSubmit }) => (
     <form className="container" onSubmit={onSubmit} autoComplete="off" noValidate>
         {children}
     </form>

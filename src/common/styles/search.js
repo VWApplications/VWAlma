@@ -1,6 +1,6 @@
 import React from 'react';
 
-export const Form = ({ children, onSubmit }) => (
+export const FormStyled = ({ children, onSubmit }) => (
     <form onSubmit={onSubmit} acceptCharset="utf-8">
         <div className="input-group">{children}</div>
     </form>

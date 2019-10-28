@@ -28,7 +28,7 @@ export const Container = ({ children, title }) => (
     </ContainerStyled>
 )
 
-export const Form = ({ children, onSubmit }) => (
+export const FormStyled = ({ children, onSubmit }) => (
     <form onSubmit={onSubmit} noValidate>
         {children}
     </form>

@@ -1,10 +1,9 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { reset } from 'redux-form';
 import { stringify } from 'query-string';
-import { reduxForm, Field } from 'redux-form';
+import { Form, Field } from 'react-final-form';
 import { validateEnterDiscipline } from '../validate';
-import { Main, Form, Search, Pagination, Info, StringToHtml } from 'common';
+import { Main, FormStyled, Search, Pagination, Info, StringToHtml } from 'common';
 import {
     Panel, PanelHeader, PanelContainer, PanelBody, CollapseBody,
     CollapseFooter, FooterInfo, FooterPassword, InputGroup, SubmitButton
@@ -26,7 +25,7 @@ class DisciplineSearch extends Component {
         dispatch(listAllDisciplinesSagas(1, ""));
     }
 
-    __search(data) {
+    __search(data, form) {
         const { dispatch, pagination } = this.props;
 
         if (data)
@@ -36,7 +35,7 @@ class DisciplineSearch extends Component {
 
         const queryString = stringify({page: pagination.activePage, search: data.search, order: this.state.order});
 
-        dispatch(reset("SearchForm"));
+        setTimeout(form.reset);
         dispatch(listAllDisciplinesSagas(pagination.activePage, queryString));
     }
 
@@ -53,14 +52,14 @@ class DisciplineSearch extends Component {
         dispatch(listAllDisciplinesSagas(pagination.activePage, queryString));
     }
 
-    __enterDisciplineSubmit(data, disciplineID) {
+    __enterDisciplineSubmit(data, disciplineID, form) {
         const { dispatch } = this.props;
-        dispatch(reset("EnterDisciplineForm"));
+        setTimeout(form.reset);
         dispatch(enterDisciplineSagas(data, disciplineID));
     } 
 
     render() {
-        const { pagination, handleSubmit, submitting, invalid, disciplines } = this.props;
+        const { pagination, disciplines } = this.props;
 
         const navigator = [
             {title: "Home", url: "/"},
@@ -76,7 +75,7 @@ class DisciplineSearch extends Component {
         return (
             <Main navigation={navigator} menu="profile" title="Procurar Disciplinas" icon="fa-search">
                 <Search
-                    onSubmit={data => this.__search(data)}
+                    onSubmit={(data, form) => this.__search(data, form)}
                     filterList={filter}
                     filterTitle="Ordenar"
                     filterSubmit={data => this.__filter(data)}
@@ -98,18 +97,25 @@ class DisciplineSearch extends Component {
                                 <CollapseFooter>
                                     <FooterInfo teacher={discipline.teacher.short_name} course={discipline.course} />
                                     <FooterPassword>
-                                        <Form onSubmit={handleSubmit((data) => this.__enterDisciplineSubmit(data, discipline.id))}>
-                                            <InputGroup>
-                                                <Field
-                                                    component={"input"}
-                                                    type="password"
-                                                    className="form-control"
-                                                    name="password"
-                                                    placeholder="Senha para entrar na disciplina."
-                                                />
-                                                <SubmitButton disabled={submitting || invalid} /> 
-                                            </InputGroup>
-                                        </Form>
+                                        <Form
+                                            onSubmit={(data, form) => this.__enterDisciplineSubmit(data, discipline.id, form)}
+                                            initialValues={this.state.initialValues}
+                                            validate={validateEnterDiscipline}
+                                            render={({handleSubmit, submitting, invalid}) => (
+                                                <FormStyled onSubmit={handleSubmit}>
+                                                    <InputGroup>
+                                                        <Field
+                                                            component={"input"}
+                                                            type="password"
+                                                            className="form-control"
+                                                            name="password"
+                                                            placeholder="Senha para entrar na disciplina."
+                                                        />
+                                                        <SubmitButton disabled={submitting || invalid} /> 
+                                                    </InputGroup>
+                                                </FormStyled>
+                                            )}
+                                        />
                                     </FooterPassword>
                                 </CollapseFooter>
                             </PanelBody>
@@ -126,12 +132,6 @@ class DisciplineSearch extends Component {
     }
 }
 
-const form = reduxForm({
-    form: "EnterDisciplineForm",
-    validate: validateEnterDiscipline,
-    enableReinitialize: true
-})(DisciplineSearch);
-
 const mapStateToProps = state => {
     const { list, pagination } = state.discipline.all;
     const { user } = state.account;
@@ -139,4 +139,4 @@ const mapStateToProps = state => {
     return { disciplines: list, pagination, user }
 }
 
-export default connect(mapStateToProps)(form);
+export default connect(mapStateToProps)(DisciplineSearch);

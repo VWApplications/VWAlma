@@ -5,7 +5,7 @@ import arrayMutators from 'final-form-arrays';
 import { FieldArray } from 'react-final-form-arrays';
 import { InputField, EditorField, RadioFields, SelectField, AlternativeField, CheckboxField } from 'common/fields';
 import { makeURL } from 'common/utils';
-import { Main, Form as FormStyled, Fieldset, FormSubmitButtons, Json } from 'common';
+import { Main, FormStyled, Fieldset, FormSubmitButtons } from 'common';
 import { FormGroup, FormItem } from '../styles/questionForm';
 import { validateQuestionForm } from '../validate';
 import { createQuestionSagas } from '../actions';
@@ -15,19 +15,10 @@ class QuestionForm extends Component {
     constructor(props) {
         super(props);
 
-        this.state = {
-            title: "Criar questão",
-            initialValues: {
-                title: "",
-                description: "",
-                is_exercise: "true",
-                question_type: "MULTIPLE_CHOICES",
-                alternatives: []
-            }
-        }
+        this.state = {title: "Criar questão"}
     }
 
-    __submit(data) {
+    __submit(data, form) {
         const { dispatch, obj } = this.props;
         console.log(data);
 
@@ -36,7 +27,7 @@ class QuestionForm extends Component {
         // else
         //     dispatch(createQuestionSagas(data));
 
-        // dispatch(reset("QuestionForm"));
+        setTimeout(form.reset);
     }
 
     __removeField(fields, index) {
@@ -44,22 +35,11 @@ class QuestionForm extends Component {
     }
 
     render() {
-        const { state, obj } = this.props;
+        const { state, obj, initialValues } = this.props;
         const discipline = state.discipline;
         const section = state.section;
 
-        if (obj) {
-            this.setState({
-                title: "Editar questão",
-                initialValues: {
-                    title: obj.title || this.state.title,
-                    description: obj.description || this.state.description,
-                    is_exercise: obj.is_exercise || this.state.is_exercise,
-                    question_type: obj.question_type || this.state.question_type,
-                    alternatives: obj.alternatives || this.state.alternatives
-                } 
-            });
-        }
+        if (obj) this.setState({title: "Editar questão"});
 
         const navigator = [
             {title: "Home", url: "/", state: null},
@@ -70,19 +50,14 @@ class QuestionForm extends Component {
             {title: "Questões", url: `/profile/${makeURL(discipline.title)}/sections/${makeURL(section.title)}/questions`, state }
         ]
 
-        const radioOptions = [
-            {label: "Exercício", value: "true"},
-            {label: "Avaliação", value: "false"}
-        ]
-
       	return (
             <Main navigation={navigator} menu="traditional" title={this.state.title} icon="fa-clipboard">
                 <Form
-                    onSubmit={(data) => this.__submit(data)}
+                    onSubmit={(data, form) => this.__submit(data, form)}
                     mutators={{...arrayMutators}}
-                    initialValues={this.state.initialValues}
+                    initialValues={initialValues}
                     validate={validateQuestionForm}
-                    render={({handleSubmit, pristine, form, submitting, values, invalid}) => (
+                    render={({handleSubmit, form, submitting, invalid}) => (
                         <FormStyled onSubmit={handleSubmit}>
                             <Field
                                 component={InputField}
@@ -169,7 +144,24 @@ const mapStateToProps = state => {
     const { location } = state.router;
     const { obj } = state.exercise;
 
-    return { state: location.state, obj}
+    let initialValues = {
+        title: "",
+        description: "",
+        is_exercise: "true",
+        question_type: "MULTIPLE_CHOICES",
+        alternatives: []
+    }
+
+    if (obj)
+        initialValues = {
+            title: obj.title || initialValues.title,
+            description: obj.description || initialValues.description,
+            is_exercise: obj.is_exercise || initialValues.is_exercise,
+            question_type: obj.question_type || initialValues.question_type,
+            alternatives: obj.alternatives || initialValues.alternatives
+        } 
+
+    return { state: location.state, obj, initialValues}
 }
 
 export default connect(mapStateToProps)(QuestionForm);

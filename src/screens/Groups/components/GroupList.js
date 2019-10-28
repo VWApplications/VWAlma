@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { reduxForm, Field, reset } from 'redux-form';
+import { Form, Field } from 'react-final-form';
 import { choiceAlert } from 'common/alerts';
 import { makeURL, rowMap } from 'common/utils';
 import { InputField } from 'common/fields';
-import { Main, Info, Search, Form, SubmitButton, Fieldset, Pagination } from 'common';
+import { Main, Info, Search, FormStyled, SubmitButton, Fieldset, Pagination } from 'common';
 import { validateCreateGroup } from '../validate';
 import {
     listGroupsSagas, createGroupsSagas, updateFormAction,
@@ -29,10 +29,11 @@ class GroupList extends Component {
         dispatch(listGroupsSagas(pagination.activePage));
     }
 
-    __addStudent(groupID, data) {
+    __addStudent(groupID, data, form) {
         const { dispatch } = this.props;
         dispatch(addStudentGroupsSagas(groupID, data));
-        dispatch(reset("SearchForm"));
+        setTimeout(form.reset);
+        
     }
 
     async __removeStudent(groupID, data) {
@@ -72,7 +73,7 @@ class GroupList extends Component {
             dispatch(deleteGroupsSagas(groupID));
     }
 
-    __submit(data) {
+    __submit(data, form) {
         const { dispatch, groupForm } = this.props;
 
         if (groupForm)
@@ -80,7 +81,7 @@ class GroupList extends Component {
         else
             dispatch(createGroupsSagas(data));
 
-        dispatch(reset("GroupForm"));
+        setTimeout(form.reset);
         this.setState({opened: false, formTitle: "Criar novo grupo"});
     }
 
@@ -93,7 +94,7 @@ class GroupList extends Component {
     }
 
     render() {
-        const { state, handleSubmit, submitting, invalid, pagination, groups, user } = this.props;
+        const { state, initialValues, pagination, groups, user } = this.props;
         const discipline = state.discipline;
 
         const navigator = [
@@ -109,29 +110,36 @@ class GroupList extends Component {
 
         return (
             <Main navigation={navigator} menu="discipline" title="Lista de Grupos" icon="fa-group" rightComponent={AddButton}>
-                {this.state.opened ? 
-                    <Form onSubmit={handleSubmit((data) => this.__submit(data))}>
-                        <Fieldset title={this.state.formTitle}>
-                            <Field
-                                component={InputField}
-                                type="text"
-                                label="Título"
-                                className="form-control"
-                                name="title"
-                                placeholder="Título da disciplina."
-                            />
-                            <Field
-                                component={InputField}
-                                type="number"
-                                label="Quantidade de estudantes"
-                                className="form-control"
-                                name="students_limit"
-                                placeholder="Quantidade de estudantes limite do grupo."
-                            />
+                {this.state.opened ?
+                    <Form
+                        onSubmit={(data, form) => this.__submit(data, form)}
+                        initialValues={initialValues}
+                        validate={validateCreateGroup}
+                        render={({handleSubmit, submitting, invalid}) => (
+                            <FormStyled onSubmit={handleSubmit}>
+                                <Fieldset title={this.state.formTitle}>
+                                    <Field
+                                        component={InputField}
+                                        type="text"
+                                        label="Título"
+                                        className="form-control"
+                                        name="title"
+                                        placeholder="Título da disciplina."
+                                    />
+                                    <Field
+                                        component={InputField}
+                                        type="number"
+                                        label="Quantidade de estudantes"
+                                        className="form-control"
+                                        name="students_limit"
+                                        placeholder="Quantidade de estudantes limite do grupo."
+                                    />
 
-                            <SubmitButton disabled={submitting || invalid}>Enviar</SubmitButton>
-                        </Fieldset>
-                    </Form>
+                                    <SubmitButton disabled={submitting || invalid}>Enviar</SubmitButton>
+                                </Fieldset>
+                            </FormStyled>
+                        )}
+                    />
                 : null}
 
                 <GroupContainer>
@@ -151,7 +159,7 @@ class GroupList extends Component {
                                 <GroupPanelContent>
                                     {user.permission === TEACHER || user.permission === ADMIN ?
                                         <Search
-                                            onSubmit={data => this.__addStudent(group.id, data)}
+                                            onSubmit={(data, form) => this.__addStudent(group.id, data, form)}
                                             name="email"
                                             placeholder="Insira o email do estudante para adicioná-lo ao grupo."
                                             icon="fa-plus"
@@ -194,12 +202,6 @@ class GroupList extends Component {
     }
 }
 
-const form = reduxForm({
-    form: "GroupForm",
-    validate: validateCreateGroup,
-    enableReinitialize: true
-})(GroupList);
-
 const mapStateToProps = state => {
     const { location } = state.router;
     const { list, pagination, form } = state.group;
@@ -216,4 +218,4 @@ const mapStateToProps = state => {
     return {state: location.state, groups: list, pagination, initialValues, groupForm: form, user}
 }
 
-export default connect(mapStateToProps)(form);
+export default connect(mapStateToProps)(GroupList);

@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { reduxForm, Field } from 'redux-form';
+import { Form, Field } from 'react-final-form';
 import { InputField, EditorField } from 'common/fields';
 import { validateDiscipline } from '../validate';
 import { createDisciplineSagas, updateDisciplineSagas } from '../actions';
-import { Main, Form, Fieldset, SubmitButton } from 'common';
+import { Main, FormStyled, Fieldset, SubmitButton } from 'common';
 
 class DisciplineForm extends Component {
 
@@ -21,7 +21,7 @@ class DisciplineForm extends Component {
     }
 
     render() {
-        const { handleSubmit, submitting, invalid, location } = this.props;
+        const { location, initialValues } = this.props;
 
         let title = "Criar disciplina";
         if (location.state)
@@ -35,90 +35,91 @@ class DisciplineForm extends Component {
 
       	return (
             <Main navigation={navigator} menu="profile" title={title} icon="fa-book">
-                <Form onSubmit={handleSubmit((data) => this.__submit(data))}>
-                    <Field
-                        component={InputField}
-                        type="text"
-                        label="Título"
-                        className="form-control"
-                        name="title"
-                        placeholder="Título da disciplina."
-                    />
+                <Form
+                    onSubmit={(data) => this.__submit(data)}
+                    initialValues={initialValues}
+                    validate={validateDiscipline}
+                    render={({handleSubmit, submitting, invalid}) => (
+                        <FormStyled onSubmit={handleSubmit}>
+                            <Field
+                                component={InputField}
+                                type="text"
+                                label="Título"
+                                className="form-control"
+                                name="title"
+                                placeholder="Título da disciplina."
+                            />
 
-                    <Field
-                        component={InputField}
-                        type="text"
-                        label="Curso"
-                        className="form-control"
-                        name="course"
-                        placeholder="Curso na qual a disciplina pertence."
-                    />
+                            <Field
+                                component={InputField}
+                                type="text"
+                                label="Curso"
+                                className="form-control"
+                                name="course"
+                                placeholder="Curso na qual a disciplina pertence."
+                            />
 
-                    <Field
-                        component={InputField}
-                        type="text"
-                        label="Instituição"
-                        className="form-control"
-                        name="institution"
-                        placeholder="Instituição de ensino na qual a disciplina pertence."
-                    />
+                            <Field
+                                component={InputField}
+                                type="text"
+                                label="Instituição"
+                                className="form-control"
+                                name="institution"
+                                placeholder="Instituição de ensino na qual a disciplina pertence."
+                            />
 
-                    <Field
-                        component={EditorField}
-                        name="description"
-                        placeholder="Insira a ementa da disciplina aqui!"
-                    />
+                            <Field
+                                component={EditorField}
+                                name="description"
+                                placeholder="Insira a ementa da disciplina aqui!"
+                            />
 
-                    <Fieldset title="Turma">
-                        <Field
-                            component={InputField}
-                            type="text"
-                            label="Turma"
-                            className="form-control"
-                            name="classroom"
-                            placeholder="Turma da disciplina."
-                        />
+                            <Fieldset title="Turma">
+                                <Field
+                                    component={InputField}
+                                    type="text"
+                                    label="Turma"
+                                    className="form-control"
+                                    name="classroom"
+                                    placeholder="Turma da disciplina."
+                                />
 
-                        <Field
-                            component={InputField}
-                            type="password"
-                            label="Senha"
-                            className="form-control"
-                            name="password"
-                            placeholder="Senha da turma."
-                        />
+                                <Field
+                                    component={InputField}
+                                    type="password"
+                                    label="Senha"
+                                    className="form-control"
+                                    name="password"
+                                    placeholder="Senha da turma."
+                                />
 
-                        <Field
-                            component={InputField}
-                            type="number"
-                            label="Limite de estudantes"
-                            className="form-control"
-                            name="students_limit"
-                            placeholder="Limite de estudantes para entrar na turma."
-                        />
+                                <Field
+                                    component={InputField}
+                                    type="number"
+                                    label="Limite de estudantes"
+                                    className="form-control"
+                                    name="students_limit"
+                                    placeholder="Limite de estudantes para entrar na turma."
+                                />
 
-                        <Field
-                            component={InputField}
-                            type="number"
-                            label="Limite de monitores"
-                            className="form-control"
-                            name="monitors_limit"
-                            placeholder="Limite de monitores para entrar na turma."
-                        />
-                    </Fieldset>
+                                <Field
+                                    component={InputField}
+                                    type="number"
+                                    label="Limite de monitores"
+                                    className="form-control"
+                                    name="monitors_limit"
+                                    placeholder="Limite de monitores para entrar na turma."
+                                />
+                            </Fieldset>
 
-                    <SubmitButton disabled={submitting || invalid}>Enviar</SubmitButton>
-                </Form>
+                            <SubmitButton disabled={submitting || invalid}>Enviar</SubmitButton>
+                        </FormStyled>
+                    )}
+                />
             </Main>
 		)
   	}
 }
-
-const form = reduxForm({
-    form: "DisciplineForm",
-    validate: validateDiscipline,
-    enableReinitialize: true
-})(DisciplineForm);
 
 const mapStateToProps = state => {
     const { location } = state.router;
@@ -138,4 +139,4 @@ const mapStateToProps = state => {
     }
 }
 
-export default connect(mapStateToProps)(form);
+export default connect(mapStateToProps)(DisciplineForm);

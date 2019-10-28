@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { reduxForm, Field } from 'redux-form';
+import { Form, Field } from 'react-final-form';
 import { SimpleInputField } from 'common/fields';
 import { Navbar } from 'common';
 import { resetPasswordSagas } from '../actions';
-import { Container, Form, FormGroup, SubmitButton, Main } from '../styles/resetPassword';
+import { Container, FormStyled, FormGroup, SubmitButton, Main } from '../styles/resetPassword';
 import { validateResetPassword } from '../validate';
 
 class ResetPassword extends Component {
@@ -15,37 +15,38 @@ class ResetPassword extends Component {
     }
 
     render() {
-        const { handleSubmit, submitting, invalid } = this.props;
+        const { initialValues } = this.props;
 
       	return (
             <Main>
                 <Navbar />
                 <Container title="Resetar senha">
-                    <Form onSubmit={handleSubmit((data) => this.__submit(data))}>
-                        <FormGroup icon="fa-envelope-o">
-                            <Field
-                                component={SimpleInputField}
-                                type="text"
-                                name="email"
-                                className="input-login form-control"
-                                placeholder="Email de recuperação."
-                                autoFocus
-                            />
-                        </FormGroup>
+                    <Form
+                        onSubmit={(data) => this.__submit(data)}
+                        initialValues={initialValues}
+                        validate={validateResetPassword}
+                        render={({handleSubmit, submitting, invalid}) => (
+                            <FormStyled onSubmit={handleSubmit}>
+                                <FormGroup icon="fa-envelope-o">
+                                    <Field
+                                        component={SimpleInputField}
+                                        type="text"
+                                        name="email"
+                                        className="input-login form-control"
+                                        placeholder="Email de recuperação."
+                                        autoFocus
+                                    />
+                                </FormGroup>
 
-                        <SubmitButton disabled={submitting || invalid}>Enviar</SubmitButton>
-                    </Form>
+                                <SubmitButton disabled={submitting || invalid}>Enviar</SubmitButton>
+                            </FormStyled>
+                        )}
+                    />
                 </Container>
             </Main>
 		)
   	}
 }
-
-const form = reduxForm({
-    form: "ResetPasswordForm",
-    validate: validateResetPassword,
-    enableReinitialize: true
-})(ResetPassword);
 
 const mapStateToProps = () => {
     const remembered = JSON.parse(localStorage.getItem("remembered"));
@@ -55,4 +56,4 @@ const mapStateToProps = () => {
 	}
 }
 
-export default connect(mapStateToProps)(form);
+export default connect(mapStateToProps)(ResetPassword);

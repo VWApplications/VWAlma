@@ -3,7 +3,6 @@ import { createLogger } from 'redux-logger';
 import { createBrowserHistory } from 'history'
 import { routerMiddleware } from 'connected-react-router'
 import { connectRouter } from 'connected-react-router';
-import { reducer as formReducer } from 'redux-form';
 import { createStore, combineReducers, applyMiddleware } from 'redux';
 import sagas from './sagas';
 // REDUCERS
@@ -19,7 +18,6 @@ export const history = createBrowserHistory()
 
 const reducers = combineReducers({
     router: connectRouter(history),
-    form: formReducer,
     home: homeReducer,
     account: accountReducer,
     discipline: disciplineReducer,

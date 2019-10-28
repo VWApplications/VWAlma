@@ -30,8 +30,6 @@ export const InputField = field => {
 			<div className={`col-sm-${fieldCol}`}>
 				<input
 					{...field.input}
-					name={field.name}
-					type={field.type}
 					placeholder={field.placeholder}
 					className={field.className}
 					id={field.id}

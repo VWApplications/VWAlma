@@ -6,7 +6,6 @@ import { validateError } from 'common/utils';
 
 function* listStudents(action) {
     const { activePage, queryString } = action.payload;
-    console.log(queryString);
     const discipline = yield select(state => state.router.location.state.discipline);
 
     try {

@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { reset } from 'redux-form';
 import { push } from 'connected-react-router';
 import { stringify } from 'query-string';
 import { makeURL, moveToTop } from 'common/utils';
@@ -55,7 +54,7 @@ class NewsList extends Component {
         dispatch(listNewsSagas(pagination.activePage, queryString));
     }
 
-    __search(data) {
+    __search(data, form) {
         const { dispatch, pagination } = this.props;
         if (data)
             this.setState({search: data.search});
@@ -66,7 +65,7 @@ class NewsList extends Component {
         if (this.state.tag)
             queryString = stringify({page: pagination.activePage, tag: this.state.tag, search: data.search})
 
-        dispatch(reset("SearchForm"));
+        setTimeout(form.reset);
         dispatch(listNewsSagas(pagination.activePage, queryString));
     }
 
@@ -87,7 +86,7 @@ class NewsList extends Component {
                 <Main>
                     <PageHeader tag={this.state.tag} onClick={() => this.__cleanTagFilter()} />
 
-                    <SearchForm onSubmit={(data) => this.__search(data)} />
+                    <SearchForm onSubmit={(data, form) => this.__search(data, form)} />
 
                     <NewsPanel>
                         {news_list.length === 0 ? "Não há notícias disponível." : ""}

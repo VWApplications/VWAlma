@@ -1,5 +1,4 @@
 import React from 'react';
-import { Field } from 'react-final-form';
 import styled from 'styled-components';
 import Navbar from './Navbar';
 import Breadcrumb from './Breadcrumb';
@@ -72,7 +71,7 @@ const Container = ({ children }) => (
     </div>
 )
 
-const Form = ({ children, onSubmit }) => (
+const FormStyled = ({ children, onSubmit }) => (
     <form onSubmit={onSubmit} encType="multipart/form-data" noValidate>
         {children}
     </form>
@@ -187,7 +186,7 @@ const Line = () => (<hr />)
 const Json = ({ values }) => <pre>{JSON.stringify(values, undefined, 2)}</pre>
 
 export {
-    Container, Form, Fieldset,
+    Container, FormStyled, Fieldset,
     BreakLine, Line, SubmitButton, Button,
     Main, Info, StringToHtml, ActionsButton,
     Label, Json, ResetButton, FormSubmitButtons

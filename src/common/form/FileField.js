@@ -40,7 +40,7 @@ class FileField extends Component {
     }
 
     render() {
-        const { input, type, meta, mimeType, previewLogoUrl } = this.props;
+        const { input, className, meta, mimeType, previewLogoUrl } = this.props;
 
         return (
             <div>
@@ -49,10 +49,10 @@ class FileField extends Component {
                 </div><br />
 
                 <input
-                    type={type}
+                    type={input.type}
                     name={input.name}
                     accept={mimeType}
-                    className={input.className}
+                    className={className}
                     onChange={event => this.__handleChange(event, input)}
                 />
 

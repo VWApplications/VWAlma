@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { push } from 'connected-react-router';
-import { reduxForm, Field, reset } from 'redux-form';
+import { Form, Field } from 'react-final-form';
 import { choiceAlert } from 'common/alerts';
 import { makeURL } from 'common/utils';
 import { InputField, EditorField } from 'common/fields';
-import { Main, Info, Form, SubmitButton, Fieldset, Pagination, StringToHtml } from 'common';
+import { Main, Info, FormStyled, SubmitButton, Fieldset, Pagination, StringToHtml } from 'common';
 import { TEACHER, ADMIN } from 'common/constants';
 import { validateCreateSection } from '../validate';
 import {
@@ -59,7 +59,7 @@ class SectionList extends Component {
             dispatch(deleteSectionsSagas(sectionID));
     }
 
-    __submit(data) {
+    __submit(data, form) {
         const { dispatch, sectionForm } = this.props;
 
         if (sectionForm)
@@ -67,7 +67,7 @@ class SectionList extends Component {
         else
             dispatch(createSectionsSagas(data));
 
-        dispatch(reset("SectionForm"));
+        setTimeout(form.reset);
         this.setState({opened: false, formTitle: "Criar nova seção"});
     }
 
@@ -80,7 +80,7 @@ class SectionList extends Component {
     }
 
     render() {
-        const { state, handleSubmit, submitting, invalid, pagination, sections, user } = this.props;
+        const { state, initialValues, pagination, sections, user } = this.props;
         const discipline = state.discipline;
 
         const navigator = [
@@ -96,27 +96,34 @@ class SectionList extends Component {
 
         return (
             <Main navigation={navigator} menu="discipline" title="Lista de Seções" icon="fa-puzzle-piece" rightComponent={AddButton}>
-                {this.state.opened ? 
-                    <Form onSubmit={handleSubmit((data) => this.__submit(data))}>
-                        <Fieldset title={this.state.formTitle}>
-                            <Field
-                                component={InputField}
-                                type="text"
-                                label="Título"
-                                className="form-control"
-                                name="title"
-                                placeholder="Título da seção."
-                            />
+                {this.state.opened ?
+                    <Form
+                        onSubmit={(data, form) => this.__submit(data, form)}
+                        initialValues={initialValues}
+                        validate={validateCreateSection}
+                        render={({handleSubmit, submitting, invalid}) => (
+                            <FormStyled onSubmit={handleSubmit}>
+                                <Fieldset title={this.state.formTitle}>
+                                    <Field
+                                        component={InputField}
+                                        type="text"
+                                        label="Título"
+                                        className="form-control"
+                                        name="title"
+                                        placeholder="Título da seção."
+                                    />
 
-                            <Field
-                                component={EditorField}
-                                name="description"
-                                placeholder="Insira a ementa da disciplina aqui!"
-                            />
+                                    <Field
+                                        component={EditorField}
+                                        name="description"
+                                        placeholder="Insira a ementa da disciplina aqui!"
+                                    />
 
-                            <SubmitButton disabled={submitting || invalid}>Enviar</SubmitButton>
-                        </Fieldset>
-                    </Form>
+                                    <SubmitButton disabled={submitting || invalid}>Enviar</SubmitButton>
+                                </Fieldset>
+                            </FormStyled>
+                        )}
+                    />
                 : null}
 
                 <SectionContainer>
@@ -153,12 +160,6 @@ class SectionList extends Component {
     }
 }
 
-const form = reduxForm({
-    form: "SectionForm",
-    validate: validateCreateSection,
-    enableReinitialize: true
-})(SectionList);
-
 const mapStateToProps = state => {
     const { location } = state.router;
     const { list, pagination, form } = state.section;
@@ -175,4 +176,4 @@ const mapStateToProps = state => {
     return {state: location.state, sections: list, pagination, initialValues, sectionForm: form, user}
 }
 
-export default connect(mapStateToProps)(form);
+export default connect(mapStateToProps)(SectionList);

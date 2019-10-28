@@ -6,7 +6,7 @@ import Filter from './components/Filter';
 import Sidebar from './components/Sidebar';
 import PrivateRouter from './components/PrivateRoute';
 export {
-    Container, Form, Fieldset,
+    Container, FormStyled, Fieldset,
     BreakLine, Line, SubmitButton, Button,
     Main, Info, StringToHtml, ActionsButton,
     Label, Json, ResetButton, FormSubmitButtons
