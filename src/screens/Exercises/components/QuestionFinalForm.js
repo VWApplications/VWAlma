@@ -3,7 +3,8 @@ import { connect } from 'react-redux';
 import { Form, Field } from 'react-final-form';
 import arrayMutators from 'final-form-arrays';
 import { FieldArray } from 'react-final-form-arrays';
-import { InputField, EditorField, RadioFields, SelectField, AlternativeField, CheckboxField } from 'common/fields';
+import { InputField, EditorField, RadioFields, SelectField, AlternativeField } from 'common/fields';
+import { VorFQuestion } from 'common/questions';
 import { makeURL } from 'common/utils';
 import { Main, FormStyled, Fieldset, FormSubmitButtons } from 'common';
 import { FormGroup, FormItem } from '../styles/questionForm';
@@ -111,10 +112,9 @@ class QuestionForm extends Component {
                                         {fields.map((alternative, index) => (
                                             <Field
                                                 key={index}
-                                                component={CheckboxField}
+                                                component={VorFQuestion}
                                                 type="checkbox"
                                                 name={`${alternative}.is_correct`}
-                                                question={true}
                                                 form={true}
                                                 id={index}
                                                 label={

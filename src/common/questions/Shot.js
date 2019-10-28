@@ -1,7 +1,7 @@
 import React from 'react';
 import { FormGroup } from '../styles/fields';
 
-export const ShotField = field => {
+export default field => {
 	let formGroupClass = "";
 	let iconClass = "";
 

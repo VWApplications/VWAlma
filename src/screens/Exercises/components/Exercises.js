@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Form, Field } from 'react-final-form';
-import { ShotField, CheckboxField, RadioFields } from 'common/fields';
+import { VorFQuestion, MultipleChoicesQuestion } from 'common/questions';
 import { makeURL } from 'common/utils';
 import { Main, FormStyled, Info, SubmitButton, Pagination, StringToHtml, Line } from 'common';
 import { listQuestionsSagas } from '../actions';
@@ -22,73 +22,37 @@ class Exercises extends Component {
         switch(question.question_type) {
             case MULTIPLE_CHOICES:
                 return (
-                    <RadioFields
-                        name="answer"
-                        question={true}
-                        options={
-                            question.alternatives.map(alternative => (
-                                {
-                                    id: alternative.id,
-                                    label: alternative.title,
-                                    value: alternative.is_correct.toString()
-                                }
-                            ))
-                        }
-                    />
+                    question.alternatives.map(alternative => (
+                        <div key={alternative.id}>
+                            <Field
+                                component={MultipleChoicesQuestion}
+                                type="radio"
+                                label={alternative.title}
+                                id={alternative.id}
+                                value={alternative.is_correct.toString()}
+                                name={`answer_${question.id}`}
+                            />
+                        </div>
+                    ))
                 );
 
             case SHOT:
                 return (
-                    <div>
-                        <Field
-                            component={ShotField}
-                            name="shot_A"
-                            type="number"
-                            className="form-control"
-                            placeholder="Aposta A"
-                            description={question.alternative_A}
-                        />
-                        <Field
-                            component={ShotField}
-                            name="shot_B"
-                            type="number"
-                            className="form-control"
-                            placeholder="Aposta B"
-                            description={question.alternative_B}
-                        />
-                        <Field
-                            component={ShotField}
-                            name="shot_C"
-                            type="number"
-                            className="form-control"
-                            placeholder="Aposta C"
-                            description={question.alternative_C}
-                        />
-                        <Field
-                            component={ShotField}
-                            name="shot_D"
-                            type="number"
-                            className="form-control"
-                            placeholder="Aposta D"
-                            description={question.alternative_D}
-                        />
-                    </div>
+                    <div>SHOT</div>
                 )
 
             case SCRATCH_CARD:
-                return (<p>dd</p>);
+                return (<div>SCRATCH_CARD</div>);
 
             default:
                 return (
                     question.alternatives.map(alternative => (
                         <Field
                             key={alternative.id}
-                            component={CheckboxField}
+                            component={VorFQuestion}
                             type="checkbox"
                             name={`correct_answer_${alternative.id}`}
                             id={alternative.id}
-                            question={true}
-                            form={true}
                             label={alternative.title}
                         />
                     ))

@@ -6,11 +6,10 @@ import { FileField } from './form/FileField';
 import { SelectField } from './form/SelectField';
 import { RadioFields } from './form/RadioField';
 import EditorField from './form/EditorField';
-import { ShotField } from './form/ShotField';
 import { AlternativeField } from './form/AlternativeField';
 
 export {
     InputField, CheckboxField, TextField, SimpleInputField,
     FileField, SelectField, RadioFields, EditorField,
-    ShotField, AlternativeField
+    AlternativeField
 };
