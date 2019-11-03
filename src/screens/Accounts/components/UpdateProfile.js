@@ -13,7 +13,7 @@ class UpdateProfile extends Component {
     }
 
     render() {
-        const { user, initialValues } = this.props;
+        const { account, initialValues } = this.props;
 
         const navigator = [
             {title: "Home", url: "/"},
@@ -35,7 +35,7 @@ class UpdateProfile extends Component {
                                 name="photo"
                                 className="form-control"
                             />
-                            {user.photo ?
+                            {account.photo ?
                                 <Field
                                     component={CheckboxField}
                                     type="checkbox"
@@ -92,11 +92,11 @@ const mapStateToProps = state => {
         return {initialValues: {}}
 
     return {
-        user,
+        account: user,
         initialValues: {
             photo: user.photo,
-            name: user.name,
-            email: user.email,
+            name: user.user.name,
+            email: user.user.email,
             identifier: user.identifier
         }
     }

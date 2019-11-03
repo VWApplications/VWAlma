@@ -9,16 +9,20 @@ import { successAlert } from 'common/alerts';
 function* updateUser(action) {
     const { payload } = action;
 
-    const infoPayload = {
-        "email": payload.email,
-        "name": payload.name,
-        "identifier": payload.identifier
-    }
-
     try {
-        const user = yield select(state => state.account.user);
+        const account = yield select(state => state.account.user);
 
-        yield call(updateUserAPI, infoPayload, user.id);
+        const formatedPayload = {
+            "user": {
+                "email": payload.email,
+                "name": payload.name
+            },
+            "identifier": payload.identifier
+        }
+        if (account.user.email === payload.email)
+            delete formatedPayload.user.email;
+
+        yield call(updateUserAPI, formatedPayload, account.id);
 
         if (payload.photo) {
             if (typeof payload.photo !== "string")

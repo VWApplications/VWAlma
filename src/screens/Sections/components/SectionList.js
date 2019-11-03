@@ -80,7 +80,7 @@ class SectionList extends Component {
     }
 
     render() {
-        const { state, initialValues, pagination, sections, user } = this.props;
+        const { state, initialValues, pagination, sections, account } = this.props;
         const discipline = state.discipline;
 
         const navigator = [
@@ -91,7 +91,7 @@ class SectionList extends Component {
         ]
 
         let AddButton = null;
-        if (user.permission === TEACHER || user.permission === ADMIN)
+        if (account.permission === TEACHER || account.permission === ADMIN)
             AddButton = <AddSectionButton opened={this.state.opened} onClick={() => this.__toogleForm()} />
 
         return (
@@ -143,7 +143,7 @@ class SectionList extends Component {
                                 </SectionPanelContent>
 
                                 <SectionPanelFooter
-                                    user={user}
+                                    user={account}
                                     isClosed={section.is_closed}
                                     enterClick={() => this.__redirectToSectionDetail(section)}
                                     sendClick={() => this.__provideSection(section.id)}
@@ -173,7 +173,7 @@ const mapStateToProps = state => {
         }
     }
 
-    return {state: location.state, sections: list, pagination, initialValues, sectionForm: form, user}
+    return {state: location.state, sections: list, pagination, initialValues, sectionForm: form, account: user}
 }
 
 export default connect(mapStateToProps)(SectionList);

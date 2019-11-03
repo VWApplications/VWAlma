@@ -25,7 +25,7 @@ class SectionDetail extends Component {
     }
 
     render() {
-        const { state, user } = this.props;
+        const { state, account } = this.props;
         const discipline = state.discipline;
         const section = state.section;
 
@@ -38,7 +38,7 @@ class SectionDetail extends Component {
         ]
 
         let finishButton = null;
-        if (user.permission === TEACHER || user.permission === ADMIN)
+        if (account.permission === TEACHER || account.permission === ADMIN)
             finishButton = (
                 <FinishSectionButton
                     title={section.is_finished ? "Começar seção" : "Finalizar seção"}
@@ -60,7 +60,7 @@ const mapStateToProps = state => {
     const { location } = state.router;
     const { user } = state.account;
 
-    return { state: location.state, user }
+    return { state: location.state, account: user }
 }
 
 export default connect(mapStateToProps)(SectionDetail);

@@ -94,7 +94,7 @@ class GroupList extends Component {
     }
 
     render() {
-        const { state, initialValues, pagination, groups, user } = this.props;
+        const { state, initialValues, pagination, groups, account } = this.props;
         const discipline = state.discipline;
 
         const navigator = [
@@ -105,7 +105,7 @@ class GroupList extends Component {
         ]
 
         let AddButton = null;
-        if (user.permission === TEACHER || user.permission === ADMIN)
+        if (account.permission === TEACHER || account.permission === ADMIN)
             AddButton = <AddGroupButton opened={this.state.opened} onClick={() => this.__toogleForm()} />
 
         return (
@@ -157,7 +157,7 @@ class GroupList extends Component {
 
                             <GroupPanelBody id={group.id}>
                                 <GroupPanelContent>
-                                    {user.permission === TEACHER || user.permission === ADMIN ?
+                                    {account.permission === TEACHER || account.permission === ADMIN ?
                                         <Search
                                             onSubmit={(data, form) => this.__addStudent(group.id, data, form)}
                                             name="email"
@@ -173,7 +173,7 @@ class GroupList extends Component {
                                                 <StudentHeader src={student.photo} />
 
                                                 <StudentBody
-                                                    user={user}
+                                                    user={account}
                                                     email={student.email}
                                                     id={student.identifier}
                                                     onClose={() => this.__removeStudent(group.id, {"id": student.id})}>
@@ -184,7 +184,7 @@ class GroupList extends Component {
                                     </StudentContainer>
                                 </GroupPanelContent>
 
-                                {user.permission === TEACHER || user.permission === ADMIN ?
+                                {account.permission === TEACHER || account.permission === ADMIN ?
                                     <GroupPanelFooter
                                         isProvided={group.is_provided}
                                         sendClick={() => this.__provideGroup(group.id)}
@@ -215,7 +215,7 @@ const mapStateToProps = state => {
         }
     }
 
-    return {state: location.state, groups: list, pagination, initialValues, groupForm: form, user}
+    return {state: location.state, groups: list, pagination, initialValues, groupForm: form, account: user}
 }
 
 export default connect(mapStateToProps)(GroupList);

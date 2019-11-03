@@ -13,7 +13,7 @@ class DisciplineDetail extends Component {
     }
 
     render() {
-        const { user, state, dispatch } = this.props;
+        const { account, state, dispatch } = this.props;
         const discipline = state.discipline;
 
         const navigator = [
@@ -39,7 +39,7 @@ class DisciplineDetail extends Component {
                 title="Detalhes da disciplina"
                 rightComponent={<TeacherPhoto src={discipline.teacher.photo}>{discipline.teacher.short_name}</TeacherPhoto>}>
                 {discipline.is_closed ? <Label type="danger">Disciplina Fechada</Label> : <Label type="success">Disciplina Aberta</Label>}
-                {user.permission === TEACHER ? <ActionsButton actions={actions}>Ações</ActionsButton> : null}
+                {account.permission === TEACHER ? <ActionsButton actions={actions}>Ações</ActionsButton> : null}
                 <StringToHtml>{discipline.description}</StringToHtml>
             </Main>
         )
@@ -50,7 +50,7 @@ const mapStateToProps = state => {
     const { user } = state.account;
     const { location } = state.router;
 
-    return { user, state: location.state }
+    return { account: user, state: location.state }
 }
 
 export default connect(mapStateToProps)(DisciplineDetail);

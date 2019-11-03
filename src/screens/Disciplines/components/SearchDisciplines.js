@@ -134,9 +134,8 @@ class DisciplineSearch extends Component {
 
 const mapStateToProps = state => {
     const { list, pagination } = state.discipline.all;
-    const { user } = state.account;
 
-    return { disciplines: list, pagination, user }
+    return { disciplines: list, pagination }
 }
 
 export default connect(mapStateToProps)(DisciplineSearch);

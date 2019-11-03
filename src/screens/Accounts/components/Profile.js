@@ -9,7 +9,7 @@ import {
 
 class Profile extends Component {
     render() {
-        const { user } = this.props;
+        const { account } = this.props;
 
         const navigator = [
             {title: "Home", url: "/"},
@@ -19,15 +19,15 @@ class Profile extends Component {
         return (
             <Main navigation={navigator} menu="profile" title="Perfil" icon="fa-user">
                 <Information>
-                    <UserImage src={user.photo} />
+                    <UserImage src={account.photo} />
                     <UserPanel
-                        name={user.short_name}
-                        type={user.permission === TEACHER ? "Professor" : user.permission === ADMIN ? "Administrador" : "Aluno"}
-                        updateAt={user.updated_at_formated}>
-                        {user.identifier ?
-                            <UserInfo icon="fa-key" label="Matrícula">{user.identifier}</UserInfo>
+                        name={account.user.short_name}
+                        type={account.permission === TEACHER ? "Professor" : account.permission === ADMIN ? "Administrador" : "Aluno"}
+                        updateAt={account.user.updated_at_formated}>
+                        {account.identifier ?
+                            <UserInfo icon="fa-key" label="Matrícula">{account.identifier}</UserInfo>
                         : null}
-                        <UserInfo icon="fa-envelope" label="Email">{user.email}</UserInfo>
+                        <UserInfo icon="fa-envelope" label="Email">{account.user.email}</UserInfo>
                     </UserPanel>
                 </Information>
                 <BreakLine />
@@ -40,7 +40,7 @@ class Profile extends Component {
 const mapStateToProps = state => {
     const { user } = state.account;
 
-    return { user }
+    return { account: user }
 }
 
 export default connect(mapStateToProps)(Profile);

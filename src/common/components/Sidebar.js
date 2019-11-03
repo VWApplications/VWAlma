@@ -31,7 +31,7 @@ class Sidebar extends Component {
     }
 
     __profileMenu() {
-        const { user } = this.props;
+        const { account } = this.props;
         return (
             <Container>
                 <SidebarLink icon="fa-user" title="Perfil" onClick={() => this.__redirectTo("/profile")}>
@@ -43,12 +43,12 @@ class Sidebar extends Component {
                 <SidebarLink icon="fa-expeditedssl" title="Atualizar Senha" onClick={() => this.__redirectTo("/profile/update-password")}>
                     Página para editar sua senha.
                 </SidebarLink>
-                {user.permission === ADMIN ?
+                {account.permission === ADMIN ?
                     <SidebarLink icon="fa-search" title="Pesquisar Disciplinas" onClick={() => this.__redirectTo("/profile/discipline-search")}>
                         Página para pesquisar e entrar em uma disciplina específica.
                     </SidebarLink>
                 : null}
-                {user.permission !== TEACHER && user.permission !== ADMIN ?
+                {account.permission !== TEACHER && account.permission !== ADMIN ?
                     <SidebarLink icon="fa-search" title="Pesquisar Disciplinas" onClick={() => this.__redirectTo("/profile/discipline-search")}>
                         Página para pesquisar e entrar em uma disciplina específica.
                     </SidebarLink>
@@ -126,7 +126,7 @@ class Sidebar extends Component {
     }
 
     __TraditionalMenu() {
-        const { location, user } = this.props;
+        const { location, account } = this.props;
         const discipline = location.state.discipline;
         const section = location.state.section;
 
@@ -144,7 +144,7 @@ class Sidebar extends Component {
                     onClick={() => this.__developing()}>
                     Conteúdo em formato de livro.
                 </SidebarLink>
-                {user.permission === TEACHER || user.permission === ADMIN ?
+                {account.permission === TEACHER || account.permission === ADMIN ?
                     <SidebarLink
                         icon="fa-clipboard"
                         title="Questões"
@@ -164,7 +164,7 @@ class Sidebar extends Component {
                     onClick={() => this.__developing()}>
                     Notas da seção.
                 </SidebarLink>
-                {user.permission === TEACHER || user.permission === ADMIN ?
+                {account.permission === TEACHER || account.permission === ADMIN ?
                     <SidebarLink
                         icon="fa-bar-chart"
                         title="Relatório"
@@ -291,7 +291,7 @@ const mapStateToProps = state => {
     const { user } = state.account;
     const { location } = state.router;
 
-    return { user, location };
+    return { account: user, location };
 }
 
 export default connect(mapStateToProps)(Sidebar);

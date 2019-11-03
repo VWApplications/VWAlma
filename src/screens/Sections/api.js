@@ -1,32 +1,32 @@
 import axios from 'config/axios';
 
 export function getSectionsAPI(data, queryString=null) {
-    let endpoint = "/sections/";
-    if (queryString) endpoint = `/sections/?${queryString}`;
+    let endpoint = "/alma/sections/";
+    if (queryString) endpoint = `/alma/sections/?${queryString}`;
     return axios.post(endpoint, data);
 }
 
 export function fetchSectionAPI(sectionID) {
-    let endpoint = `/sections/${sectionID}/`;
+    let endpoint = `/alma/sections/${sectionID}/`;
     return axios.get(endpoint);
 }
 
 export function createSectionAPI(data) {
-    let endpoint = "/sections/";
+    let endpoint = "/alma/sections/";
     return axios.post(endpoint, data);
 }
 
 export function updateSectionAPI(data, sectionID) {
-    let endpoint = `/sections/${sectionID}/`;
+    let endpoint = `/alma/sections/${sectionID}/`;
     return axios.patch(endpoint, data);
 }
 
 export function deleteSectionAPI(sectionID) {
-    let endpoint = `/sections/${sectionID}/`;
+    let endpoint = `/alma/sections/${sectionID}/`;
     return axios.delete(endpoint);
 }
 
 export function provideSectionAPI(sectionID) {
-    let endpoint = `/sections/${sectionID}/provide/`;
+    let endpoint = `/alma/sections/${sectionID}/provide/`;
     return axios.get(endpoint);
 }

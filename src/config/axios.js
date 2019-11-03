@@ -7,7 +7,7 @@ import store from './store';
 let baseURL = 'https://api.vwapplication.com.br';
 
 if (process.env.NODE_ENV === 'development') {
-    baseURL = 'http://localhost';
+    baseURL = 'http://localhost:8001';
 }
 
 axios.defaults.baseURL = baseURL;

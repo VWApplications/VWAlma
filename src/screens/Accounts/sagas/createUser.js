@@ -8,8 +8,18 @@ import { successAlert } from 'common/alerts';
 function* createUser(action) {
     const { payload } = action;
 
+    const formatedPayload = {
+        "user": {
+            "name": payload.name,
+            "email": payload.email,
+            "password": payload.password,
+            "confirm_password": payload.confirm_password
+        },
+        "permission": payload.permission
+    }
+
     try {
-        yield call(createUserAPI, payload);
+        yield call(createUserAPI, formatedPayload);
 
         successAlert("Usuário criado", "Usuário criado com sucesso.");
 

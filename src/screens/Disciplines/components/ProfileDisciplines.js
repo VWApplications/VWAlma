@@ -52,7 +52,7 @@ class ProfileDisciplines extends Component {
     }
 
     render() {
-        const { disciplines, pagination, user, dispatch } = this.props;
+        const { disciplines, pagination, account, dispatch } = this.props;
 
         return (
             <Main>
@@ -61,13 +61,13 @@ class ProfileDisciplines extends Component {
                         Mostra todas as disciplinas das quais você faz parte.
                     </Tab>
 
-                    {!user.permission === TEACHER ? 
+                    {!account.permission === TEACHER ? 
                         <Tab link="#student" title="Disciplinas como estudante" onClick={() => this.__filterDisciplines("student")}>
                             Mostra as disciplinas das quais você faz parte.
                         </Tab>
                     : null}
 
-                    {!user.permission === TEACHER ?
+                    {!account.permission === TEACHER ?
                         <Tab link="#monitor" title="Disciplinas como monitor" onClick={() => this.__filterDisciplines("monitor")}>
                             Mostra as disciplinas que você é monitor.
                         </Tab>
@@ -93,10 +93,10 @@ class ProfileDisciplines extends Component {
 
                                     <FooterButtonGroup>
                                         <FooterButton icon="fa-eye" type="primary" title="Entrar" onClick={() => this.__redirectToDisciplineDetail(discipline)} />
-                                        {user.permission === TEACHER ?
+                                        {account.permission === TEACHER ?
                                             <FooterButton icon="fa-edit" type="primary" title="Editar" onClick={() => dispatch(push("/profile/discipline-form", discipline))} />
                                         : null}
-                                        {user.permission === TEACHER ?
+                                        {account.permission === TEACHER ?
                                             <FooterButton icon="fa-trash" type="danger" title="Deletar" onClick={() => this.__deleteDiscipline(discipline)} />
                                         : null}
                                     </FooterButtonGroup>
@@ -118,7 +118,7 @@ class ProfileDisciplines extends Component {
 const mapStateToProps = state => {
     const { list, pagination } = state.discipline.profile;
     const { user } = state.account;
-    return { disciplines: list, pagination, user };
+    return { disciplines: list, pagination, account: user };
 }
 
 export default connect(mapStateToProps)(ProfileDisciplines);

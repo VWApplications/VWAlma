@@ -11,7 +11,7 @@ class Breadcrumb extends Component {
     }
 
     render() {
-        const { user, navigation } = this.props;
+        const { account, navigation } = this.props;
 
         return (
             <Container>
@@ -21,7 +21,7 @@ class Breadcrumb extends Component {
                         ))}
                     </BreadcrumbStyled>
 
-                    <Welcome>{user.short_name}</Welcome>
+                    <Welcome>{account.user.short_name}</Welcome>
             </Container>
         )
     }
@@ -29,7 +29,7 @@ class Breadcrumb extends Component {
 
 const MapStateToProps = state => {
     const { user } = state.account;
-    return { user };
+    return { account: user };
 }
 
 export default connect(MapStateToProps)(Breadcrumb);

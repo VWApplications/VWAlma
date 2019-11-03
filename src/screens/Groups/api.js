@@ -1,37 +1,37 @@
 import axios from 'config/axios';
 
 export function getGroupsAPI(data, queryString=null) {
-    let endpoint = "/groups/";
-    if (queryString) endpoint = `/groups/?${queryString}`;
+    let endpoint = "/alma/groups/";
+    if (queryString) endpoint = `/alma/groups/?${queryString}`;
     return axios.post(endpoint, data);
 }
 
 export function createGroupAPI(data) {
-    let endpoint = "/groups/";
+    let endpoint = "/alma/groups/";
     return axios.post(endpoint, data);
 }
 
 export function updateGroupAPI(data, groupID) {
-    let endpoint = `/groups/${groupID}/`;
+    let endpoint = `/alma/groups/${groupID}/`;
     return axios.patch(endpoint, data);
 }
 
 export function deleteGroupAPI(groupID) {
-    let endpoint = `/groups/${groupID}/`;
+    let endpoint = `/alma/groups/${groupID}/`;
     return axios.delete(endpoint);
 }
 
 export function provideGroupAPI(groupID) {
-    let endpoint = `/groups/${groupID}/provide/`;
+    let endpoint = `/alma/groups/${groupID}/provide/`;
     return axios.get(endpoint);
 }
 
 export function addStudentGroupAPI(groupID, data) {
-    let endpoint = `/groups/${groupID}/add_student/`;
+    let endpoint = `/alma/groups/${groupID}/add_student/`;
     return axios.post(endpoint, data);
 }
 
 export function removeStudentGroupAPI(groupID, data) {
-    let endpoint = `/groups/${groupID}/remove_student/`;
+    let endpoint = `/alma/groups/${groupID}/remove_student/`;
     return axios.post(endpoint, data);
 }

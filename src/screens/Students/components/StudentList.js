@@ -88,7 +88,7 @@ class StudentList extends Component {
     }
 
     render() {
-        const { state, students, pagination, user } = this.props;
+        const { state, students, pagination, account } = this.props;
         const discipline = state.discipline;
 
         const navigator = [
@@ -108,7 +108,7 @@ class StudentList extends Component {
 
         return (
             <Main navigation={navigator} menu="discipline" title="Lista de Estudantes" icon="fa-slideshare" rightComponent={FilterComponent}>
-                {user.permission === TEACHER || user.permission === ADMIN ?
+                {account.permission === TEACHER || account.permission === ADMIN ?
                     <Search
                         onSubmit={(data, form) => this.__addStudent(data, form)}
                         name="email"
@@ -128,7 +128,7 @@ class StudentList extends Component {
                             </StudentHeader>
 
                             <StudentBody
-                                user={user}
+                                user={account}
                                 email={student.email}
                                 id={student.identifier}
                                 onClose={() => this.__removeStudentFromClass({"id": student.id})}>
@@ -152,7 +152,7 @@ const mapStateToProps = state => {
     const { list, pagination } = state.student;
     const { user } = state.account;
 
-    return { state: location.state, students: list, pagination, user };
+    return { state: location.state, students: list, pagination, account: user };
 }
 
 export default connect(mapStateToProps)(StudentList);
