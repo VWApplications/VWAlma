@@ -61,11 +61,15 @@ const NavbarMedia = styled.div`
 `;
 
 const ImgNavbar = styled.img`
-    max-width: 40px;
+    max-width: 80px;
+    position: relative;
+    right: 24px;
 `;
 
 const NavbarMediaBody = styled.div`
     vertical-align: middle;
+    position: relative;
+    right: 45px;
 `;
 
 export const NavbarBrand = ({ children, functionRedirect }) => (
