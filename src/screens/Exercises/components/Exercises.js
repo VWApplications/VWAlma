@@ -1,11 +1,13 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Form, Field } from 'react-final-form';
-import { VorFQuestion, MultipleChoicesQuestion } from 'common/questions';
+import { VorFQuestion, MultipleChoicesQuestion, ShotQuestion } from 'common/questions';
+import { HiddenField } from 'common/fields';
 import { makeURL } from 'common/utils';
 import { Main, FormStyled, Info, SubmitButton, Pagination, StringToHtml, Line, Json } from 'common';
 import { listQuestionsSagas } from '../actions';
 import { choiceAlert } from 'common/alerts';
+import { ExerciseValidation } from '../validate';
 import { MULTIPLE_CHOICES, SHOT, SCRATCH_CARD } from '../constants';
 
 class Exercises extends Component {
@@ -28,7 +30,7 @@ class Exercises extends Component {
         }
     }
 
-    __getQuestionType(question) {
+    __getQuestionType(question, errors) {
         switch(question.question_type) {
             case MULTIPLE_CHOICES:
                 return (
@@ -39,14 +41,26 @@ class Exercises extends Component {
                             type="radio"
                             label={alternative.title}
                             id={alternative.id}
-                            value={alternative.is_correct.toString()}
-                            name={`multiple_choices.answer_question_${question.id}`}
+                            value={alternative.id}
+                            name={`multiple_choices.Q${question.id}`}
                         />
                     ))
                 );
 
             case SHOT:
-                return (<div>SHOT</div>)
+                return (
+                    question.alternatives.map(alternative => (
+                        <Field
+                            key={alternative.id}
+                            component={ShotQuestion}
+                            type="number"
+                            description={alternative.title}
+                            placeholder="Aposta 0-4"
+                            error={errors[alternative.id] ? errors[alternative.id] : undefined}
+                            name={`shots.Q${question.id}.A${alternative.id}`}
+                        />
+                    ))
+                )
 
             case SCRATCH_CARD:
                 return (<div>SCRATCH_CARD</div>);
@@ -58,7 +72,7 @@ class Exercises extends Component {
                             key={alternative.id}
                             component={VorFQuestion}
                             type="checkbox"
-                            name={`VorF.answer_question_${question.id}_alternative_${alternative.id}`}
+                            name={`VorF.Q${question.id}.A${alternative.id}`}
                             id={alternative.id}
                             label={alternative.title}
                         />
@@ -103,10 +117,12 @@ class Exercises extends Component {
                             <Line />
                             <Form
                                 onSubmit={(data, form) => this.__submit(data, form)}
+                                validate={ExerciseValidation}
                                 initialValues={initialValues}
-                                render={({handleSubmit, submitting, values, invalid}) => (
+                                render={({handleSubmit, submitting, values, invalid, errors}) => (
                                     <FormStyled onSubmit={handleSubmit}>
-                                        {this.__getQuestionType(question)}
+                                        {this.__getQuestionType(question, errors)}
+                                        <Field component={HiddenField} name="error" type="text" />
 
                                         <Line />
                                         {progress === "100" ? <SubmitButton disabled={submitting || invalid}>Enviar</SubmitButton> : null}

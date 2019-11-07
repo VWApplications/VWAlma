@@ -1,4 +1,5 @@
 import { V_OR_F, MULTIPLE_CHOICES } from './constants';
+import { isEmpty } from 'common/utils';
 
 const alternativesValidation = (values, errors) => {
     let counter = 0;
@@ -49,6 +50,27 @@ export const validateQuestionForm = values => {
             errors.question_type = 'Tem que ter exatamente 4 alternativas.';
         else
             alternativesValidation(values, errors);
+    }
+
+    return errors;
+}
+
+export const ExerciseValidation = values => {
+    let errors = {};
+
+    if (isEmpty(values)) return errors;
+
+    if(values.hasOwnProperty("shots")) {
+        for (var value of Object.values(values.shots)) {
+            let answer_sum = 0;
+            for (var [alternative, answer] of Object.entries(value)) {
+                answer_sum += parseInt(answer)
+                if (answer_sum > 4) {
+                    errors.error = "Somatória das alternativas da questão tem que está entre 1 e 4 pontos.";
+                    errors[`${alternative.slice(1)}`] = true;
+                }
+            }
+        }
     }
 
     return errors;

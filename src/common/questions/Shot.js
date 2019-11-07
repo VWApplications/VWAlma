@@ -6,7 +6,7 @@ export default field => {
 	let iconClass = "";
 
 	if (field.meta.touched) {
-		if (field.meta.error) {
+		if (field.error || field.input.value > 4 || field.input.value < 0 || !field.input.value) {
 			formGroupClass = "has-error";
 			iconClass = "glyphicon glyphicon-remove";
 		} else {
@@ -16,24 +16,19 @@ export default field => {
 	}
 
 	return (
-		<FormGroup className={"row form-group " + formGroupClass + " has-feedback"}>
-			<div className={`col-sm-12 col-md-2`}>
+		<FormGroup className={`row form-group ${formGroupClass} has-feedback`}>
+			<div className={"col-xs-12 col-sm-3 col-md-2"}>
 				<input
 					{...field.input}
-					name={field.name}
-					type={field.type}
 					placeholder={field.placeholder}
-                    className={field.className}
-                    id={field.id}
+					min="0" max="4"
+					className={"form-control"}
 				/>
-				<span className={"form-control-feedback " + iconClass}></span>
+				<span className={`${iconClass} form-control-feedback`}></span>
 			</div>
-            <div className="col-sm-12 col-md-10">
-                <p>{field.description}</p>
-            </div>
-            <p className="text-danger">
-                {field.meta.touched && (field.meta.error && <span>{field.meta.error}</span>)}
-            </p>
+			<div className="col-xs-12 col-sm-9 col-md-10">
+				<p>{field.description}</p>
+			</div>
 		</FormGroup>
 	)
 }
