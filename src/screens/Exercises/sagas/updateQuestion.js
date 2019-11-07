@@ -1,24 +1,25 @@
 import { all, put, call, takeLatest, select } from 'redux-saga/effects';
 import { push } from 'connected-react-router';
 import { makeURL } from 'common/utils';
-import { validateError } from 'common/utils';
 import { fetchDisciplineAPI } from 'screens/Disciplines/api';
-import { FINISH_SECTION_SAGAS } from '../types';
-import { finishSectionAPI, fetchSectionAPI } from '../api';
+import { fetchSectionAPI } from 'screens/Sections/api';
+import { UPDATE_QUESTION_SAGAS } from '../types';
+import { updateQuestionAPI } from '../api';
+import { validateError } from 'common/utils';
 
-function* finishSection() {
-    const discipline = yield select(state => state.router.location.state.discipline);
-    const section = yield select(state => state.router.location.state.section);
+function* updateQuestion(action) {
+    const { data, questionID } = action.payload;
+    const { discipline, section } = yield select(state => state.router.location.state);
 
     try {
-        yield call(finishSectionAPI, section.id);
+        yield call(updateQuestionAPI, data, questionID);
 
         const disciplineResponse = yield call(fetchDisciplineAPI, discipline.id);
         const newDiscipline = disciplineResponse.data;
         const sectionResponse = yield call(fetchSectionAPI, section.id);
         const newSection = sectionResponse.data;
         yield put(push(
-            `/profile/${makeURL(newDiscipline.title)}/sections/${makeURL(newSection.title)}/detail`,
+            `/profile/${makeURL(newDiscipline.title)}/sections/${makeURL(newSection.title)}/exercises`,
             { discipline: newDiscipline, section: newSection }
         ));
     } catch(error) {
@@ -27,7 +28,7 @@ function* finishSection() {
 }
 
 function* watch() {
-    yield takeLatest(FINISH_SECTION_SAGAS, finishSection);
+    yield takeLatest(UPDATE_QUESTION_SAGAS, updateQuestion);
 }
 
 export default function* rootSaga() {

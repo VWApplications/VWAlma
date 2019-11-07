@@ -1,16 +1,21 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { push } from 'connected-react-router';
 import { Form, Field } from 'react-final-form';
 import { VorFQuestion, MultipleChoicesQuestion, ShotQuestion } from 'common/questions';
 import { HiddenField } from 'common/fields';
 import { makeURL } from 'common/utils';
 import { Main, FormStyled, Info, SubmitButton, Pagination, StringToHtml, Line, Json } from 'common';
-import { listQuestionsSagas } from '../actions';
+import { listQuestionsSagas, deleteQuestionSagas } from '../actions';
 import { choiceAlert } from 'common/alerts';
 import { ExerciseValidation } from '../validate';
 import { MULTIPLE_CHOICES, SHOT, SCRATCH_CARD } from '../constants';
 
 class Exercises extends Component {
+    constructor(props) {
+        super(props);
+        this.question = null;
+    }
 
     componentDidMount() {
         const { dispatch, pagination } = this.props;
@@ -81,6 +86,27 @@ class Exercises extends Component {
         }
     }
 
+    __updateQuestion() {
+        const { dispatch, location } = this.props;
+        dispatch(push(
+            `/profile/${makeURL(location.state.discipline.title)}/sections/${makeURL(location.state.section.title)}/questions`,
+            { discipline: location.state.discipline, section: location.state.section, form: this.question }
+        ))
+    }
+
+    async __deleteQuestion() {
+        if (await choiceAlert(
+            "Deletar questão",
+            `Tem certeza que deseja deletar a questão: ${this.question.title}`,
+            "Sim", "Não",
+            "Questão deletada", "",
+            "Operação cancelada", ""
+        )) {
+            const { dispatch } = this.props;
+            dispatch(deleteQuestionSagas(this.question.id));
+        }
+    }
+
     render() {
         const { initialValues, state, questions, pagination } = this.props;
         const discipline = state.discipline;
@@ -96,9 +122,15 @@ class Exercises extends Component {
         ]
 
         const progress = parseInt((pagination.activePage * 100)/pagination.totalItemsCount).toString();
+        const rightButtons = (
+            <div className="btn-group pull-right">
+                <button type="button" className="btn btn-primary" onClick={() => this.__updateQuestion()}>Atualizar</button>
+                <button type="button" className="btn btn-danger" onClick={() => this.__deleteQuestion()}>Deletar</button>
+            </div>
+        )
 
       	return (
-            <Main navigation={navigator} menu="traditional" title="Lista de exercícios" icon="fa-gamepad">
+            <Main navigation={navigator} menu="traditional" title="Lista de exercícios" icon="fa-gamepad" rightComponent={rightButtons}>
                 <div className="progress">
                     <div
                         className="progress-bar progress-bar-striped active"
@@ -109,30 +141,33 @@ class Exercises extends Component {
                 </div>
 
                 {questions.length === 0 ? <Info>Não há questões disponíveis nessa lista de exercícios.</Info> : null}
-                {questions.map((question, index) => (
-                    <div className="panel panel-default" key={index}>
-                        <div className="panel-body">
-                            <h2>{pagination.activePage}) {question.title}</h2>
-                            {question.description ? <StringToHtml>{question.description}</StringToHtml> : null}
-                            <Line />
-                            <Form
-                                onSubmit={(data, form) => this.__submit(data, form)}
-                                validate={ExerciseValidation}
-                                initialValues={initialValues}
-                                render={({handleSubmit, submitting, values, invalid, errors}) => (
-                                    <FormStyled onSubmit={handleSubmit}>
-                                        {this.__getQuestionType(question, errors)}
-                                        <Field component={HiddenField} name="error" type="text" />
+                {questions.map((question, index) => {
+                    this.question = question;
+                    return (
+                        <div className="panel panel-default" key={index}>
+                            <div className="panel-body">
+                                <h2>{pagination.activePage}) {question.title}</h2>
+                                {question.description ? <StringToHtml>{question.description}</StringToHtml> : null}
+                                <Line />
+                                <Form
+                                    onSubmit={(data, form) => this.__submit(data, form)}
+                                    validate={ExerciseValidation}
+                                    initialValues={initialValues}
+                                    render={({handleSubmit, submitting, values, invalid, errors}) => (
+                                        <FormStyled onSubmit={handleSubmit}>
+                                            {this.__getQuestionType(question, errors)}
+                                            <Field component={HiddenField} name="error" type="text" />
 
-                                        <Line />
-                                        {progress === "100" ? <SubmitButton disabled={submitting || invalid}>Enviar</SubmitButton> : null}
-                                        <Json values={values} />
-                                    </FormStyled>
-                                )}
-                            />
+                                            <Line />
+                                            {progress === "100" ? <SubmitButton disabled={submitting || invalid}>Enviar</SubmitButton> : null}
+                                            <Json values={values} />
+                                        </FormStyled>
+                                    )}
+                                />
+                            </div>
                         </div>
-                    </div>
-                ))}
+                    )
+                })}
                 <Pagination pagination={pagination} listObjectAction={listQuestionsSagas} />
             </Main>
 		)

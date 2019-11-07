@@ -2,7 +2,6 @@ import { LIST_QUESTIONS } from './types';
 
 const initialState = {
 	list: [],
-	obj: null,
     pagination: {
         totalItemsCount: 0,
         itemsCountPerPage: 1,

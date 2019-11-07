@@ -9,22 +9,21 @@ import { makeURL } from 'common/utils';
 import { Main, FormStyled, Fieldset, FormSubmitButtons } from 'common';
 import { FormGroup, FormItem } from '../styles/questionForm';
 import { validateQuestionForm } from '../validate';
-import { createQuestionSagas } from '../actions';
+import { createQuestionSagas, updateQuestionSagas } from '../actions';
 import { choiceAlert } from 'common/alerts';
 import { V_OR_F, MULTIPLE_CHOICES, SHOT, SCRATCH_CARD } from '../constants';
 
 class QuestionForm extends Component {
     constructor(props) {
         super(props);
-
-        this.state = {title: "Criar questão"}
+        this.title = "Criar questão";
     }
 
     __submit(data, form) {
         const { dispatch, obj } = this.props;
 
         if (obj)
-            console.log("Atualizando!");
+            dispatch(updateQuestionSagas(data, obj.id));
         else
             dispatch(createQuestionSagas(data));
 
@@ -47,7 +46,7 @@ class QuestionForm extends Component {
         const discipline = state.discipline;
         const section = state.section;
 
-        if (obj) this.setState({title: "Editar questão"});
+        if (obj) this.title = "Editar questão";
 
         const navigator = [
             {title: "Home", url: "/", state: null},
@@ -59,7 +58,7 @@ class QuestionForm extends Component {
         ]
 
       	return (
-            <Main navigation={navigator} menu="traditional" title={this.state.title} icon="fa-clipboard">
+            <Main navigation={navigator} menu="traditional" title={this.title} icon="fa-clipboard">
                 <Form
                     onSubmit={(data, form) => this.__submit(data, form)}
                     mutators={{...arrayMutators}}
@@ -149,7 +148,6 @@ class QuestionForm extends Component {
 
 const mapStateToProps = state => {
     const { location } = state.router;
-    const { obj } = state.exercise;
 
     let initialValues = {
         title: "",
@@ -158,6 +156,8 @@ const mapStateToProps = state => {
         question_type: "MULTIPLE_CHOICES",
         alternatives: []
     }
+
+    let obj = location.state.form;
 
     if (obj)
         initialValues = {

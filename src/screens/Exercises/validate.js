@@ -14,10 +14,12 @@ const alternativesValidation = (values, errors) => {
             counter += 1;
     });
 
-    if (counter > 1)
-        errors.question_type = "Só pode haver uma única alternativa correta.";
-    else if (counter === 0)
-        errors.question_type = "Deve ter pelo menos uma alternativa correta.";
+    if (values.question_type !== V_OR_F) {
+        if (counter > 1)
+            errors.question_type = "Só pode haver uma única alternativa correta.";
+        else if (counter === 0)
+            errors.question_type = "Deve ter pelo menos uma alternativa correta.";
+    }
 
     if(alternativeArrayErrors.length > 0)
         errors.alternatives = alternativeArrayErrors;

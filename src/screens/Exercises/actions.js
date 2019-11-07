@@ -1,6 +1,6 @@
 import {
     LIST_QUESTIONS, LIST_QUESTIONS_SAGAS, CREATE_QUESTION_SAGAS,
-    UPDATE_QUESTION_SAGAS, DELETE_QUESTION_SAGAS
+    UPDATE_QUESTION_SAGAS, DELETE_QUESTION_SAGAS, FETCH_QUESTION
 } from './types';
 
 export function listQuestionsAction(questions, activePage, count) {
@@ -9,6 +9,10 @@ export function listQuestionsAction(questions, activePage, count) {
 
 export function listQuestionsSagas(activePage, queryString=null, test=false) {
     return {type: LIST_QUESTIONS_SAGAS, payload: {activePage, queryString, test}};
+}
+
+export function fetchQuestion(question) {
+    return {type: FETCH_QUESTION, payload: question}
 }
 
 export function createQuestionSagas(data) {
