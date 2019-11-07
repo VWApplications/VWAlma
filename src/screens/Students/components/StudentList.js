@@ -129,10 +129,10 @@ class StudentList extends Component {
 
                             <StudentBody
                                 user={account}
-                                email={student.email}
+                                email={student.user.email}
                                 id={student.identifier}
                                 onClose={() => this.__removeStudentFromClass({"id": student.id})}>
-                                {student.short_name}
+                                {student.user.short_name}
                             </StudentBody>
                         </StudentBox>
                     ))}

@@ -145,9 +145,13 @@ const Info = ({ children }) => (
 
 const StringToHtml = ({ children, resume=false }) => {
     if (resume) {
-        let content = children.match(/<h\d>.+<\/h\d>|<p>.+<\/p>/gm).slice(0, 2).join("\n");
-        content = content.replace("</p>", "...</p>")
-        return <div dangerouslySetInnerHTML={{__html: content}}></div>
+        try {
+            let content = children.match(/<h\d>.+<\/h\d>|<p>.+<\/p>/gm).slice(0, 2).join("\n");
+            content = content.replace("</p>", "...</p>")
+            return <div dangerouslySetInnerHTML={{__html: content}}></div>
+        } catch(e) {
+            return <div dangerouslySetInnerHTML={{__html: children}}></div>
+        }
     }
 
     return <div dangerouslySetInnerHTML={{__html: children}}></div>

@@ -2,7 +2,7 @@ import axios from 'config/axios';
 
 export function getQuestionsAPI(data, queryString=null) {
     let endpoint = "/alma/questions/";
-    if (queryString) endpoint = `/questions/?${queryString}`;
+    if (queryString) endpoint = `/alma/questions/?${queryString}`;
     return axios.post(endpoint, data);
 }
 
