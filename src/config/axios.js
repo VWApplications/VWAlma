@@ -4,7 +4,7 @@ import { errorAlert } from 'common/alerts';
 import { logoutAction } from 'screens/Accounts/actions';
 import store from './store';
 
-let baseURL = 'http://54.207.105.83:8001';
+let baseURL = 'https://api.vwapp.net';
 
 if (process.env.NODE_ENV === 'development') {
     baseURL = 'http://localhost:8001';
