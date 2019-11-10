@@ -11,7 +11,7 @@ import { FormGroup, FormItem } from '../styles/questionForm';
 import { validateQuestionForm } from '../validate';
 import { createQuestionSagas, updateQuestionSagas } from '../actions';
 import { choiceAlert } from 'common/alerts';
-import { V_OR_F, MULTIPLE_CHOICES, SHOT, SCRATCH_CARD } from '../constants';
+import { QUESTION_TYPE, QUESTION_EXAM } from '../constants';
 
 class QuestionForm extends Component {
     constructor(props) {
@@ -39,6 +39,40 @@ class QuestionForm extends Component {
         )
         if (success)
             fields.remove(index);
+    }
+
+    __getQuestionTypeOptions() {
+        const { state } = this.props;
+        const section = state.section;
+
+        switch(section.methodology) {
+            case QUESTION_EXAM.TBL:
+                return [{title: "Apostas", value: QUESTION_TYPE.TBL}];
+            default:
+                return [
+                    {title: "Multipla Escolha", value: QUESTION_TYPE.MULTIPLE_CHOICES},
+                    {title: "V ou F", value: QUESTION_TYPE.V_OR_F},
+                    {title: "Apostas", value: QUESTION_TYPE.SHOT}
+                ];
+        }
+    }
+
+    __getQuestionExamOptions() {
+        const { state } = this.props;
+        const section = state.section;
+
+        switch(section.methodology) {
+            case QUESTION_EXAM.TBL:
+                return [
+                    {label: "Exercício", value: QUESTION_EXAM.EXERCISE},
+                    {label: "Avaliação", value: QUESTION_EXAM.TBL}
+                ]
+            default:
+                return [
+                    {label: "Exercício", value: QUESTION_EXAM.EXERCISE},
+                    {label: "Avaliação", value: QUESTION_EXAM.TRADITIONAL}
+                ];
+        }
     }
 
     render() {
@@ -88,25 +122,17 @@ class QuestionForm extends Component {
                                         <RadioFields
                                             label="Selecione uma das opções abaixo:"
                                             inline={true}
-                                            name="question"
-                                            options={[
-                                                {label: "Exercício", value: "exercise"},
-                                                {label: "Avaliação", value: "exam"}
-                                            ]}
+                                            name="type"
+                                            options={this.__getQuestionExamOptions()}
                                         />
                                     </FormItem>
 
                                     <FormItem cols="4">
                                         <Field
                                             label="Tipo de questão"
-                                            name="question_type"
+                                            name="question"
                                             component={SelectField}
-                                            options={[
-                                                {title: "Multipla Escolha", value: MULTIPLE_CHOICES},
-                                                {title: "V ou F", value: V_OR_F},
-                                                {title: "Apostas", value: SHOT},
-                                                {title: "Raspadinha", value: SCRATCH_CARD}
-                                            ]}
+                                            options={this.__getQuestionTypeOptions()}
                                         />
                                     </FormItem>
                                 </FormGroup>
@@ -152,8 +178,8 @@ const mapStateToProps = state => {
     let initialValues = {
         title: "",
         description: "",
-        question: "exercise",
-        question_type: "MULTIPLE_CHOICES",
+        type: QUESTION_EXAM.EXERCISE.value,
+        question: QUESTION_TYPE.MULTIPLE_CHOICES.value,
         alternatives: []
     }
 
@@ -163,8 +189,8 @@ const mapStateToProps = state => {
         initialValues = {
             title: obj.title || initialValues.title,
             description: obj.description || initialValues.description,
-            question: obj.is_exercise ? "exercise" : "exam" || initialValues.question,
-            question_type: obj.question_type || initialValues.question_type,
+            type: obj.type|| initialValues.type,
+            question: obj.question || initialValues.question,
             alternatives: obj.alternatives || initialValues.alternatives
         } 
 

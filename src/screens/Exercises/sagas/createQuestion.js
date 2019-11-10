@@ -28,10 +28,9 @@ function* createQuestion(action) {
         const newSection = sectionResponse.data;
 
         yield put(push(
-            `/profile/${makeURL(newDiscipline.title)}/sections/${makeURL(newSection.title)}/questions`,
+            `/profile/${makeURL(newDiscipline.title)}/sections/${makeURL(newSection.title)}/exercises`,
             { discipline: newDiscipline, section: newSection }
         ));
-        window.location.reload();
     } catch(error) {
         validateError(error);
     }

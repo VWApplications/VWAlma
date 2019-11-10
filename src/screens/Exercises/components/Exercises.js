@@ -9,7 +9,7 @@ import { Main, FormStyled, Info, SubmitButton, Pagination, StringToHtml, Line, J
 import { listQuestionsSagas, deleteQuestionSagas } from '../actions';
 import { choiceAlert } from 'common/alerts';
 import { ExerciseValidation } from '../validate';
-import { MULTIPLE_CHOICES, SHOT, SCRATCH_CARD } from '../constants';
+import { QUESTION_TYPE } from '../constants';
 
 class Exercises extends Component {
     constructor(props) {
@@ -36,8 +36,8 @@ class Exercises extends Component {
     }
 
     __getQuestionType(question, errors) {
-        switch(question.question_type) {
-            case MULTIPLE_CHOICES:
+        switch(question.question) {
+            case QUESTION_TYPE.MULTIPLE_CHOICES:
                 return (
                     question.alternatives.map(alternative => (
                         <Field
@@ -52,7 +52,7 @@ class Exercises extends Component {
                     ))
                 );
 
-            case SHOT:
+            case QUESTION_TYPE.SHOT:
                 return (
                     question.alternatives.map(alternative => (
                         <Field
@@ -67,7 +67,7 @@ class Exercises extends Component {
                     ))
                 )
 
-            case SCRATCH_CARD:
+            case QUESTION_TYPE.SCRATCH_CARD:
                 return (<div>SCRATCH_CARD</div>);
 
             default:
