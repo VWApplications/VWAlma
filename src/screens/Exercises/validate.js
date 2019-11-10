@@ -31,8 +31,8 @@ export const validateQuestionForm = values => {
     if (!values.title)
         errors.title = "Título da questão é obrigatório.";
 
-    if (!values.is_exercise)
-        errors.is_exercise = "Selecione se essa questão é de exercício ou prova.";
+    if (!values.question)
+        errors.question = "Selecione se essa questão é de exercício ou prova.";
 
     if (!values.question_type)
         errors.question_type = "Selecione o tipo de questão.";

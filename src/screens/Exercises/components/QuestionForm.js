@@ -88,10 +88,10 @@ class QuestionForm extends Component {
                                         <RadioFields
                                             label="Selecione uma das opções abaixo:"
                                             inline={true}
-                                            name="is_exercise"
+                                            name="question"
                                             options={[
-                                                {label: "Exercício", value: "true"},
-                                                {label: "Avaliação", value: "false"}
+                                                {label: "Exercício", value: "exercise"},
+                                                {label: "Avaliação", value: "exam"}
                                             ]}
                                         />
                                     </FormItem>
@@ -152,7 +152,7 @@ const mapStateToProps = state => {
     let initialValues = {
         title: "",
         description: "",
-        is_exercise: "true",
+        question: "exercise",
         question_type: "MULTIPLE_CHOICES",
         alternatives: []
     }
@@ -163,7 +163,7 @@ const mapStateToProps = state => {
         initialValues = {
             title: obj.title || initialValues.title,
             description: obj.description || initialValues.description,
-            is_exercise: obj.is_exercise || initialValues.is_exercise,
+            question: obj.is_exercise ? "exercise" : "exam" || initialValues.question,
             question_type: obj.question_type || initialValues.question_type,
             alternatives: obj.alternatives || initialValues.alternatives
         } 

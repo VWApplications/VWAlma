@@ -9,28 +9,14 @@ const RadioBlock = styled.div`
 const RadioField = field => {
     const inlines = (
         <label className="radio-inline">
-            <input
-                name={field.input.name}
-                type={field.input.type}
-                value={field.input.value}
-                onFocus={field.input.onFocus}
-                onBlur={field.input.onBlur}
-                onChange={field.input.onChange}
-            />
+            <input {...field.input} />
             {field.label}
         </label>
     );
 
     const block = (
         <RadioBlock className="radio">
-            <input
-                name={field.input.name}
-                type={field.input.type}
-                value={field.input.value}
-                onFocus={field.input.onFocus}
-                onBlur={field.input.onBlur}
-                onChange={field.input.onChange}
-            />
+            <input {...field.input} />
             {field.label}
         </RadioBlock>
     )
@@ -46,7 +32,6 @@ export const RadioFields = ({ label, name, options, inline=false }) => {
                     key={index}
                     component={RadioField}
                     type="radio"
-                    id={index}
                     value={option.value}
                     label={option.label}
                     inline={inline}
