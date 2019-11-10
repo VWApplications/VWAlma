@@ -50,6 +50,7 @@ class SectionDetail extends Component {
         return (
             <Main icon="fa-puzzle-piece" navigation={navigator} menu="traditional" title="Detalhes da seção" rightComponent={finishButton}>
                 {section.is_closed ? <Label type="danger">Seção Fechada</Label> : <Label type="success">Seção Aberta</Label>}
+                <Label type="primary pull-right">{section.methodology === "TRADITIONAL" ? "TRADICIONAL" : section.methodology }</Label>
                 <StringToHtml>{section.description}</StringToHtml>
             </Main>
         )
