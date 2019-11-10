@@ -89,7 +89,7 @@ class ProfileDisciplines extends Component {
                                 </CollapseBody>
 
                                 <CollapseFooter>
-                                    <FooterInfo teacher={discipline.teacher.short_name} course={discipline.course} />
+                                    <FooterInfo teacher={discipline.teacher.user.short_name} course={discipline.course} />
 
                                     <FooterButtonGroup>
                                         <FooterButton icon="fa-eye" type="primary" title="Entrar" onClick={() => this.__redirectToDisciplineDetail(discipline)} />

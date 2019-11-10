@@ -37,7 +37,7 @@ class DisciplineDetail extends Component {
                 navigation={navigator}
                 menu="discipline"
                 title="Detalhes da disciplina"
-                rightComponent={<TeacherPhoto src={discipline.teacher.photo}>{discipline.teacher.short_name}</TeacherPhoto>}>
+                rightComponent={<TeacherPhoto src={discipline.teacher.photo}>{discipline.teacher.user.short_name}</TeacherPhoto>}>
                 {discipline.is_closed ? <Label type="danger">Disciplina Fechada</Label> : <Label type="success">Disciplina Aberta</Label>}
                 {account.permission === TEACHER ? <ActionsButton actions={actions}>Ações</ActionsButton> : null}
                 <StringToHtml>{discipline.description}</StringToHtml>
