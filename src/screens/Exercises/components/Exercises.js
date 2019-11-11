@@ -16,6 +16,7 @@ class Exercises extends Component {
     constructor(props) {
         super(props);
         this.question = null;
+        this.state = {feedback: false}
     }
 
     componentDidMount() {
@@ -85,6 +86,10 @@ class Exercises extends Component {
         }
     }
 
+    __showFeedback() {
+        this.setState({ feedback: !this.state.feedback });
+    }
+
     __updateQuestion() {
         const { dispatch, location } = this.props;
         dispatch(push(
@@ -123,6 +128,9 @@ class Exercises extends Component {
         const progress = parseInt((pagination.activePage * 100)/pagination.totalItemsCount).toString();
         const rightButtons = (
             <div className="btn-group pull-right">
+                <button type="button" className="btn btn-primary" onClick={() => this.__showFeedback()}>
+                    {this.state.feedback ? "Esconder Feedbacks" : "Mostrar Feedbacks"}
+                </button>
                 <button type="button" className="btn btn-primary" onClick={() => this.__updateQuestion()}>Atualizar</button>
                 <button type="button" className="btn btn-danger" onClick={() => this.__deleteQuestion()}>Deletar</button>
             </div>
@@ -160,7 +168,7 @@ class Exercises extends Component {
                                             <Line />
                                             {progress === "100" ? <SubmitButton disabled={submitting || invalid}>Enviar</SubmitButton> : null}
                                             <BreakLine />
-                                            <Feedback values={values} question={question} />
+                                            <Feedback values={values} question={question} open={this.state.feedback} />
                                         </FormStyled>
                                     )}
                                 />

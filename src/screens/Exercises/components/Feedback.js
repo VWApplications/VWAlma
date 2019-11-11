@@ -130,26 +130,30 @@ class Feedback extends Component {
     render() {
         this.__renderQuestions();
 
-        return (
-            <div className="panel panel-default">
-                <div className="panel-body">
-                    <h3>Feedback</h3>
-                    <hr />
-                    <table className="table table-hover">
-                        <thead>
-                            <tr>
-                                <th>Tipo de questão</th>
-                                <th>Título da Questão</th>
-                                <th>Resposta</th>
-                            </tr>
-                        </thead>
-                        <tbody className="text-justify">
-                            {this.questions.map(question => question.html)}
-                        </tbody>
-                    </table>
+        if (this.props.open) {
+            return (
+                <div className="panel panel-default">
+                    <div className="panel-body">
+                        <h3>Feedback</h3>
+                        <hr />
+                        <table className="table table-hover">
+                            <thead>
+                                <tr>
+                                    <th>Tipo de questão</th>
+                                    <th>Título da Questão</th>
+                                    <th>Resposta</th>
+                                </tr>
+                            </thead>
+                            <tbody className="text-justify">
+                                {this.questions.map(question => question.html)}
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
-            </div>
-        )
+            )
+        }
+
+        return null;
     }
 }
 
