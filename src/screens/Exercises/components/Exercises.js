@@ -5,7 +5,7 @@ import { Form, Field } from 'react-final-form';
 import { VorFQuestion, MultipleChoicesQuestion, ShotQuestion } from 'common/questions';
 import { HiddenField } from 'common/fields';
 import { makeURL } from 'common/utils';
-import { Main, FormStyled, Info, SubmitButton, Pagination, Line, ProgressBar } from 'common';
+import { Main, FormStyled, Info, SubmitButton, Pagination, Line, ProgressBar, BreakLine } from 'common';
 import { listQuestionsSagas, deleteQuestionSagas } from '../actions';
 import { QuestionPanel, RightButtons } from '../styles/exercise';
 import { choiceAlert } from 'common/alerts';
@@ -155,6 +155,7 @@ class Exercises extends Component {
 
                                         <Line />
                                         {progress === "100" ? <SubmitButton disabled={submitting || invalid}>Enviar</SubmitButton> : null}
+                                        {progress === "100" ? <BreakLine /> : null}
                                         <Feedback values={values} question={question} open={this.state.feedback} />
                                     </FormStyled>
                                 )}
