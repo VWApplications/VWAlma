@@ -98,11 +98,17 @@ class Feedback extends Component {
 
         if (this.ids.indexOf(question.id) === -1) {
             this.ids.push(question.id);
-            this.questions.push({
+            this.questions.unshift({
                 id: question.id,
                 html: (
                     <tr key={question.id}>
-                        <td>{question.question}</td>
+                        <td>
+                            {question.question === QUESTION_TYPE.V_OR_F ?
+                                "Verdadeiro ou Falso"
+                            : question.question === QUESTION_TYPE.SHOT ?
+                                "Aposta"
+                            : "Multipla Escolha"}
+                        </td>
                         <td>{question.title}</td>
                         <td><ul>{alternatives}</ul></td>
                     </tr>
@@ -114,11 +120,17 @@ class Feedback extends Component {
                     this.questions.splice(i, 1);
             }
 
-            this.questions.push({
+            this.questions.unshift({
                 id: question.id,
                 html: (
                     <tr key={question.id}>
-                        <td>{question.question}</td>
+                        <td>
+                            {question.question === QUESTION_TYPE.V_OR_F ?
+                                "Verdadeiro ou Falso"
+                            : question.question === QUESTION_TYPE.SHOT ?
+                                "Aposta"
+                            : "Multipla Escolha"}
+                        </td>
                         <td>{question.title}</td>
                         <td><ul>{alternatives}</ul></td>
                     </tr>
@@ -132,23 +144,20 @@ class Feedback extends Component {
 
         if (this.props.open) {
             return (
-                <div className="panel panel-default">
-                    <div className="panel-body">
-                        <h3>Feedback</h3>
-                        <hr />
-                        <table className="table table-hover">
-                            <thead>
-                                <tr>
-                                    <th>Tipo de questão</th>
-                                    <th>Título da Questão</th>
-                                    <th>Resposta</th>
-                                </tr>
-                            </thead>
-                            <tbody className="text-justify">
-                                {this.questions.map(question => question.html)}
-                            </tbody>
-                        </table>
-                    </div>
+                <div>
+                    <h3>Feedback</h3>
+                    <table className="table table-hover">
+                        <thead>
+                            <tr>
+                                <th>Tipo de questão</th>
+                                <th>Título da Questão</th>
+                                <th>Resposta</th>
+                            </tr>
+                        </thead>
+                        <tbody className="text-justify">
+                            {this.questions.map(question => question.html)}
+                        </tbody>
+                    </table>
                 </div>
             )
         }

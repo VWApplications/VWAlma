@@ -167,7 +167,6 @@ class Exercises extends Component {
 
                                             <Line />
                                             {progress === "100" ? <SubmitButton disabled={submitting || invalid}>Enviar</SubmitButton> : null}
-                                            <BreakLine />
                                             <Feedback values={values} question={question} open={this.state.feedback} />
                                         </FormStyled>
                                     )}
