@@ -5,8 +5,9 @@ import { Form, Field } from 'react-final-form';
 import { VorFQuestion, MultipleChoicesQuestion, ShotQuestion } from 'common/questions';
 import { HiddenField } from 'common/fields';
 import { makeURL } from 'common/utils';
-import { Main, FormStyled, Info, SubmitButton, Pagination, StringToHtml, Line, BreakLine } from 'common';
+import { Main, FormStyled, Info, SubmitButton, Pagination, Line, ProgressBar } from 'common';
 import { listQuestionsSagas, deleteQuestionSagas } from '../actions';
+import { QuestionPanel, RightButtons } from '../styles/exercise';
 import { choiceAlert } from 'common/alerts';
 import { ExerciseValidation } from '../validate';
 import { QUESTION_TYPE } from '../constants';
@@ -127,52 +128,38 @@ class Exercises extends Component {
 
         const progress = parseInt((pagination.activePage * 100)/pagination.totalItemsCount).toString();
         const rightButtons = (
-            <div className="btn-group pull-right">
-                <button type="button" className="btn btn-primary" onClick={() => this.__showFeedback()}>
-                    {this.state.feedback ? "Esconder Feedbacks" : "Mostrar Feedbacks"}
-                </button>
-                <button type="button" className="btn btn-primary" onClick={() => this.__updateQuestion()}>Atualizar</button>
-                <button type="button" className="btn btn-danger" onClick={() => this.__deleteQuestion()}>Deletar</button>
-            </div>
+            <RightButtons
+                feedbackClick={() => this.__showFeedback()}
+                updateClick={() => this.__updateQuestion()}
+                deleteClick={() => this.__deleteQuestion()}
+            />
         )
 
       	return (
             <Main navigation={navigator} menu="traditional" title="Lista de exercícios" icon="fa-gamepad" rightComponent={rightButtons}>
-                <div className="progress">
-                    <div
-                        className="progress-bar progress-bar-striped active"
-                        role="progressbar" aria-valuenow={progress} aria-valuemin="0"
-                        aria-valuemax="100" style={{"width": `${progress}%`}}>
-                        {progress}%
-                    </div>
-                </div>
+                <ProgressBar progress={progress} />
 
                 {questions.length === 0 ? <Info>Não há questões disponíveis nessa lista de exercícios.</Info> : null}
                 {questions.map((question, index) => {
                     this.question = question;
                     return (
-                        <div className="panel panel-default" key={index}>
-                            <div className="panel-body">
-                                <h2>{pagination.activePage}) {question.title}</h2>
-                                {question.description ? <StringToHtml>{question.description}</StringToHtml> : null}
-                                <Line />
-                                <Form
-                                    onSubmit={(data, form) => this.__submit(data, form)}
-                                    validate={ExerciseValidation}
-                                    initialValues={initialValues}
-                                    render={({handleSubmit, submitting, values, invalid, errors}) => (
-                                        <FormStyled onSubmit={handleSubmit}>
-                                            {this.__getQuestionType(question, errors)}
-                                            <Field component={HiddenField} name="error" type="text" />
+                        <QuestionPanel key={index} activePage={pagination.activePage} question={question}>
+                            <Form
+                                onSubmit={(data, form) => this.__submit(data, form)}
+                                validate={ExerciseValidation}
+                                initialValues={initialValues}
+                                render={({handleSubmit, submitting, values, invalid, errors}) => (
+                                    <FormStyled onSubmit={handleSubmit}>
+                                        {this.__getQuestionType(question, errors)}
+                                        <Field component={HiddenField} name="error" type="text" />
 
-                                            <Line />
-                                            {progress === "100" ? <SubmitButton disabled={submitting || invalid}>Enviar</SubmitButton> : null}
-                                            <Feedback values={values} question={question} open={this.state.feedback} />
-                                        </FormStyled>
-                                    )}
-                                />
-                            </div>
-                        </div>
+                                        <Line />
+                                        {progress === "100" ? <SubmitButton disabled={submitting || invalid}>Enviar</SubmitButton> : null}
+                                        <Feedback values={values} question={question} open={this.state.feedback} />
+                                    </FormStyled>
+                                )}
+                            />
+                        </QuestionPanel>
                     )
                 })}
                 <Pagination pagination={pagination} listObjectAction={listQuestionsSagas} />
