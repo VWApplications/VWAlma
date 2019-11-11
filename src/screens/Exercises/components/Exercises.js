@@ -5,11 +5,12 @@ import { Form, Field } from 'react-final-form';
 import { VorFQuestion, MultipleChoicesQuestion, ShotQuestion } from 'common/questions';
 import { HiddenField } from 'common/fields';
 import { makeURL } from 'common/utils';
-import { Main, FormStyled, Info, SubmitButton, Pagination, StringToHtml, Line, Json } from 'common';
+import { Main, FormStyled, Info, SubmitButton, Pagination, StringToHtml, Line, BreakLine } from 'common';
 import { listQuestionsSagas, deleteQuestionSagas } from '../actions';
 import { choiceAlert } from 'common/alerts';
 import { ExerciseValidation } from '../validate';
 import { QUESTION_TYPE } from '../constants';
+import Feedback from './Feedback';
 
 class Exercises extends Component {
     constructor(props) {
@@ -32,6 +33,7 @@ class Exercises extends Component {
         if (success) {
             console.log(data);
             setTimeout(form.reset);
+            window.location.reload();
         }
     }
 
@@ -66,9 +68,6 @@ class Exercises extends Component {
                         />
                     ))
                 )
-
-            case QUESTION_TYPE.SCRATCH_CARD:
-                return (<div>SCRATCH_CARD</div>);
 
             default:
                 return (
@@ -160,7 +159,8 @@ class Exercises extends Component {
 
                                             <Line />
                                             {progress === "100" ? <SubmitButton disabled={submitting || invalid}>Enviar</SubmitButton> : null}
-                                            <Json values={values} />
+                                            <BreakLine />
+                                            <Feedback values={values} question={question} />
                                         </FormStyled>
                                     )}
                                 />
