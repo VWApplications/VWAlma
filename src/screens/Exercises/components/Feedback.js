@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { QUESTION_TYPE } from '../constants';
+import { FeedbackTable, TableBody, TableAlternatives } from '../styles/feedback';
 
 class Feedback extends Component {
     constructor(props) {
@@ -12,15 +13,8 @@ class Feedback extends Component {
     __renderShotAlternatives(alternatives) {
         let htmlAlternatives = [];
         for (let alternative of alternatives) {
-            if (alternative.answer) {
-                htmlAlternatives.push(
-                    <li key={alternative.id}>
-                        <span className="label label-primary">
-                            {alternative.answer}
-                        </span> {alternative.title}
-                    </li>
-                )
-            }
+            if (alternative.answer)
+                htmlAlternatives.push(<TableAlternatives key={alternative.id} alternative={alternative} type={QUESTION_TYPE.SHOT} />)
         }
 
         return htmlAlternatives;
@@ -29,15 +23,8 @@ class Feedback extends Component {
     __renderVorFAlternatives(alternatives) {
         let htmlAlternatives = [];
         for (let alternative of alternatives) {
-            if (alternative.answer !== undefined) {
-                htmlAlternatives.push(
-                    <li key={alternative.id}>
-                        <span className="label label-primary">
-                            {alternative.answer === true ? "V" : "F"}
-                        </span> {alternative.title}
-                    </li>
-                )
-            }
+            if (alternative.answer !== undefined)
+                htmlAlternatives.push(<TableAlternatives key={alternative.id} alternative={alternative} type={QUESTION_TYPE.V_OR_F} />)
         }
 
         return htmlAlternatives;
@@ -46,41 +33,35 @@ class Feedback extends Component {
     __getSelectedAlternative(question) {
         let htmlAlternatives = [];
         for (let alternative of question.alternatives) {
-            if (alternative.id === parseInt(question.answer)) {
-                htmlAlternatives.push(<li key={alternative.id}>{alternative.title}</li>)
-            }
+            if (alternative.id === parseInt(question.answer))
+                htmlAlternatives.push(<TableAlternatives key={alternative.id} alternative={alternative} />)
         }
 
         return htmlAlternatives
+    }
+
+    __populateAlternativeAnswer(questionName, question, value) {
+        if (parseInt(questionName.slice(1)) === question.id) {
+            for (let alternative of question.alternatives) {
+                for (let [key, answer] of Object.entries(value)) {
+                    if (parseInt(key.slice(1)) === alternative.id)
+                        alternative.answer = answer;
+                }
+            }
+        }
     }
 
     __renderQuestions() {
         const { values, question } = this.props;
 
         if (values.hasOwnProperty("shots")) {
-            for (let [questionName, value] of Object.entries(values.shots)) {
-                if (parseInt(questionName.slice(1)) === question.id) {
-                    for (let alternative of question.alternatives) {
-                        for (let [key, answer] of Object.entries(value)) {
-                            if (parseInt(key.slice(1)) === alternative.id)
-                                alternative.answer = answer;
-                        }
-                    }
-                }
-            }
+            for (let [questionName, value] of Object.entries(values.shots))
+                this.__populateAlternativeAnswer(questionName, question, value);
         }
 
         if (values.hasOwnProperty("VorF")) {
-            for (let [questionName, value] of Object.entries(values.VorF)) {
-                if (parseInt(questionName.slice(1)) === question.id) {
-                    for (let alternative of question.alternatives) {
-                        for (let [key, answer] of Object.entries(value)) {
-                            if (parseInt(key.slice(1)) === alternative.id)
-                                alternative.answer = answer;
-                        }
-                    }
-                }
-            }
+            for (let [questionName, value] of Object.entries(values.VorF))
+                this.__populateAlternativeAnswer(questionName, question, value);
         }
 
         if (values.hasOwnProperty("multiple_choices")) {
@@ -98,69 +79,22 @@ class Feedback extends Component {
 
         if (this.ids.indexOf(question.id) === -1) {
             this.ids.push(question.id);
-            this.questions.unshift({
-                id: question.id,
-                html: (
-                    <tr key={question.id}>
-                        <td>
-                            {question.question === QUESTION_TYPE.V_OR_F ?
-                                "Verdadeiro ou Falso"
-                            : question.question === QUESTION_TYPE.SHOT ?
-                                "Aposta"
-                            : "Multipla Escolha"}
-                        </td>
-                        <td>{question.title}</td>
-                        <td><ul>{alternatives}</ul></td>
-                    </tr>
-                )
-            })
+            this.questions.unshift({id: question.id, html: <TableBody key={question.id} question={question} alternatives={alternatives} />})
         } else {
             for (let i = 0; i < this.questions.length; i++) {
                 if (this.questions[i].id === question.id)
                     this.questions.splice(i, 1);
             }
 
-            this.questions.unshift({
-                id: question.id,
-                html: (
-                    <tr key={question.id}>
-                        <td>
-                            {question.question === QUESTION_TYPE.V_OR_F ?
-                                "Verdadeiro ou Falso"
-                            : question.question === QUESTION_TYPE.SHOT ?
-                                "Aposta"
-                            : "Multipla Escolha"}
-                        </td>
-                        <td>{question.title}</td>
-                        <td><ul>{alternatives}</ul></td>
-                    </tr>
-                )
-            })
+            this.questions.unshift({id: question.id, html: <TableBody key={question.id} question={question} alternatives={alternatives} />})
         }
     }
 
     render() {
         this.__renderQuestions();
 
-        if (this.props.open) {
-            return (
-                <div>
-                    <h3>Feedback</h3>
-                    <table className="table table-hover">
-                        <thead>
-                            <tr>
-                                <th>Tipo de questão</th>
-                                <th>Título da Questão</th>
-                                <th>Resposta</th>
-                            </tr>
-                        </thead>
-                        <tbody className="text-justify">
-                            {this.questions.map(question => question.html)}
-                        </tbody>
-                    </table>
-                </div>
-            )
-        }
+        if (this.props.open)
+            return <FeedbackTable>{this.questions.map(question => question.html)}</FeedbackTable>
 
         return null;
     }
