@@ -182,6 +182,17 @@ const ActionsButton = ({ children, actions }) => (
     </div>
 )
 
+const ProgressBar = ({ progress }) => (
+    <div className="progress">
+        <div
+            className="progress-bar progress-bar-striped active"
+            role="progressbar" aria-valuenow={progress} aria-valuemin="0"
+            aria-valuemax="100" style={{"width": `${progress}%`}}>
+            {progress}%
+        </div>
+    </div>
+)
+
 const Label = ({ children, type="primary gradient" }) => (<span className={"label label-" + type}>{children}</span>)
 
 const BreakLine = () => (<br />)
@@ -193,5 +204,6 @@ export {
     Container, FormStyled, Fieldset,
     BreakLine, Line, SubmitButton, Button,
     Main, Info, StringToHtml, ActionsButton,
-    Label, Json, ResetButton, FormSubmitButtons
+    Label, Json, ResetButton, FormSubmitButtons,
+    ProgressBar
 };

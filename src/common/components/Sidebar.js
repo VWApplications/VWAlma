@@ -11,8 +11,12 @@ class Sidebar extends Component {
 
     __redirectTo(url, state=null) {
         const { dispatch } = this.props;
+        if (state.hasOwnProperty('form'))
+            delete state['form']
+
         dispatch(push(url, state));
         window.scrollTo(0, 0);
+        window.location.reload();
     }
 
     async __deleteAccount() {

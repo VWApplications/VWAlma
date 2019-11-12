@@ -1,6 +1,6 @@
 import {
     LIST_SECTIONS, LIST_SECTIONS_SAGAS, CREATE_SECTION_SAGAS, UPDATE_SECTION_SAGAS,
-    PROVIDE_SECTION_SAGAS, DELETE_SECTION_SAGAS, UPDATE_FORM
+    PROVIDE_SECTION_SAGAS, DELETE_SECTION_SAGAS, UPDATE_FORM, FINISH_SECTION_SAGAS
 } from './types';
 
 export function updateFormAction(section) {
@@ -29,4 +29,8 @@ export function deleteSectionsSagas(sectionID) {
 
 export function provideSectionsSagas(sectionID) {
     return {type: PROVIDE_SECTION_SAGAS, payload: sectionID};
+}
+
+export function finishSectionSagas() {
+    return {type: FINISH_SECTION_SAGAS};
 }

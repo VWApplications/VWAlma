@@ -30,11 +30,12 @@ const Status = styled.span`
     margin-right: 10px;
 `;
 
-export const SectionPanelHeader = ({ children, id, statusTitle, statusType }) => (
+export const SectionPanelHeader = ({ children, id, statusTitle, statusType, sectionType }) => (
     <div className="panel-heading">
         <PanelTitle className="panel-title">
             <a data-toggle="collapse" data-parent="#accordion" href={`#collapse${id}`}>
                 <span><i className="fa fa-chevron-right"></i> {children}</span>
+                <Status className={`label label-primary pull-right`}>{sectionType}</Status>
                 <Status className={`label label-${statusType} pull-right`}>{statusTitle}</Status>
             </a>
         </PanelTitle>

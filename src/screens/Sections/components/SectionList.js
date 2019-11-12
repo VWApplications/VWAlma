@@ -4,10 +4,11 @@ import { push } from 'connected-react-router';
 import { Form, Field } from 'react-final-form';
 import { choiceAlert } from 'common/alerts';
 import { makeURL } from 'common/utils';
-import { InputField, EditorField } from 'common/fields';
+import { InputField, EditorField, SelectField } from 'common/fields';
 import { Main, Info, FormStyled, SubmitButton, Fieldset, Pagination, StringToHtml } from 'common';
 import { TEACHER, ADMIN } from 'common/constants';
 import { validateCreateSection } from '../validate';
+import { TRADITIONAL, TBL } from '../constants';
 import {
     listSectionsSagas, createSectionsSagas, updateFormAction,
     updateSectionsSagas, deleteSectionsSagas, provideSectionsSagas
@@ -114,6 +115,16 @@ class SectionList extends Component {
                                     />
 
                                     <Field
+                                        label="Tipo de metodologia"
+                                        name="methodology"
+                                        component={SelectField}
+                                        options={[
+                                            {title: "Tradicional", value: TRADITIONAL},
+                                            {title: "V ou F", value: TBL}
+                                        ]}
+                                    />
+
+                                    <Field
                                         component={EditorField}
                                         name="description"
                                         placeholder="Insira a ementa da disciplina aqui!"
@@ -133,6 +144,7 @@ class SectionList extends Component {
                             <SectionPanelHeader
                                 statusTitle={section.is_closed ? "Seção não liberada" : "Seção liberada"}
                                 statusType={section.is_closed ? "danger" : "success"}
+                                sectionType={section.methodology}
                                 id={section.id}>
                                 {section.title}
                             </SectionPanelHeader>
@@ -165,10 +177,11 @@ const mapStateToProps = state => {
     const { list, pagination, form } = state.section;
     const { user } = state.account;
 
-    let initialValues = {};
+    let initialValues = {methodology: TRADITIONAL};
     if (form) {
         initialValues = {
             title: form.title || "",
+            methodology: form.methodology || TRADITIONAL,
             description: form.description || ""
         }
     }

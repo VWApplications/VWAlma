@@ -6,6 +6,7 @@ import { fetchSectionAPI } from 'screens/Sections/api';
 import { UPDATE_QUESTION_SAGAS } from '../types';
 import { updateQuestionAPI } from '../api';
 import { validateError } from 'common/utils';
+import { successAlert } from 'common/alerts';
 
 function* updateQuestion(action) {
     const { data, questionID } = action.payload;
@@ -13,6 +14,7 @@ function* updateQuestion(action) {
 
     try {
         yield call(updateQuestionAPI, data, questionID);
+        successAlert("Questão atualizada!", "Questão atualizada com sucesso!");
 
         const disciplineResponse = yield call(fetchDisciplineAPI, discipline.id);
         const newDiscipline = disciplineResponse.data;

@@ -11,6 +11,11 @@ export function fetchSectionAPI(sectionID) {
     return axios.get(endpoint);
 }
 
+export function finishSectionAPI(sectionID) {
+    let endpoint = `/alma/sections/${sectionID}/finish/`;
+    return axios.get(endpoint);
+}
+
 export function createSectionAPI(data) {
     let endpoint = "/alma/sections/";
     return axios.post(endpoint, data);

@@ -5,7 +5,7 @@ import disciplineSagas from 'screens/Disciplines/sagas';
 import studentSagas from 'screens/Students/sagas';
 import groupSagas from 'screens/Groups/sagas';
 import sectionSagas from 'screens/Sections/sagas';
-import traditionalSagas from 'screens/Traditional/sagas';
+import MethodologiesSagas from 'screens/Methodologies/sagas';
 import exerciseSagas from 'screens/Exercises/sagas';
 
 export default function* rootSaga() {
@@ -16,7 +16,7 @@ export default function* rootSaga() {
         studentSagas(),
         groupSagas(),
         sectionSagas(),
-        traditionalSagas(),
+        MethodologiesSagas(),
         exerciseSagas()
     ]);
 }

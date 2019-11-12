@@ -2,7 +2,7 @@ import axios from 'config/axios';
 
 export function getStudentsAPI(disciplineID, queryString=null) {
     let endpoint = `/alma/disciplines/${disciplineID}/students/`;
-    if (queryString) endpoint = `/disciplines/${disciplineID}/students/?${queryString}`;
+    if (queryString) endpoint = `/alma/disciplines/${disciplineID}/students/?${queryString}`;
     return axios.get(endpoint);
 }
 

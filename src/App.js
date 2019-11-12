@@ -10,9 +10,8 @@ import {
 import { DisciplineForm, DisciplineSearch, DisciplineDetail } from 'screens/Disciplines';
 import { StudentList } from 'screens/Students';
 import { GroupList } from 'screens/Groups';
-import { SectionList } from 'screens/Sections';
+import { SectionList, SectionDetails } from 'screens/Sections';
 import { QuestionForm, Exercises } from 'screens/Exercises';
-import { SectionDetails } from 'screens/Traditional';
 import "asserts/css/html.css";
 
 class App extends Component {

@@ -9,7 +9,8 @@ export {
     Container, FormStyled, Fieldset,
     BreakLine, Line, SubmitButton, Button,
     Main, Info, StringToHtml, ActionsButton,
-    Label, Json, ResetButton, FormSubmitButtons
+    Label, Json, ResetButton, FormSubmitButtons,
+    ProgressBar
 } from './components/Generic';
 
 export {

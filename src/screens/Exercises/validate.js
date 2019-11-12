@@ -1,4 +1,4 @@
-import { V_OR_F, MULTIPLE_CHOICES } from './constants';
+import { QUESTION_TYPE } from './constants';
 import { isEmpty } from 'common/utils';
 
 const alternativesValidation = (values, errors) => {
@@ -14,11 +14,11 @@ const alternativesValidation = (values, errors) => {
             counter += 1;
     });
 
-    if (values.question_type !== V_OR_F) {
+    if (values.question !== QUESTION_TYPE.V_OR_F) {
         if (counter > 1)
-            errors.question_type = "Só pode haver uma única alternativa correta.";
+            errors.question = "Só pode haver uma única alternativa correta.";
         else if (counter === 0)
-            errors.question_type = "Deve ter pelo menos uma alternativa correta.";
+            errors.question = "Deve ter pelo menos uma alternativa correta.";
     }
 
     if(alternativeArrayErrors.length > 0)
@@ -31,25 +31,25 @@ export const validateQuestionForm = values => {
     if (!values.title)
         errors.title = "Título da questão é obrigatório.";
 
-    if (!values.is_exercise)
-        errors.is_exercise = "Selecione se essa questão é de exercício ou prova.";
+    if (!values.type)
+        errors.type = "Selecione se essa questão é de exercício ou prova.";
 
-    if (!values.question_type)
-        errors.question_type = "Selecione o tipo de questão.";
+    if (!values.question)
+        errors.question = "Selecione o tipo de questão.";
 
-    if (values.question_type === V_OR_F) {
+    if (values.question === QUESTION_TYPE.V_OR_F) {
         if (values.alternatives.length === 0)
-            errors.question_type = 'Tem que ter pelo menos 1 alternativa.';
+            errors.question = 'Tem que ter pelo menos 1 alternativa.';
         else
             alternativesValidation(values, errors);
-    } else if (values.question_type === MULTIPLE_CHOICES) {
+    } else if (values.question === QUESTION_TYPE.MULTIPLE_CHOICES) {
         if (values.alternatives.length < 4)
-            errors.question_type = 'Tem que ter pelo menos 4 alternativas.';
+            errors.question = 'Tem que ter pelo menos 4 alternativas.';
         else
             alternativesValidation(values, errors);
-    } else {
+    } else if (values.question === QUESTION_TYPE.SHOT) {
         if (values.alternatives.length !== 4)
-            errors.question_type = 'Tem que ter exatamente 4 alternativas.';
+            errors.question = 'Tem que ter exatamente 4 alternativas.';
         else
             alternativesValidation(values, errors);
     }

@@ -28,7 +28,7 @@ RUN npm run build
 # Inserindo a imagem do NGINX
 FROM nginx:latest
 
-#Removando arquivo de configuração default do nginx
+# Removando arquivo de configuração default do nginx
 RUN rm -rf /etc/nginx/conf.d/*
 
 # Copiando o arquivo de configuração do nginx para dentro do container

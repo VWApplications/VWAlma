@@ -95,7 +95,7 @@ class DisciplineSearch extends Component {
                                 </CollapseBody>
 
                                 <CollapseFooter>
-                                    <FooterInfo teacher={discipline.teacher.short_name} course={discipline.course} />
+                                    <FooterInfo teacher={discipline.teacher.user.short_name} course={discipline.course} />
                                     <FooterPassword>
                                         <Form
                                             onSubmit={(data, form) => this.__enterDisciplineSubmit(data, discipline.id, form)}
