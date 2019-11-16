@@ -9,8 +9,8 @@ class Features extends Component {
 
                 <Timeline>
                     <TimelineItem title="Gerenciar disciplinas e alunos" color="primary" icon="fa-graduation-cap">
-                        O professor pode adicionar, remover, criar e editar cursos e turmas e fornecer a senha para eles entrarem.
-                        Além de poder remover os alunos da disciplina e adicioná-la a outras disciplinas próprias e gerenciar
+                        O professor pode adicionar, remover, criar e editar disciplinas e fornecer a senha para eles entrarem.
+                        Além de poder remover os alunos da disciplina, adicioná-los quando quiser e gerenciar
                         suas notas.
                     </TimelineItem>
 
@@ -20,16 +20,15 @@ class Features extends Component {
                     </TimelineItem>
 
                     <TimelineItem title="Relatórios" color="danger" icon="fa-bar-chart">
-                        O professor terá um painel com relatórios de desempenho do aluno em cada pergunta de avaliação,
-                        feedback para o que ele ou ela deve focar mais na sala de aula e gerará um CSV de provas do
-                        aluno com suas respostas.
+                        O professor terá um painel com relatórios de desempenho do aluno em cada pergunta da avaliação,
+                        feedback de questões que mais gerou erros para o que o professor possa focar mais em sala de aula
+                        e gerará um CSV das provas dos alunos com suas respectivas respostas.
                     </TimelineItem>
 
                     <TimelineItem title="Rank e Gamificação" color="success" icon="fa-gamepad" inverted={true}>
-                        Também haverá uma classificação de grupo em que o primeiro lugar será exibido no Hall of Fame
-                        que será visto pelos novos alunos dos próximos semestres, não há classificação individual, pois
-                        o objetivo não é a competição, mas a colaboração. Além de ter uma gameficação na lista de exercícios,
-                        entre outros locais do software.
+                        Também haverá um rank de grupo em que o 3 primeiros colocados ganharam bonificações definidas
+                        pelo professor, não há classificação individual, pois o objetivo não é a competição, mas a colaboração.
+                        Além de ter uma gameficação na lista de exercícios, entre outros locais do software.
                     </TimelineItem>
                 </Timeline>
             </Container>

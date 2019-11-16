@@ -49,8 +49,6 @@ export const InputGroup = ({ children, icon, title }) => (
 
 const FormGroupStyled = styled.div`
     padding-bottom: 0;
-    padding-left: 10px;
-    padding-right: 10px;
 `;
 
 export const FormGroup = ({ children }) => (
