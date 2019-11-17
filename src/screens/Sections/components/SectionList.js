@@ -8,7 +8,7 @@ import { InputField, EditorField, SelectField } from 'common/fields';
 import { Main, Info, FormStyled, SubmitButton, Fieldset, Pagination, StringToHtml } from 'common';
 import { TEACHER, ADMIN } from 'common/constants';
 import { validateCreateSection } from '../validate';
-import { TRADITIONAL, TBL } from '../constants';
+import { TRADITIONAL } from '../constants';
 import {
     listSectionsSagas, createSectionsSagas, updateFormAction,
     updateSectionsSagas, deleteSectionsSagas, provideSectionsSagas
@@ -119,8 +119,7 @@ class SectionList extends Component {
                                         name="methodology"
                                         component={SelectField}
                                         options={[
-                                            {title: "Tradicional", value: TRADITIONAL},
-                                            {title: "V ou F", value: TBL}
+                                            {title: "Tradicional", value: TRADITIONAL}
                                         ]}
                                     />
 

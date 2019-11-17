@@ -35,7 +35,6 @@ class Exercises extends Component {
         if (success) {
             console.log(data);
             setTimeout(form.reset);
-            window.location.reload();
         }
     }
 
