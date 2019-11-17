@@ -110,3 +110,10 @@ export const rowMap = (list, qtdCols=3, rowFunction) => {
         </div>
     );
 }
+
+export const isMonitor = (studentID, discipline) => {
+    if (discipline.monitors.indexOf(studentID) >= 0)
+        return true
+
+    return false
+}

@@ -1,5 +1,4 @@
 import { StringToHtml, Line } from 'common';
-import { TEACHER, ADMIN } from 'common/constants';
 import React from 'react';
 
 export const QuestionPanel = ({ children, activePage, question }) => (
@@ -13,16 +12,12 @@ export const QuestionPanel = ({ children, activePage, question }) => (
     </div>
 )
 
-export const RightButtons = ({ user, open, feedbackClick, updateClick, deleteClick }) => (
+export const RightButtons = ({ canDo, open, feedbackClick, updateClick, deleteClick }) => (
     <div className="btn-group pull-right">
         <button type="button" className="btn btn-primary" onClick={feedbackClick}>
             {open ? "Esconder Feedbacks" : "Mostrar Feedbacks"}
         </button>
-        {user.permission === TEACHER || user.permission === ADMIN ?
-            <button type="button" className="btn btn-primary" onClick={updateClick}>Atualizar</button>
-        : null}
-        {user.permission === TEACHER || user.permission === ADMIN ?
-            <button type="button" className="btn btn-danger" onClick={deleteClick}>Deletar</button>
-        : null}
+        {canDo ? <button type="button" className="btn btn-primary" onClick={updateClick}>Atualizar</button> : null}
+        {canDo ? <button type="button" className="btn btn-danger" onClick={deleteClick}>Deletar</button> : null}
     </div>
 )

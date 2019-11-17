@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { stringify } from 'query-string';
-import { makeURL, formatWithLeftZero, rowMap } from 'common/utils';
+import { makeURL, formatWithLeftZero, rowMap, isMonitor } from 'common/utils';
 import { Main, Info, ActionsButton, Search, Pagination } from 'common';
 import { listStudentsSagas, removeStudentSagas, addStudentSagas, changeStudentStatusSagas } from '../actions';
 import { StudentContainer, StudentBox, StudentHeader, StudentBody } from '../styles/studentList';
@@ -21,10 +21,7 @@ class StudentList extends Component {
 
     __isMonitor(studentID) {
         const { state } = this.props;
-        if (state.discipline.monitors.indexOf(studentID) >= 0)
-            return true
-
-        return false
+        return isMonitor(studentID, state.discipline);
     }
 
     async __changeStudentStatus(data) {

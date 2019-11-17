@@ -4,10 +4,11 @@ import { push } from 'connected-react-router';
 import { Form, Field } from 'react-final-form';
 import { VorFQuestion, MultipleChoicesQuestion, ShotQuestion } from 'common/questions';
 import { HiddenField } from 'common/fields';
-import { makeURL } from 'common/utils';
+import { makeURL, isMonitor } from 'common/utils';
 import { Main, FormStyled, Info, SubmitButton, Pagination, Line, ProgressBar, BreakLine } from 'common';
 import { listQuestionsSagas, deleteQuestionSagas, submitExamSagas } from '../actions';
 import { QuestionPanel, RightButtons } from '../styles/exercise';
+import { TEACHER, ADMIN } from 'common/constants';
 import { requestChoiceAlert } from 'common/alerts';
 import { ExamValidation } from '../validate';
 import { QUESTION_TYPE, QUESTION_EXAM } from '../constants';
@@ -156,7 +157,7 @@ class Exam extends Component {
         const progress = parseInt((pagination.activePage * 100)/pagination.totalItemsCount).toString();
         const rightButtons = (
             <RightButtons
-                user={user}
+                canDo={user.permission === TEACHER || user.permission === ADMIN || isMonitor(user.id, discipline)}
                 open={this.state.feedback}
                 feedbackClick={() => this.__showFeedback()}
                 updateClick={() => this.__updateQuestion()}
