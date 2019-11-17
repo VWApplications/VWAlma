@@ -5,7 +5,7 @@ import { makeURL } from 'common/utils';
 import { Container, SidebarLink } from '../styles/sidebar';
 import { TEACHER, ADMIN } from 'common/constants';
 import { deleteUserSagas } from 'screens/Accounts/actions';
-import { choiceAlert, infoAlert } from 'common/alerts';
+import { requestChoiceAlert, infoAlert } from 'common/alerts';
 
 class Sidebar extends Component {
 
@@ -21,12 +21,10 @@ class Sidebar extends Component {
 
     async __deleteAccount() {
         const { dispatch } = this.props;
-        if (await choiceAlert(
+        if (await requestChoiceAlert(
             "Deletando conta",
             "Tem certeza que deseja deletar sua conta?",
-            "Sim", "Não",
-            "Conta deletada com sucesso!",
-            "", "Operação Cancelada", ""
+            "Sim", "Não", "Operação Cancelada", ""
         )) { dispatch(deleteUserSagas()); }
     }
 
@@ -186,7 +184,7 @@ class Sidebar extends Component {
                 <SidebarLink
                     icon="fa-street-view"
                     title="Avaliação"
-                    onClick={() => this.__developing()}>
+                    onClick={() => this.__redirectTo(`/profile/${makeURL(discipline.title)}/sections/${makeURL(section.title)}/exam`, location.state)}>
                     Avaliação.
                 </SidebarLink>
             </Container>

@@ -6,12 +6,14 @@ import { fetchDisciplineAPI } from 'screens/Disciplines/api';
 import { listSectionsSagas } from '../actions';
 import { DELETE_SECTION_SAGAS, LIST_SECTIONS } from '../types';
 import { deleteSectionAPI } from '../api';
+import { successAlert } from 'common/alerts';
 
 function* deleteSection(action) {
     const sectionID = action.payload;
 
     try {
         yield call(deleteSectionAPI, sectionID);
+        successAlert("Seção deletada!", "Seção deletada com sucesso!");
 
         const pagination = yield select(state => state.section.pagination);
         const discipline = yield select(state => state.router.location.state.discipline);

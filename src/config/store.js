@@ -12,7 +12,7 @@ import disciplineReducer from 'screens/Disciplines/reducers';
 import studentReducer from 'screens/Students/reducers';
 import groupReducer from 'screens/Groups/reducers';
 import sectionReducer from 'screens/Sections/reducers';
-import questionReducer from 'screens/Exercises/reducers';
+import questionReducer from 'screens/Exams/reducers';
 
 export const history = createBrowserHistory()
 

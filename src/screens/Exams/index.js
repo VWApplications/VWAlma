@@ -1,4 +1,5 @@
 import QuestionForm from './components/QuestionForm';
-import Exercise from './components/Exercise';
+import Exam from './components/Exam';
+import Result from './components/Result';
 
-export { QuestionForm, Exercise };
+export { QuestionForm, Exam, Result };

@@ -5,7 +5,7 @@ import { makeURL, formatWithLeftZero, rowMap } from 'common/utils';
 import { Main, Info, ActionsButton, Search, Pagination } from 'common';
 import { listStudentsSagas, removeStudentSagas, addStudentSagas, changeStudentStatusSagas } from '../actions';
 import { StudentContainer, StudentBox, StudentHeader, StudentBody } from '../styles/studentList';
-import { choiceAlert } from 'common/alerts';
+import { requestChoiceAlert } from 'common/alerts';
 import { TEACHER, ADMIN } from 'common/constants';
 
 class StudentList extends Component {
@@ -35,11 +35,10 @@ class StudentList extends Component {
         if (this.__isMonitor(data['id']))
             text = "Tem certeza que deseja modificar o status do monitor para estudante?";
 
-        const success = await choiceAlert(
+        const success = await requestChoiceAlert(
             "Modificando status",
             text, "Sim", "Não",
-            "Status modificado com sucesso",
-            "", "Operação Cancelada!", ""
+            "Operação Cancelada!", ""
         )
         if (success)
             dispatch(changeStudentStatusSagas(data, queryString));
@@ -49,11 +48,10 @@ class StudentList extends Component {
         const { dispatch, pagination } = this.props;
         const queryString = stringify({page: pagination.activePage, filter: this.state.filter});
 
-        const success = await choiceAlert(
+        const success = await requestChoiceAlert(
             "Removendo studante",
             "Tem certeza que deseja remover o estudante?",
-            "Sim", "Não", "Aluno removido da turma com sucesso!",
-            "", "Operação Cancelada!", ""
+            "Sim", "Não", "Operação Cancelada!", ""
         )
         if (success)
             dispatch(removeStudentSagas(data, queryString));

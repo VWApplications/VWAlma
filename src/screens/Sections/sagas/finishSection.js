@@ -5,6 +5,7 @@ import { validateError } from 'common/utils';
 import { fetchDisciplineAPI } from 'screens/Disciplines/api';
 import { FINISH_SECTION_SAGAS } from '../types';
 import { finishSectionAPI, fetchSectionAPI } from '../api';
+import { successAlert } from 'common/alerts';
 
 function* finishSection() {
     const discipline = yield select(state => state.router.location.state.discipline);
@@ -12,6 +13,7 @@ function* finishSection() {
 
     try {
         yield call(finishSectionAPI, section.id);
+        successAlert("Seção finalizada!", "Seção finalizada com sucesso!");
 
         const disciplineResponse = yield call(fetchDisciplineAPI, discipline.id);
         const newDiscipline = disciplineResponse.data;

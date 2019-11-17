@@ -57,7 +57,7 @@ export const validateQuestionForm = values => {
     return errors;
 }
 
-export const ExerciseValidation = values => {
+export const ExamValidation = values => {
     let errors = {};
 
     if (isEmpty(values)) return errors;

@@ -1,5 +1,5 @@
 import { all, put, call, takeLatest, select } from 'redux-saga/effects';
-import { go } from 'connected-react-router';
+import { push } from 'connected-react-router';
 import { makeURL } from 'common/utils';
 import { SUBMIT_SAGAS } from '../types';
 import { submitExamAPI } from '../api';
@@ -18,8 +18,8 @@ function* submitExam(action) {
         successAlert("Submissão enviada!", "Respostas enviadas com sucesso!");
         setTimeout(form.reset);
 
-        yield put(go(
-            `/profile/${makeURL(discipline.title)}/sections/${makeURL(section.title)}/exercises`,
+        yield put(push(
+            `/profile/${makeURL(discipline.title)}/sections/${makeURL(section.title)}/results`,
             { discipline, section }
         ));
     } catch(error) {

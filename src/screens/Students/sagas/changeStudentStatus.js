@@ -6,6 +6,7 @@ import { fetchDisciplineAPI } from 'screens/Disciplines/api';
 import { listStudentsSagas } from '../actions';
 import { changeStudentStatusAPI } from '../api';
 import { validateError } from 'common/utils';
+import { successAlert } from 'common/alerts';
 
 function* changeStudentStatus(action) {
     const { data, queryString } = action.payload;
@@ -15,6 +16,7 @@ function* changeStudentStatus(action) {
         const response = yield call(changeStudentStatusAPI, discipline.id, data);
 
         if (response.data.success) {
+            successAlert("Status modificado!", "Status do estudante modificado com sucesso!");
             const pagination = yield select(state => state.student.pagination);
             yield put(listStudentsSagas(pagination.activePage, queryString));
             yield take([LIST_STUDENTS]);

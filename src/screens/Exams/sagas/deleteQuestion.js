@@ -6,12 +6,14 @@ import { fetchSectionAPI } from 'screens/Sections/api';
 import { DELETE_QUESTION_SAGAS } from '../types';
 import { deleteQuestionAPI } from '../api';
 import { validateError } from 'common/utils';
+import { successAlert } from 'common/alerts';
 
 function* deleteQuestion(action) {
     const { discipline, section } = yield select(state => state.router.location.state);
 
     try {
         yield call(deleteQuestionAPI, action.payload);
+        successAlert("Questão deletada!", "Questão deletada com sucesso!");
 
         const disciplineResponse = yield call(fetchDisciplineAPI, discipline.id);
         const newDiscipline = disciplineResponse.data;
