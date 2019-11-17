@@ -6,18 +6,18 @@ import { VorFQuestion, MultipleChoicesQuestion, ShotQuestion } from 'common/ques
 import { HiddenField } from 'common/fields';
 import { makeURL } from 'common/utils';
 import { Main, FormStyled, Info, SubmitButton, Pagination, Line, ProgressBar, BreakLine } from 'common';
-import { listQuestionsSagas, deleteQuestionSagas } from '../actions';
+import { listQuestionsSagas, deleteQuestionSagas, submitExamSagas } from '../actions';
 import { QuestionPanel, RightButtons } from '../styles/exercise';
 import { choiceAlert } from 'common/alerts';
 import { ExerciseValidation } from '../validate';
-import { QUESTION_TYPE } from '../constants';
+import { QUESTION_TYPE, QUESTION_EXAM } from '../constants';
 import Feedback from './Feedback';
 
 class Exercises extends Component {
     constructor(props) {
         super(props);
         this.question = null;
-        this.state = {feedback: false}
+        this.state = {feedback: true}
     }
 
     componentDidMount() {
@@ -26,6 +26,8 @@ class Exercises extends Component {
     }
 
     async __submit(data, form) {
+        const { dispatch } = this.props;
+
         const success = await choiceAlert(
             "Enviando resposta.",
             "Tem certeza que deseja finalizar a lista de exercício? Após finalizar a lista será resetada.",
@@ -33,8 +35,10 @@ class Exercises extends Component {
             "", "Operação Cancelada!", ""
         )
         if (success) {
-            console.log(data);
-            setTimeout(form.reset);
+            let result = {};
+            result['exam'] = QUESTION_EXAM.EXERCISE;
+            result['answers'] = data;
+            dispatch(submitExamSagas(result, form));
         }
     }
 
@@ -128,6 +132,7 @@ class Exercises extends Component {
         const progress = parseInt((pagination.activePage * 100)/pagination.totalItemsCount).toString();
         const rightButtons = (
             <RightButtons
+                open={this.state.feedback}
                 feedbackClick={() => this.__showFeedback()}
                 updateClick={() => this.__updateQuestion()}
                 deleteClick={() => this.__deleteQuestion()}

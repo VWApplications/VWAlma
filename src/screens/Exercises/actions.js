@@ -1,6 +1,7 @@
 import {
     LIST_QUESTIONS, LIST_QUESTIONS_SAGAS, CREATE_QUESTION_SAGAS,
-    UPDATE_QUESTION_SAGAS, DELETE_QUESTION_SAGAS, FETCH_QUESTION
+    UPDATE_QUESTION_SAGAS, DELETE_QUESTION_SAGAS, FETCH_QUESTION,
+    SUBMIT_SAGAS
 } from './types';
 
 export function listQuestionsAction(questions, activePage, count) {
@@ -25,4 +26,8 @@ export function updateQuestionSagas(data, questionID) {
 
 export function deleteQuestionSagas(questionID) {
     return {type: DELETE_QUESTION_SAGAS, payload: questionID};
+}
+
+export function submitExamSagas(data, form) {
+    return {type: SUBMIT_SAGAS, payload: { data, form }};
 }

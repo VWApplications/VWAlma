@@ -20,3 +20,8 @@ export function deleteQuestionAPI(questionID) {
     let endpoint = `/alma/questions/${questionID}/`;
     return axios.delete(endpoint);
 }
+
+export function submitExamAPI(data) {
+    let endpoint = "/alma/submissions/send/";
+    return axios.post(endpoint, data);
+}

@@ -1,5 +1,5 @@
 import { all, put, call, takeLatest, select } from 'redux-saga/effects';
-import { push } from 'connected-react-router';
+import { go } from 'connected-react-router';
 import { makeURL } from 'common/utils';
 import { fetchDisciplineAPI } from 'screens/Disciplines/api';
 import { fetchSectionAPI } from 'screens/Sections/api';
@@ -17,11 +17,10 @@ function* deleteQuestion(action) {
         const newDiscipline = disciplineResponse.data;
         const sectionResponse = yield call(fetchSectionAPI, section.id);
         const newSection = sectionResponse.data;
-        yield put(push(
+        yield put(go(
             `/profile/${makeURL(newDiscipline.title)}/sections/${makeURL(newSection.title)}/exercises`,
             { discipline: newDiscipline, section: newSection }
         ));
-        window.location.reload();
     } catch(error) {
         validateError(error);
     }
