@@ -13,7 +13,7 @@ import { ExerciseValidation } from '../validate';
 import { QUESTION_TYPE, QUESTION_EXAM } from '../constants';
 import Feedback from './Feedback';
 
-class Exercises extends Component {
+class Exercise extends Component {
     constructor(props) {
         super(props);
         this.question = null;
@@ -187,4 +187,4 @@ const mapStateToProps = state => {
     }
 }
 
-export default connect(mapStateToProps)(Exercises);
+export default connect(mapStateToProps)(Exercise);
