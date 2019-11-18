@@ -2,13 +2,13 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { push } from 'connected-react-router';
 import { Form, Field } from 'react-final-form';
-import { choiceAlert } from 'common/alerts';
+import { requestChoiceAlert } from 'common/alerts';
 import { makeURL } from 'common/utils';
 import { InputField, EditorField, SelectField } from 'common/fields';
 import { Main, Info, FormStyled, SubmitButton, Fieldset, Pagination, StringToHtml } from 'common';
 import { TEACHER, ADMIN } from 'common/constants';
 import { validateCreateSection } from '../validate';
-import { TRADITIONAL, TBL } from '../constants';
+import { TRADITIONAL } from '../constants';
 import {
     listSectionsSagas, createSectionsSagas, updateFormAction,
     updateSectionsSagas, deleteSectionsSagas, provideSectionsSagas
@@ -50,11 +50,10 @@ class SectionList extends Component {
     async __deleteSection(sectionID) {
         const { dispatch } = this.props;
 
-        const success = await choiceAlert(
+        const success = await requestChoiceAlert(
             "Removendo seção",
             "Tem certeza que deseja remover a seção?",
-            "Sim", "Não", "Seção removida com sucesso!",
-            "", "Operação Cancelada!", ""
+            "Sim", "Não", "Operação Cancelada!", ""
         )
         if (success)
             dispatch(deleteSectionsSagas(sectionID));
@@ -119,8 +118,7 @@ class SectionList extends Component {
                                         name="methodology"
                                         component={SelectField}
                                         options={[
-                                            {title: "Tradicional", value: TRADITIONAL},
-                                            {title: "V ou F", value: TBL}
+                                            {title: "Tradicional", value: TRADITIONAL}
                                         ]}
                                     />
 

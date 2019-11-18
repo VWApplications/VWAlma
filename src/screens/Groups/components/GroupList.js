@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Form, Field } from 'react-final-form';
-import { choiceAlert } from 'common/alerts';
+import { requestChoiceAlert } from 'common/alerts';
 import { makeURL, rowMap } from 'common/utils';
 import { InputField } from 'common/fields';
 import { Main, Info, Search, FormStyled, SubmitButton, Fieldset, Pagination } from 'common';
@@ -39,11 +39,10 @@ class GroupList extends Component {
     async __removeStudent(groupID, data) {
         const { dispatch } = this.props;
 
-        const success = await choiceAlert(
+        const success = await requestChoiceAlert(
             "Removendo estudante do grupo",
             "Tem certeza que deseja remover o estudante do grupo?",
-            "Sim", "Não", "Estudante removido com sucesso!",
-            "", "Operação Cancelada!", ""
+            "Sim", "Não", "Operação Cancelada!", ""
         )
         if (success)
             dispatch(removeStudentGroupsSagas(groupID, data));
@@ -63,11 +62,10 @@ class GroupList extends Component {
     async __deleteGroup(groupID) {
         const { dispatch } = this.props;
 
-        const success = await choiceAlert(
+        const success = await requestChoiceAlert(
             "Removendo grupo",
             "Tem certeza que deseja remover o grupo?",
-            "Sim", "Não", "Grupo removido com sucesso!",
-            "", "Operação Cancelada!", ""
+            "Sim", "Não", "Operação Cancelada!", ""
         )
         if (success)
             dispatch(deleteGroupsSagas(groupID));

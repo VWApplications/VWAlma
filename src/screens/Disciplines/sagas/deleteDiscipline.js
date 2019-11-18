@@ -4,10 +4,12 @@ import { DELETE_DISCIPLINE_SAGAS, LIST_DISCIPLINE } from '../types';
 import { listDisciplinesSagas } from '../actions';
 import { deleteDisciplineAPI } from '../api';
 import { validateError } from 'common/utils';
+import { successAlert } from 'common/alerts';
 
 function* deleteDiscipline(action) {
     try {
         yield call(deleteDisciplineAPI, action.payload);
+        successAlert("Disciplina deletada!", "Disciplina deletada com sucesso!");
 
         yield put(listDisciplinesSagas(1));
 

@@ -11,7 +11,7 @@ class Footer extends Component {
                         </Copyright>
 
                         <Copyright>
-                            Software desenvolvido e mantido pelo engenheiro 
+                            Software desenvolvido e mantido pelo Engenheiro 
                             <Link href="https://victordeon.github.io/portfolio/"> Victor Deon.</Link>
                         </Copyright>
                 </Container>

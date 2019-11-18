@@ -6,12 +6,14 @@ import { fetchDisciplineAPI } from 'screens/Disciplines/api';
 import { listGroupsSagas } from '../actions';
 import { DELETE_GROUP_SAGAS, LIST_GROUPS } from '../types';
 import { deleteGroupAPI } from '../api';
+import { successAlert } from 'common/alerts';
 
 function* deleteGroup(action) {
     const groupID = action.payload;
 
     try {
         yield call(deleteGroupAPI, groupID);
+        successAlert("Grupo deletado!", "Grupo deletado com sucesso!");
 
         const pagination = yield select(state => state.group.pagination);
         const discipline = yield select(state => state.router.location.state.discipline);

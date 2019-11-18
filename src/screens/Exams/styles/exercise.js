@@ -12,12 +12,12 @@ export const QuestionPanel = ({ children, activePage, question }) => (
     </div>
 )
 
-export const RightButtons = ({ open, feedbackClick, updateClick, deleteClick }) => (
+export const RightButtons = ({ canDo, open, feedbackClick, updateClick, deleteClick }) => (
     <div className="btn-group pull-right">
         <button type="button" className="btn btn-primary" onClick={feedbackClick}>
             {open ? "Esconder Feedbacks" : "Mostrar Feedbacks"}
         </button>
-        <button type="button" className="btn btn-primary" onClick={updateClick}>Atualizar</button>
-        <button type="button" className="btn btn-danger" onClick={deleteClick}>Deletar</button>
+        {canDo ? <button type="button" className="btn btn-primary" onClick={updateClick}>Atualizar</button> : null}
+        {canDo ? <button type="button" className="btn btn-danger" onClick={deleteClick}>Deletar</button> : null}
     </div>
 )

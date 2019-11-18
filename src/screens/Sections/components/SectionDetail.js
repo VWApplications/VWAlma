@@ -4,7 +4,7 @@ import { makeURL } from 'common/utils';
 import { Main, StringToHtml, Label } from 'common';
 import { FinishSectionButton } from '../styles/sectionDetail';
 import { finishSectionSagas } from '../actions';
-import { choiceAlert } from 'common/alerts';
+import { requestChoiceAlert } from 'common/alerts';
 import { TEACHER, ADMIN } from 'common/constants';
 
 class SectionDetail extends Component {
@@ -15,10 +15,9 @@ class SectionDetail extends Component {
         if (state.section.is_finished)
             text = "Tem certeza que deseja iniciar a seção?";
 
-        const success = await choiceAlert(
+        const success = await requestChoiceAlert(
             "Modificando status da seção", text,
-            "Sim", "Não", "Status modificado com sucesso!",
-            "", "Operação Cancelada!", ""
+            "Sim", "Não", "Operação Cancelada!", ""
         )
         if (success)
             dispatch(finishSectionSagas());

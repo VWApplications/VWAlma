@@ -6,6 +6,7 @@ import { fetchDisciplineAPI } from 'screens/Disciplines/api';
 import { listGroupsSagas } from '../actions';
 import { removeStudentGroupAPI } from '../api';
 import { validateError } from 'common/utils';
+import { successAlert } from 'common/alerts';
 
 function* removeStudentGroup(action) {
     const { groupID, data } = action.payload;
@@ -15,6 +16,7 @@ function* removeStudentGroup(action) {
         const response = yield call(removeStudentGroupAPI, groupID, data);
 
         if (response.data.success) {
+            successAlert("Estudante removido!", "Estudante removido com sucesso!");
             const pagination = yield select(state => state.student.pagination);
             yield put(listGroupsSagas(pagination.activePage));
             yield take([LIST_GROUPS]);

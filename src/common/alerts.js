@@ -68,3 +68,27 @@ export async function choiceAlert(title, text, yesTextButton, noTextButton, yesT
         }
       })
 }
+
+export async function requestChoiceAlert(title, text, yesTextButton, noTextButton, noTitle, noText) {
+    return Swal.fire({
+        title: title,
+        text: text,
+        type: 'question',
+        showCancelButton: true,
+        confirmButtonText: yesTextButton,
+        confirmButtonColor: '#3085d6',
+        cancelButtonText: noTextButton,
+        cancelButtonColor: '#d33'
+      }).then((result) => {
+        if (result.value) {
+            return true;
+        } else if (result.dismiss === Swal.DismissReason.cancel) {
+            Swal.fire(
+                noTitle,
+                noText,
+                'info'
+            )
+            return false;
+        }
+      })
+}

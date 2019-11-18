@@ -5,7 +5,7 @@ import { push } from 'connected-react-router';
 import { makeURL } from 'common/utils';
 import { TEACHER } from 'common/constants';
 import { BreakLine, Info, StringToHtml, Pagination } from 'common';
-import { choiceAlert } from 'common/alerts';
+import { requestChoiceAlert } from 'common/alerts';
 import { listDisciplinesSagas, deleteDisciplineSagas } from '../actions';
 import {
     Main, TabList, Tab, Accordion, Panel, PanelHeader,
@@ -33,12 +33,10 @@ class ProfileDisciplines extends Component {
     }
 
     async __deleteDiscipline(discipline) {
-        if (await choiceAlert(
+        if (await requestChoiceAlert(
             "Deletar disciplina",
             `Tem certeza que deseja deletar a disciplina: ${discipline.title}`,
-            "Sim", "Não",
-            "Disciplina deletada", "",
-            "Operação cancelada", ""
+            "Sim", "Não", "Operação cancelada", ""
         )) {
             const { dispatch } = this.props;
             dispatch(deleteDisciplineSagas(discipline.id));
