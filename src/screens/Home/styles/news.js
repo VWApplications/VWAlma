@@ -68,7 +68,7 @@ export const NewsRow = ({ children }) => (
 )
 
 export const NewsTags = ({ children }) => (
-    <div className="col-sm-4 pull-right">
+    <div className="pull-right">
         {children}
     </div>
 )
@@ -84,7 +84,7 @@ export const NewsTag = ({ children }) => (
 )
 
 export const NewsTitle = ({ children, created_at }) => (
-    <div className="col-sm-8">
+    <div className="col-sm-12">
         <h3>{children} <br />
             <small>({created_at})</small>
         </h3>
