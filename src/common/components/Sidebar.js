@@ -3,9 +3,10 @@ import { connect } from 'react-redux';
 import { push } from 'connected-react-router';
 import { makeURL } from 'common/utils';
 import { Container, SidebarLink } from '../styles/sidebar';
-import { TEACHER, ADMIN } from 'common/constants';
+import { TEACHER, ADMIN } from '../constants';
+import { requestChoiceAlert, infoAlert } from '../alerts';
+import { canViewTraditionalExam } from '../utils';
 import { deleteUserSagas } from 'screens/Accounts/actions';
-import { requestChoiceAlert, infoAlert } from 'common/alerts';
 
 class Sidebar extends Component {
 
@@ -181,12 +182,14 @@ class Sidebar extends Component {
                         Dashboard do aluno para gamificação.
                     </SidebarLink>
                 }
-                <SidebarLink
-                    icon="fa-street-view"
-                    title="Avaliação"
-                    onClick={() => this.__redirectTo(`/profile/${makeURL(discipline.title)}/sections/${makeURL(section.title)}/exam`, location.state)}>
-                    Avaliação.
-                </SidebarLink>
+                {account.permission === TEACHER || account.permission === ADMIN || canViewTraditionalExam(section) ?
+                    <SidebarLink
+                        icon="fa-street-view"
+                        title="Avaliação"
+                        onClick={() => this.__redirectTo(`/profile/${makeURL(discipline.title)}/sections/${makeURL(section.title)}/exam`, location.state)}>
+                        Avaliação.
+                    </SidebarLink>
+                : null}
             </Container>
         )
     }

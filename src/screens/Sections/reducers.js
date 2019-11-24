@@ -33,11 +33,12 @@ function groupReducer(state=initialState, action) {
 
 			let form_data = payload;
 			if (payload && payload.methodology === TRADITIONAL) {
+				const length = payload.exam_config.length;
 				form_data = {
 					...payload,
 					exam_config: null,
-					duration: payload.exam_config[0].duration,
-					datetime: new Date(payload.exam_config[0].datetime)
+					duration: length > 0 ? payload.exam_config[0].duration : 30,
+					datetime: length > 0 ? new Date(payload.exam_config[0].datetime) : new Date()
 				}
 			}
 
