@@ -4,7 +4,7 @@ import { push } from 'connected-react-router';
 import { Form, Field } from 'react-final-form';
 import { requestChoiceAlert } from 'common/alerts';
 import { makeURL } from 'common/utils';
-import { InputField, EditorField, SelectField } from 'common/fields';
+import { InputField, EditorField, SelectField, Condition, DateTimeField } from 'common/fields';
 import { Main, Info, FormStyled, SubmitButton, Fieldset, Pagination, StringToHtml } from 'common';
 import { TEACHER, ADMIN } from 'common/constants';
 import { validateCreateSection } from '../validate';
@@ -122,6 +122,27 @@ class SectionList extends Component {
                                         ]}
                                     />
 
+                                    <Condition when="methodology" is={TRADITIONAL}>
+                                        <Fieldset title="Configurações das provas">
+                                            <Field
+                                                component={InputField}
+                                                type="number"
+                                                label="Duração em minutos"
+                                                className="form-control"
+                                                name="duration"
+                                                placeholder="Duração da avaliação em minutos."
+                                            />
+
+                                            <Field
+                                                component={DateTimeField}
+                                                name="datetime"
+                                                className="form-control"
+                                                label="Data da prova"
+                                                locale="pt"
+                                            />
+                                        </Fieldset>
+                                    </Condition>
+
                                     <Field
                                         component={EditorField}
                                         name="description"
@@ -175,12 +196,14 @@ const mapStateToProps = state => {
     const { list, pagination, form } = state.section;
     const { user } = state.account;
 
-    let initialValues = {methodology: TRADITIONAL};
+    let initialValues = {methodology: TRADITIONAL, duration: 30, datetime: new Date()};
     if (form) {
         initialValues = {
             title: form.title || "",
             methodology: form.methodology || TRADITIONAL,
-            description: form.description || ""
+            description: form.description || "",
+            duration: form.duration || 30,
+            datetime: form.datetime || new Date()
         }
     }
 

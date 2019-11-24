@@ -1,4 +1,5 @@
 import { LIST_SECTIONS, UPDATE_FORM } from './types';
+import { TRADITIONAL } from './constants';
 
 const initialState = {
 	list: [],
@@ -30,9 +31,19 @@ function groupReducer(state=initialState, action) {
 		case UPDATE_FORM:
 			payload = action.payload;
 
+			let form_data = payload;
+			if (payload && payload.methodology === TRADITIONAL) {
+				form_data = {
+					...payload,
+					exam_config: null,
+					duration: payload.exam_config[0].duration,
+					datetime: new Date(payload.exam_config[0].datetime)
+				}
+			}
+
 			return {
 				...state,
-				form: payload
+				form: form_data
 			}
 
 		default:

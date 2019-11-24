@@ -15,6 +15,7 @@
     "node-emoji": "^1.10.0",
     "query-string": "^6.8.3",
     "react": "^16.9.0",
+    "react-datetime-picker": "^2.7.1",
     "react-dom": "^16.9.0",
     "react-draft-wysiwyg": "^1.13.2",
     "react-final-form": "^6.3.0",

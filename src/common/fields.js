@@ -8,9 +8,13 @@ import { SelectField } from './form/SelectField';
 import { RadioFields } from './form/RadioField';
 import { AlternativeField } from './form/AlternativeField';
 import { HiddenField } from './form/HiddenField';
+import { Condition } from './form/ConditionField';
+import { Error } from './form/ErrorField';
+import { DateTimeField } from './form/DateTimeField';
 
 export {
     InputField, CheckboxField, TextField, SimpleInputField,
     FileField, SelectField, RadioFields, EditorField,
-    AlternativeField, HiddenField
+    AlternativeField, HiddenField, Condition, Error,
+    DateTimeField
 };

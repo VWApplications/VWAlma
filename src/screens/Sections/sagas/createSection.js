@@ -11,10 +11,23 @@ import { successAlert } from 'common/alerts';
 function* createSection(action) {
     const data = action.payload;
     const discipline = yield select(state => state.router.location.state.discipline);
-    data['discipline'] = discipline.id;
+
+    const exam_config = [];
+    exam_config.push({
+        duration: data.duration,
+        datetime: data.datetime
+    })
+
+    const payload = {
+        title: data.title,
+        description: data.description,
+        methodology: data.methodology,
+        exam_config: exam_config,
+        discipline: discipline.id
+    }
 
     try {
-        yield call(createSectionAPI, data);
+        yield call(createSectionAPI, payload);
         successAlert("Seção criada!", "Seção criada com sucesso!");
 
         const pagination = yield select(state => state.section.pagination);

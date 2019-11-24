@@ -1,0 +1,13 @@
+.react-datetime-picker {
+    display: block;
+}
+
+.react-datetime-picker__wrapper {
+    border: none;
+    position: relative;
+    bottom: 4.5px;
+}
+
+.react-datetime-picker__inputGroup__input:invalid {
+    background: none;
+}

@@ -10,13 +10,27 @@ import { updateSectionAPI } from '../api';
 
 function* updateSection(action) {
     const { data, sectionID } = action.payload;
+    const discipline = yield select(state => state.router.location.state.discipline);
+
+    const exam_config = [];
+    exam_config.push({
+        duration: data.duration,
+        datetime: data.datetime
+    })
+
+    const payload = {
+        title: data.title,
+        description: data.description,
+        methodology: data.methodology,
+        exam_config: exam_config,
+        discipline: discipline.id
+    }
 
     try {
-        yield call(updateSectionAPI, data, sectionID);
+        yield call(updateSectionAPI, payload, sectionID);
         successAlert("Seção atualizada!", "Seção atualizada com sucesso!");
 
         const pagination = yield select(state => state.section.pagination);
-        const discipline = yield select(state => state.router.location.state.discipline);
         yield put(listSectionsSagas(pagination.activePage));
         yield take([LIST_SECTIONS]);
 

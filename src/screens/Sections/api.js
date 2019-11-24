@@ -23,7 +23,7 @@ export function createSectionAPI(data) {
 
 export function updateSectionAPI(data, sectionID) {
     let endpoint = `/alma/sections/${sectionID}/`;
-    return axios.patch(endpoint, data);
+    return axios.put(endpoint, data);
 }
 
 export function deleteSectionAPI(sectionID) {
