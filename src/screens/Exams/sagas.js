@@ -4,6 +4,7 @@ import listQuestions from './sagas/listQuestions';
 import deleteQuestion from './sagas/deleteQuestion';
 import updateQuestion from './sagas/updateQuestion';
 import submitExam from './sagas/submitExam';
+import resultView from './sagas/resultView';
 
 export default function* rootSaga() {
     yield all([
@@ -11,6 +12,7 @@ export default function* rootSaga() {
         listQuestions(),
         deleteQuestion(),
         updateQuestion(),
-        submitExam()
+        submitExam(),
+        resultView()
     ]);
 }

@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { makeURL } from 'common/utils';
-import { Main } from 'common';
+import { Main, Info } from 'common';
 import { QUESTION_EXAM } from '../constants';
+import { resultSagas } from '../actions';
 
 class Result extends Component {
     constructor(props) {
@@ -13,10 +14,19 @@ class Result extends Component {
 
     componentDidMount() {
         const { dispatch } = this.props;
+        dispatch(resultSagas());
+    }
+
+    __pdfDownload() {
+        console.log("Baixando PDF");
+    }
+
+    __csvDownload() {
+        console.log("Baixando CSV");
     }
 
     render() {
-        const { state } = this.props;
+        const { state, result } = this.props;
         const discipline = state.discipline;
         const section = state.section;
 
@@ -29,6 +39,8 @@ class Result extends Component {
             {title: "Resultados", url: `/profile/${makeURL(discipline.title)}/sections/${makeURL(section.title)}/results`, state }
         ]
 
+        const questions = result ? result.questions : []; 
+
         if (section.methodology === QUESTION_EXAM.TBL) {
             this.menu = "tbl";
             this.showCorrectAnswers = false;
@@ -36,83 +48,84 @@ class Result extends Component {
 
         const rightButtons = (
             <div className="btn-group pull-right">
-                <button type="button" className="btn btn-primary">Baixar PDF</button>
-                <button type="button" className="btn btn-primary">Baixar CSV</button>
+                <button type="button" className="btn btn-primary" onClick={() => this.__pdfDownload()}>Baixar PDF</button>
+                <button type="button" className="btn btn-primary" onClick={() => this.__csvDownload()}>Baixar CSV</button>
             </div>
         )
 
         return (
             <Main navigation={navigator} menu={this.menu} title="Resultados" icon="fa fa-area-chart" rightComponent={rightButtons}>
-                <div className="table-responsive">
-                    <table className="table">
-                    <thead>
-                            <tr>
-                                <th>Questão</th>
-                                <th>Resposta</th>
-                                {this.showCorrectAnswers ? <th>Resposta Correta</th> : null}
-                                {this.showCorrectAnswers ? <th>Pontuação</th> : null}
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>Titulo muito doido da questão de aposta</td>
-                                <td>
-                                    <ul style={{"list-style-type": "none", "padding": "0"}}>
-                                        <li><span className="label label-primary">2</span> Alternativa 1</li>
-                                        <li><span className="label label-primary">0</span> Alternativa 2</li>
-                                        <li><span className="label label-primary">0</span> Alternativa 3</li>
-                                        <li><span className="label label-primary">2</span> Alternativa 4</li>
-                                    </ul>
-                                </td>
-                                {this.showCorrectAnswers ? <td>Alternativa 3</td> : null}
-                                {this.showCorrectAnswers ? <td>0</td> : null}
-                            </tr>
-                            <tr>
-                                <td>Titulo muito doido da questão de V ou F</td>
-                                <td>
-                                    <ul style={{"list-style-type": "none", "padding": "0"}}>
-                                        <li><span className="label label-primary">V</span> Alternativa 0</li>
-                                        <li><span className="label label-primary">V</span> Alternativa 2</li>
-                                        <li><span className="label label-primary">F</span> Alternativa 0</li>
-                                        <li><span className="label label-primary">F</span> Alternativa 2</li>
-                                    </ul>
-                                </td>
-                                {this.showCorrectAnswers ?
-                                    <td>
-                                        <ul style={{"list-style-type": "none", "padding": "0"}}>
-                                            <li><span className="label label-primary">F</span> Alternativa 0</li>
-                                            <li><span className="label label-primary">V</span> Alternativa 2</li>
-                                            <li><span className="label label-primary">F</span> Alternativa 0</li>
-                                            <li><span className="label label-primary">V</span> Alternativa 2</li>
-                                        </ul>
-                                    </td>
-                                : null}
-                                {this.showCorrectAnswers ? <td>8</td> : null}
-                            </tr>
-                            <tr>
-                                <td>Titulo muito doido da questão de multipla escolha</td>
-                                <td>
-                                    <ul style={{"list-style-type": "none", "padding": "0"}}>
-                                        <li><span className="label label-primary"><i className="fa fa-circle-thin"></i></span> Alternativa 1</li>
-                                        <li><span className="label label-primary"><i className="fa fa-circle"></i></span> Alternativa 2</li>
-                                        <li><span className="label label-primary"><i className="fa fa-circle-thin"></i></span> Alternativa 3</li>
-                                        <li><span className="label label-primary"><i className="fa fa-circle-thin "></i></span> Alternativa 4</li>
-                                    </ul>
-                                </td>
-                                {this.showCorrectAnswers ? <td>Alternativa 02</td> : null}
-                                {this.showCorrectAnswers ? <td>4</td> : null}
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
+                {questions.length === 0 ? <Info>Não há submissões</Info> :
+                    <div className="table-responsive">
+                        <table className="table">
+                        <thead>
+                                <tr>
+                                    <th>Questão</th>
+                                    <th>Resposta</th>
+                                    {this.showCorrectAnswers ? <th>Resposta Correta</th> : null}
+                                    {this.showCorrectAnswers ? <th>Pontuação</th> : null}
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {questions.map((obj, index) => (
+                                    <tr key={index}>
+                                        <td>{obj.question}</td>
+                                        <td>
+                                            <ul style={{"listStyleType": "none", "padding": "0"}}>
+                                                {obj.alternatives.map((alternative, index) => (
+                                                    <li key={index}>
+                                                        <span className="label label-primary" style={{"marginRight": "10px"}}>
+                                                            {typeof alternative.answer !== "boolean" ?
+                                                                alternative.answer :
+                                                                alternative.answer ?
+                                                                    <i className="fa fa-circle"></i>
+                                                                :
+                                                                    <i className="fa fa-circle-thin"></i>
+                                                            }
+                                                        </span>
+                                                        {alternative.title}
+                                                    </li>
+                                                ))}
+                                            </ul>
+                                        </td>
+                                        {this.showCorrectAnswers ?
+                                            <td>
+                                                {typeof obj.correct_answer === "string" ? obj.correct_answer :
+                                                    <ul style={{"listStyleType": "none", "padding": "0"}}>
+                                                        {obj.correct_answer.map((alternative, index) => (
+                                                            <li key={index}>
+                                                                <span className="label label-primary" style={{"marginRight": "10px"}}>
+                                                                    {alternative.answer}
+                                                                </span>
+                                                                {alternative.title}
+                                                            </li>
+                                                        ))}
+                                                    </ul>
+                                                }
+                                            </td>
+                                        : null}
+                                        {this.showCorrectAnswers ? <td><span className="label label-primary">{obj.score}</span></td> : null}
+                                    </tr>
+                                ))}
+                            </tbody>
+                        </table>
+                    </div>
+                }
                 <div className="panel panel-default">
                     <div className="panel-body">
                         <div className="row">
                             <div className="col-sm-6">
-                                <div>Nota: <span className="label label-danger">0.0</span></div>
+                                {result ?
+                                    result.grade < 5 ?
+                                        <div>Nota: <span className="label label-danger">{result ? result.grade : "N/A"}</span></div>
+                                    :
+                                        <div>Nota: <span className="label label-success">{result ? result.grade : "N/A"}</span></div>
+                                : null}
                             </div>
                             <div className="col-sm-6">
-                                <div className="pull-right">Pontuação: <span className="label label-primary">0/20</span></div>
+                                <div className="pull-right">
+                                    Pontuação: <span className="label label-primary">{result ? `${result.score}/${result.qtd}` : "N/A"}</span>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -124,9 +137,9 @@ class Result extends Component {
 
 const mapStateToProps = state => {
     const { location } = state.router;
-    const { user } = state.account;
+    const { result } = state.exam;
 
-    return { state: location.state, account: user }
+    return { state: location.state, result }
 }
 
 export default connect(mapStateToProps)(Result);

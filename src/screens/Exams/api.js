@@ -25,3 +25,8 @@ export function submitExamAPI(data) {
     let endpoint = "/alma/submissions/send/";
     return axios.post(endpoint, data);
 }
+
+export function resultAPI(sectionID) {
+    let endpoint = `/alma/submissions/${sectionID}/results`;
+    return axios.get(endpoint);
+}

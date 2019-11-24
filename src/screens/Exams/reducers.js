@@ -1,7 +1,8 @@
-import { LIST_QUESTIONS } from './types';
+import { LIST_QUESTIONS, RESULT_ACTION } from './types';
 
 const initialState = {
 	list: [],
+	result: null,
     pagination: {
         totalItemsCount: 0,
         itemsCountPerPage: 1,
@@ -25,6 +26,14 @@ function questionReducer(state=initialState, action) {
 					totalItemsCount: payload.count
 				}
 			};
+
+		case RESULT_ACTION:
+			payload = action.payload;
+
+			return {
+				...state,
+				result: payload
+			}
 
 		default:
 			return state;

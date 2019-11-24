@@ -24,7 +24,7 @@ const reducers = combineReducers({
     student: studentReducer,
     group: groupReducer,
     section: sectionReducer,
-    exercise: questionReducer
+    exam: questionReducer
 });
 
 const sagaMiddleware = createSagaMiddleware();

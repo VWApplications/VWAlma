@@ -120,11 +120,24 @@ export const isMonitor = (studentID, discipline) => {
 
 export const canViewTraditionalExam = section => {
     if (section.exam_config.length > 0) {
+        let unchangedDatetime = new Date(section.exam_config[0].datetime);
+        let datetime = new Date(unchangedDatetime);
+        const duration = section.exam_config[0].duration;
+        const duration_date = new Date(datetime.setMinutes(datetime.getMinutes() + duration));
+        const now = new Date();
+        if (now >= unchangedDatetime && now <= duration_date)
+            return true;
+    }
+    return false;
+}
+
+export const canViewTraditionalResult = section => {
+    if (section.exam_config.length > 0) {
         let datetime = new Date(section.exam_config[0].datetime);
         const duration = section.exam_config[0].duration;
         const duration_date = new Date(datetime.setMinutes(datetime.getMinutes() + duration));
         const now = new Date();
-        if (now >= datetime && now <= duration_date)
+        if (now > duration_date)
             return true;
     }
     return false;

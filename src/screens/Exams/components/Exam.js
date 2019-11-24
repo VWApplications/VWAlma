@@ -218,7 +218,7 @@ class Exam extends Component {
 const mapStateToProps = state => {
     const { location } = state.router;
     const { user } = state.account;
-    const { list, pagination } = state.exercise;
+    const { list, pagination } = state.exam;
 
     let initialValues = {};
 

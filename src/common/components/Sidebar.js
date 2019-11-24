@@ -5,7 +5,7 @@ import { makeURL } from 'common/utils';
 import { Container, SidebarLink } from '../styles/sidebar';
 import { TEACHER, ADMIN } from '../constants';
 import { requestChoiceAlert, infoAlert } from '../alerts';
-import { canViewTraditionalExam } from '../utils';
+import { canViewTraditionalExam, canViewTraditionalResult } from '../utils';
 import { deleteUserSagas } from 'screens/Accounts/actions';
 
 class Sidebar extends Component {
@@ -188,6 +188,14 @@ class Sidebar extends Component {
                         title="Avaliação"
                         onClick={() => this.__redirectTo(`/profile/${makeURL(discipline.title)}/sections/${makeURL(section.title)}/exam`, location.state)}>
                         Avaliação.
+                    </SidebarLink>
+                : null}
+                {account.permission === TEACHER || account.permission === ADMIN || canViewTraditionalResult(section) ?
+                    <SidebarLink
+                        icon="fa-street-view"
+                        title="Resultado"
+                        onClick={() => this.__redirectTo(`/profile/${makeURL(discipline.title)}/sections/${makeURL(section.title)}/results`, location.state)}>
+                        Resultados.
                     </SidebarLink>
                 : null}
             </Container>
