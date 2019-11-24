@@ -192,8 +192,8 @@ class Sidebar extends Component {
                 : null}
                 {account.permission === TEACHER || account.permission === ADMIN || canViewTraditionalResult(section) ?
                     <SidebarLink
-                        icon="fa-street-view"
-                        title="Resultado"
+                        icon="fa-area-chart"
+                        title="Resultados"
                         onClick={() => this.__redirectTo(`/profile/${makeURL(discipline.title)}/sections/${makeURL(section.title)}/results`, location.state)}>
                         Resultados.
                     </SidebarLink>
