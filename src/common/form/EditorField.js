@@ -22,7 +22,7 @@ class ControlledEditor extends Component {
         this.__convertHtmlToDraft(value);
     }
 
-    componentWillReceiveProps() {
+    UNSAFE_componentWillReceiveProps() {
         const { location } = this.props;
         if (this.state.create && location.state === undefined)
             this.setState({ editorState: EditorState.createEmpty(), create: false })
