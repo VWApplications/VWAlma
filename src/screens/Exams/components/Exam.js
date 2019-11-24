@@ -209,7 +209,7 @@ class Exam extends Component {
                         </QuestionPanel>
                     )
                 })}
-                <Pagination pagination={pagination} listObjectAction={listQuestionsSagas} />
+                <Pagination pagination={pagination} listObjectAction={listQuestionsSagas} object={this.exam} />
             </Main>
 		)
   	}

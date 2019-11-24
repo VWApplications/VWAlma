@@ -11,7 +11,7 @@ class CustomPagination extends Component {
 		let queryString = stringify({page});
 		if (filters) queryString = stringify({...filters, page});
 		if (object)
-			dispatch(listObjectAction(object, page, queryString));
+			dispatch(listObjectAction(page, queryString, object));
 		else
 			dispatch(listObjectAction(page, queryString));
 	}
