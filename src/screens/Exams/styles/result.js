@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import { QUESTION_EXAM } from '../constants';
 
 export const RightButtons = ({ pdfClick, csvClick }) => (
     <div className="btn-group pull-right">
@@ -26,7 +27,11 @@ export const Table = ({children, showCorrectAnswers}) => (
     </div>
 )
 
-export const TableFooter = ({ result }) => (
+const ExamType = styled.span`
+    margin-left: 10px;
+`;
+
+export const TableFooter = ({ result, section }) => (
     <div className="panel panel-default">
         <div className="panel-body">
             <div className="row">
@@ -41,6 +46,9 @@ export const TableFooter = ({ result }) => (
                 <div className="col-sm-6">
                     <div className="pull-right">
                         Pontuação: <span className="label label-primary">{result ? `${result.score}/${result.qtd}` : "N/A"}</span>
+                        <ExamType className="label label-primary">
+                            {section.methodology === QUESTION_EXAM.EXERCISE ? "Exercícios" : "Avaliação"}
+                        </ExamType>
                     </div>
                 </div>
             </div>

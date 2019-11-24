@@ -52,8 +52,10 @@ class Result extends Component {
 
         const rightButtons = <RightButtons pdfClick={() => this.__pdfDownload()} csvClick={() => this.__csvDownload()} />
 
+        const title = `Resultados da ${section.methodology === QUESTION_EXAM.EXERCISE ? "lista de exercícios" : "avaliação"}`;
+
         return (
-            <Main navigation={navigator} menu={this.menu} title="Resultados" icon="fa fa-area-chart" rightComponent={rightButtons}>
+            <Main navigation={navigator} menu={this.menu} title={title} icon="fa fa-area-chart" rightComponent={rightButtons}>
                 {questions.length === 0 ? <Info>Não há submissões</Info> :
                     <Table showCorrectAnswers={this.showCorrectAnswers}>
                         {questions.map((obj, index) => (
@@ -99,7 +101,7 @@ class Result extends Component {
                         ))}
                     </Table>
                 }
-                <TableFooter result={result} />
+                <TableFooter result={result} section={section} />
             </Main>
         )
     }
