@@ -11,6 +11,10 @@ class Result extends Component {
         this.menu = "traditional";
     }
 
+    componentDidMount() {
+        const { dispatch } = this.props;
+    }
+
     render() {
         const { state } = this.props;
         const discipline = state.discipline;
@@ -31,7 +35,7 @@ class Result extends Component {
         }
 
         const rightButtons = (
-            <div className="btn-group">
+            <div className="btn-group pull-right">
                 <button type="button" className="btn btn-primary">Baixar PDF</button>
                 <button type="button" className="btn btn-primary">Baixar CSV</button>
             </div>
@@ -53,7 +57,7 @@ class Result extends Component {
                             <tr>
                                 <td>Titulo muito doido da questão de aposta</td>
                                 <td>
-                                    <ul>
+                                    <ul style={{"list-style-type": "none", "padding": "0"}}>
                                         <li><span className="label label-primary">2</span> Alternativa 1</li>
                                         <li><span className="label label-primary">0</span> Alternativa 2</li>
                                         <li><span className="label label-primary">0</span> Alternativa 3</li>
@@ -66,7 +70,7 @@ class Result extends Component {
                             <tr>
                                 <td>Titulo muito doido da questão de V ou F</td>
                                 <td>
-                                    <ul>
+                                    <ul style={{"list-style-type": "none", "padding": "0"}}>
                                         <li><span className="label label-primary">V</span> Alternativa 0</li>
                                         <li><span className="label label-primary">V</span> Alternativa 2</li>
                                         <li><span className="label label-primary">F</span> Alternativa 0</li>
@@ -75,7 +79,7 @@ class Result extends Component {
                                 </td>
                                 {this.showCorrectAnswers ?
                                     <td>
-                                        <ul>
+                                        <ul style={{"list-style-type": "none", "padding": "0"}}>
                                             <li><span className="label label-primary">F</span> Alternativa 0</li>
                                             <li><span className="label label-primary">V</span> Alternativa 2</li>
                                             <li><span className="label label-primary">F</span> Alternativa 0</li>
@@ -88,7 +92,7 @@ class Result extends Component {
                             <tr>
                                 <td>Titulo muito doido da questão de multipla escolha</td>
                                 <td>
-                                    <ul>
+                                    <ul style={{"list-style-type": "none", "padding": "0"}}>
                                         <li><span className="label label-primary"><i className="fa fa-circle-thin"></i></span> Alternativa 1</li>
                                         <li><span className="label label-primary"><i className="fa fa-circle"></i></span> Alternativa 2</li>
                                         <li><span className="label label-primary"><i className="fa fa-circle-thin"></i></span> Alternativa 3</li>
@@ -102,7 +106,16 @@ class Result extends Component {
                     </table>
                 </div>
                 <div className="panel panel-default">
-                    <div className="panel-body">Nota: <span className="label label-success">6.0</span></div>
+                    <div className="panel-body">
+                        <div className="row">
+                            <div className="col-sm-6">
+                                <div>Nota: <span className="label label-danger">0.0</span></div>
+                            </div>
+                            <div className="col-sm-6">
+                                <div className="pull-right">Pontuação: <span className="label label-primary">0/20</span></div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </Main>
         )
